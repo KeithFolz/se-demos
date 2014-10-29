@@ -1,0 +1,36 @@
+<?php
+
+$displayNames["enterprise"] = "Enterprise";
+$displayNames["socialLogin"] = "Social Login";
+$displayNames["socialAjax"] = "Social Login";
+    
+$links["enterprise"] = array (
+    "adobe_analytics" => "Adobe Analytics",
+    "adsense" => "Adsense",
+    "adsense_dfp" => "AdSense / DFP",
+    "backplane" => "Backplane",
+    "badgeville" => "Badgeville",
+    "federate" => "Federate (SSO)",
+    "noPopup" => "FullScreen IDPs",
+    "google_analytics" => "Google Analytics",
+    "widget_visible_immediately" => "Widget Visible Immediately"
+);
+
+$links["socialLogin"] = array (
+    "backplane" => "Backplane",
+    "badgeville" => "Badgeville",
+    "client_side_validation" => "Client Side Validation",
+    "noPopup" => "FullScreen IDPs",
+    "google_analytics" => "Google Analytics",
+    "standard-ajax" => "Standard - ajax",
+    "standard-redirect" => "Standard - redirect"
+);
+
+function getDisplayName($typeOfDemo) {
+    if ($typeOfDemo === "enterprise") {
+        $displayName = "Enterprise";
+    }
+    elseif ($typeOfDemo === "socialLogin") {
+        $displayName = "Social Login";
+    }
+}

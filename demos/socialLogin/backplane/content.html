@@ -1,0 +1,33 @@
+<p>This is a simple demo of Janrain Social Login with Backplane enabled.</p>
+
+<p>
+Normally, Backplane is used to let two or more widgets on the same page communicate with each other over a common protocol. In
+this demo, Janrain Social Login will play the role of one of those widgets, but the demo will simply show the Backplane
+events and messages flowing over the Backplane bus. This bus is what a second widget on the page would be also listening
+on and reacting to.
+</p>
+
+<p>
+Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
+<a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
+</p>
+   
+<div id="janrainEngageEmbed"></div>
+
+<div>
+
+    <div class="bp_events">BACKPLANE EVENTS:<br>
+
+        <ol id="event-list"></ol>
+
+    </div>
+
+</div>
+
+<div>
+    <div class="bp_other">USER DATA VIA BACKPLANE CHANNEL:<br>
+
+        <div id="welcome-msg"></div>
+
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<script type="text/javascript">
+
+function findPhotoUrl(photosPlural) {
+
+    // could remove this; will BV just accept a null value for the avatar?
+    var retVal = "http://janrain.com/wp-content/themes/janrain/assets/images/janrain_logo_header.png";
+
+    var candidate;
+    for (var i = 0; i < photosPlural.length; i++) {
+
+        var photoData = photosPlural[i];
+
+        // this can be modified to do things like test for the various types, i.e. "original", "large", "other".
+        // the only problem is that Janrain can't guarantee the types that are returned by any provider at any time.
+        // also, it is possible that the original types passed by the provider have since been altered by entity.update
+        // calls. So unfortunately there are not a lot of great rules to depend on here.
+        if (photoData.value && photoData.value.length > 0 && photoData.value.substring(0, 4) == "http") {
+            retVal = photoData.value;
+            break;
+        }
+
+    }
+    return retVal;
+}
+
+function handleBadgevilleCredit(result) {
+    var authProvider = "";
+    try {
+        authProvider = result.authProvider;
+        Badgeville.credit({'verb':'social_login', 'social_network':authProvider});
+    }
+    catch (e) {
+        // handle errors...
+    }
+
+}
+
+function setBadgevillePlayerAfterAuthentication(result) {
+
+    // handle case of user coming back to page with a live Janrain Enterprise access token (i.e.
+    // this code is being fired from onCaptureSessionFound()
+    if (result.accessToken && !result.userData) {
+
+        Badgeville.setPlayer({
+            email: (JSON.parse(localStorage.janrainCaptureProfileData)).uuid + "@badgeville.com"
+        });
+
+    }
+    else {
+
+        // else, user just signed in or registered (i.e. onCaptureLoginSuccess() or
+        // onCaptureRegistrationSuccess() )
+
+        var avatarUrl;
+        if (result && result.userData && result.userData.photos) {
+            avatarUrl = findPhotoUrl(result.userData.photos);
+        }
+
+        var displayName = "";
+        var email = "";
+        try {
+            displayName = result.userData.displayName;
+            email = result.userData.uuid + "@badgeville.com";
+
+            Badgeville.setPlayer({
+                email: email,
+                display_name: displayName,
+                picture_url: avatarUrl
+            }, function(player) {
+
+                if ( result.action == "socialSignin" || result.action == "socialRegister" ) {
+                    handleBadgevilleCredit(result);
+                }
+
+            });
+
+        }
+        catch (e) {
+            // handle errors...
+        }
+
+    }
+
+
+}
+
+function showBVShowcase() {
+    $("#bv_showcase").show();
+}
+</script>

@@ -1,0 +1,37 @@
+<script>
+    /*
+    janrainWidgetOnload() is the function you use to add additional handlers 
+    once the core Janrain framework has loaded.
+    */
+    var janrainWidgetOnload = function () {
+
+        /*
+        Note that we are using Client-Side Validation in this demo. For more details, see:
+        http://janrain-solutions.appspot.com/socialLogin/client_side_validation
+         */
+        janrain.events.onProviderLoginToken.addHandler(function (data) {
+
+            console.log (data);
+
+            // This is the function to pass the auth token back to our server-side code which will handle the
+            // communication with the Janrain API, to exchnage the token for the user's data payload.
+            // Again, see: http://janrain-solutions.appspot.com/socialLogin/client_side_validation
+            $.getJSON("__PATH_TO_CLIENT_VALIDATION_SCRIPT__",
+                {token: data.token},
+                function(profileData) {
+                    $('<span><strong>Results from server-side call to Social Login service:</strong></span>').appendTo('#responseData');
+
+                    $('<div>userID: ' + profileData.identifier + '</div>').appendTo('#responseData');
+                    $('<div>name: ' + profileData.name + '</div>').appendTo('#responseData');
+                    $('<div>email: ' + profileData.email + '</div>').appendTo('#responseData');
+
+                    console.log(profileData);
+
+                    // remove the engage widget, we don't need it now
+                    $("#janrainEngageEmbed").empty();
+
+                });
+        });
+    };
+
+</script>
