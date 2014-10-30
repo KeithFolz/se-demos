@@ -5,6 +5,7 @@ $configItems = array(); // initializing just to avoid warnings
 $paths["default"] = $paths["home"] . "/default";
 $paths["templates"] = $paths["default"] . "/templates";
 $paths["includes"] = $paths["default"] . "/includes";
+$paths["webHome"] = "/JanrainDemoSites";
 
 // variables that need to be referenced globally
 $manifest;
@@ -17,7 +18,7 @@ function showPage($configItems, $typeOfDemo) {
     global $paths; // paths related to the environment
     global $typeOfDemo;
     
-    $paths["webDefault"] = "/default/templates/" . $typeOfDemo;
+    $paths["webDefault"] = $paths["webHome"] . "/default/templates/" . $typeOfDemo;
     
     include $paths["templates"] . "/manifest.php";
     
@@ -159,8 +160,8 @@ function getHeaderString() {
     global $typeOfDemo;
 
     if ($typeOfDemo === "enterprise") { $thisName = "Enterprise"; }
-    if ($typeOfDemo === "socialAjax") { $thisName = "Social Login"; }
-    if ($typeOfDemo === "socialRedirect") { $thisName = "Social Login"; }
+    elseif ($typeOfDemo === "socialAjax") { $thisName = "Social Login"; }
+    elseif ($typeOfDemo === "socialRedirect") { $thisName = "Social Login"; }
     
     return "<h1>Janrain $thisName Demos</h1>";
 }
@@ -271,7 +272,7 @@ function getNavLinks() {
         $returnString .= "\t<ul class='children'>\n";
 
         foreach($linkList as $link => $linkName) {
-            $thisLink = "/demos/" . $listName . "/" . $link;
+            $thisLink = $paths["webHome"] . "/demos/" . $listName . "/" . $link;
             $returnString .= "<li><a href = '$thisLink'>$linkName</a></li>\n";
         }
         

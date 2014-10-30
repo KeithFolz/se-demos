@@ -4,7 +4,10 @@
 // 2014-10-28 tsmith@janrain.com
 /***************************************/
 $paths["cwd"] = getcwd();
-$paths["home"] = dirname(dirname(dirname($paths["cwd"])));
+
+// $paths["home"] = dirname(dirname(dirname($paths["cwd"])));
+
+$paths["home"] = "/JanrainDemoSites";
 
 include $paths["home"] . "/demoGenerator.php";
 
