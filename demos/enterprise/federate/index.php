@@ -1,11 +1,12 @@
 <?php
 
 /***************************************/
-$paths["cwd"] = getcwd();
-$paths["home"] = dirname(dirname(dirname($paths["cwd"])));
+$homeDirName = "JanrainDemoSites";
+
+// Finds out where we are in the filesystem and fixes path to home
+$paths["home"] = strstr(getcwd(), $homeDirName, TRUE) . $homeDirName;
 
 include $paths["home"] . "/demoGenerator.php";
-
 /***************************************/
 
 // You can uncomment any of these lines and override these values

@@ -2,15 +2,14 @@
 // Janrain Demo generator
 // v0.3
 // 2014-10-28 tsmith@janrain.com
+
 /***************************************/
-$paths["cwd"] = getcwd();
+$homeDirName = "JanrainDemoSites";
 
-// $paths["home"] = dirname(dirname(dirname($paths["cwd"])));
-
-$paths["home"] = "/JanrainDemoSites";
+// Finds out where we are in the filesystem and fixes path to home
+$paths["home"] = strstr(getcwd(), $homeDirName, TRUE) . $homeDirName;
 
 include $paths["home"] . "/demoGenerator.php";
-
 /***************************************/
 
 // You can uncomment any of these lines and override these values

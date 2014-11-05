@@ -73,18 +73,12 @@ if(strlen($token) == 40) { //test the length of the token; it should be 40 chara
 }
 
 /***************************************/
+$homeDirName = "JanrainDemoSites";
 
-$paths["localRoot"] = "/Applications/MAMP/htdocs/";
-$paths["serverRoot"] = "/var/www/html/";
+// Finds out where we are in the filesystem and fixes path to home
+$paths["home"] = strstr(getcwd(), $homeDirName, TRUE) . $homeDirName;
 
-// This gets tacked on to $localHostWebRoot or $serverWebRoot
-$paths["webPath"] = "/JanrainDemoSites/default/";
-
-$paths = updatePaths($paths);
-
-include $paths["defaultPath"] . "includes/globals.php";
-
-$configItems = array(); // initializing just to avoid warnings
+include $paths["home"] . "/demoGenerator.php";
 /***************************************/
 
 $configItems["content"] = "<p><b>Authentication was successful!</b></p>";
@@ -93,22 +87,4 @@ $configItems["content"] .= "<pre>" . $output . "</pre>";
 
 $typeOfDemo = "socialRedirect";
 
-showPage($configItems, $paths, $typeOfDemo);
-
-function updatePaths($paths) {
-
-    // figure out whether we're on localhost or the server
-    if (is_readable($paths["localRoot"] . $paths["webPath"])) { 
-        $defaultPath = $paths["localRoot"] . $paths["webPath"];
-    }
-    else { $defaultPath = $paths["serverRoot"] . $paths["webPath"]; }
-    
-    $paths["defaultPath"] = $defaultPath;
-    
-    // current working directory comes in handy
-    $paths["cwd"] = getcwd();
-    
-    $paths["templates"] = $paths["defaultPath"] . "templates";
-    
-    return $paths;
-}
+showPage($configItems, $typeOfDemo);

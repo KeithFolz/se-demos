@@ -6,6 +6,7 @@ $paths["default"] = $paths["home"] . "/default";
 $paths["templates"] = $paths["default"] . "/templates";
 $paths["includes"] = $paths["default"] . "/includes";
 $paths["webHome"] = "/JanrainDemoSites";
+$paths["cwd"] = getcwd();
 
 // variables that need to be referenced globally
 $manifest;
