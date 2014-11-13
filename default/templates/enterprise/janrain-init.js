@@ -89,8 +89,8 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.noModalBorderInlineCss = true;
     janrain.settings.capture.responseType = 'token';
     janrain.settings.capture.returnExperienceUserData = ['displayName'];
-    janrain.settings.capture.stylesheets = ['/default/styles/janrain.css'];
-    janrain.settings.capture.mobileStylesheets = ['/default/styles/janrain-mobile.css'];
+    janrain.settings.capture.stylesheets = ['/JanrainDemoSites/default/styles/janrain.css'];
+    janrain.settings.capture.mobileStylesheets = ['/JanrainDemoSites/default/styles/janrain-mobile.css'];
 
     // --- Mobile WebView ------------------------------------------------------
     //janrain.settings.capture.redirectFlow = true;

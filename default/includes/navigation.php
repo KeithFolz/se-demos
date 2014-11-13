@@ -3,7 +3,9 @@
 $displayNames["enterprise"] = "Enterprise";
 $displayNames["socialLogin"] = "Social Login";
 $displayNames["socialAjax"] = "Social Login";
-    
+
+// Value on left is the folder name
+// Value on right is the name displayed in the UI
 $links["enterprise"] = array (
     "adobe_analytics" => "Adobe Analytics",
     "adsense" => "Adsense",
@@ -13,6 +15,7 @@ $links["enterprise"] = array (
     "federate" => "Federate (SSO)",
     "noPopup" => "FullScreen IDPs",
     "google_analytics" => "Google Analytics",
+    "standard" => "Standard",
     "widget_visible_immediately" => "Widget Visible Immediately"
 );
 
