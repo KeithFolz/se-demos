@@ -1,5 +1,6 @@
 <?php
 
+// These are the category names to display in the leftNav
 $displayNames["enterprise"] = "Enterprise";
 $displayNames["socialLogin"] = "Social Login";
 $displayNames["socialAjax"] = "Social Login";
@@ -29,6 +30,7 @@ $links["socialLogin"] = array (
     "standard-redirect" => "Standard - redirect"
 );
 
+// For the HTML <h1> value
 function getDisplayName($typeOfDemo) {
     if ($typeOfDemo === "enterprise") {
         $displayName = "Enterprise";
