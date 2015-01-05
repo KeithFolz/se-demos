@@ -17,7 +17,8 @@ $links["enterprise"] = array (
     "noPopup" => "FullScreen IDPs",
     "google_analytics" => "Google Analytics",
     "standard" => "Standard",
-    "widget_visible_immediately" => "Widget Visible Immediately"
+    "widget_visible_immediately" => "Widget Visible Immediately",
+    "commenting" => "Commenting"
 );
 
 $links["socialLogin"] = array (
