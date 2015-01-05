@@ -209,73 +209,8 @@ function janrainCaptureWidgetOnLoad() {
 
         janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
 
+            // Required call for Commenting module
             jQuery("#article-comments").arktanArticleComments();
-
-            /*
-            * An important thing to note in this demo: while the Enterprise solution makes *some* of the Backplane calls
-            * for you, it in no way prevents you from doing others yourself.
-            *
-            * For example, simply by including the Backplane settings in the overall Enterprise settings:
-            *
-            * janrain.settings.capture.backplane = true;
-            * janrain.settings.capture.backplaneBusName = 'se-demo';
-            * janrain.settings.capture.backplaneVersion = 1.2;
-            * janrain.settings.capture.backplaneBlock = 20;
-            *
-            * , Enterprise does the work of initializing Backplane, including getting the correct Backplane javascript
-            * file loaded in. So for example, you won't see calls to "Backplane.init()" or "Backplane.resetCookieChannel()"
-            * in this page.
-            *
-            * On the other hand, you do see calls to "Backplane.getChannelID()", "Backplane.expectMessages()"
-            * and "Backplane.subscribe()" here; again, you are in no way prevented from doing direct calls like this
-            * by the Enterprise solution.
-            *
-            * What's important to remember is that if you are simply instructing Janrain Enterprise to load Backplane and
-            * feed authentication events into the bus for other BP-enabled widgets to consume, all you have to do is
-            * enter the settings as above, which your Janrain Technical Lead will give you during deployment. No need for
-            * custom coding.
-            *
-            * Note that adding the BP settings can be done in our central settings file (see scripts/janrain-init.js),
-            * but you can also manage these settings directly on the page - see bottom of this page where we do this.
-            * */
-
-
-            bpChannel = Backplane.getChannelID();
-
-            writeTo('event-list', '<li>Channel created: <a target="_blank" href="'
-                    + bpChannel + '">' + bpChannel + '</a>.<br>(Try viewing; will contain ' +
-                    'channel data after you authenticate.)</li>');
-
-            Backplane.expectMessages('identity/login');
-            writeTo('event-list', '<li>Expecting messages.</li>');
-
-            window.bpSubscription = Backplane.subscribe(function(backplaneMessage) {
-
-                writeTo('event-list', '<li>New '+backplaneMessage.type+' message received. (Try viewing in the JS console.)</li>');
-                console.log ("RAW BACKPLANE MESSAGE; TYPE == '"+backplaneMessage.type + "':");
-                console.log (backplaneMessage);
-
-                if (backplaneMessage.type == 'identity/login') {
-
-                    var avatarUrl = '';
-                    try {
-                        avatarUrl = backplaneMessage.payload.identities.entry.accounts[0].photos[0].value;
-                    } catch(err) {
-                        console.log ("error retrieving avatarUrl: ");
-                        console.log (err);
-                    }
-                    var avatar = '';
-                    if ( avatarUrl != '' ) {
-                        avatar = '<img src="'+avatarUrl+'" style="float:left; width:50px; padding:2px;">';
-                    }
-                    writeTo('welcome-msg', avatar+'Welcome, '+backplaneMessage.payload.identities.entry.displayName + '!', true);
-
-                }
-
-                //If we had no further interest in backplane events we could stop listening.
-                //Backplane.unsubscribe(window.bpSubscription);
-
-            });
 
         });
 
