@@ -34,13 +34,3 @@ $links["socialLogin"] = array (
 $links["engagement"] = array (
     "socialSharing" => "Social Sharing"
 );
-
-// For the HTML <h1> value
-function getDisplayName($typeOfDemo) {
-    if ($typeOfDemo === "enterprise") {
-        $displayName = "Enterprise";
-    }
-    elseif ($typeOfDemo === "socialLogin") {
-        $displayName = "Social Login";
-    }
-}
