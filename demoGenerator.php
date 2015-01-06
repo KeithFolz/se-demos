@@ -13,6 +13,8 @@ $manifest;
 $finalHTML;
 $typeOfDemo;
 
+include $paths["includes"] . "/navigation.php";
+
 function showPage($configItems, $typeOfDemo) {
     
     global $manifest;
@@ -159,12 +161,9 @@ function evaluatePaths($thesePaths) {
 function getHeaderString() {
     
     global $typeOfDemo;
-
-    if ($typeOfDemo === "enterprise") { $thisName = "Enterprise"; }
-    elseif ($typeOfDemo === "socialAjax") { $thisName = "Social Login"; }
-    elseif ($typeOfDemo === "socialRedirect") { $thisName = "Social Login"; }
+    global $displayNames; // from navigation.php
     
-    return "<h1>Janrain $thisName Demos</h1>";
+    return "<h1>Janrain " . $displayNames[$typeOfDemo] . " Demos</h1>";
 }
 
 function tryToOpen($fileName) {
@@ -248,8 +247,8 @@ function getNav() {
 
 function getNavLinks() {
     global $paths;
-    
-    include $paths["includes"] . "/navigation.php";
+    global $links; // from navigation.php
+    global $displayNames; // from navigation.php
     
     // This gets the current directory name for nav purposes
     // It parses $paths["cwd"], which is a path
