@@ -4,6 +4,7 @@
 $displayNames["enterprise"] = "Enterprise";
 $displayNames["socialLogin"] = "Social Login";
 $displayNames["socialAjax"] = "Social Login";
+$displayNames["engagement"] = "Engagement";
 
 // Value on left is the folder name
 // Value on right is the name displayed in the UI
@@ -32,12 +33,6 @@ $links["socialLogin"] = array (
     "standard-redirect" => "Standard - redirect"
 );
 
-// For the HTML <h1> value
-function getDisplayName($typeOfDemo) {
-    if ($typeOfDemo === "enterprise") {
-        $displayName = "Enterprise";
-    }
-    elseif ($typeOfDemo === "socialLogin") {
-        $displayName = "Social Login";
-    }
-}
+$links["engagement"] = array (
+    "socialSharing" => "Social Sharing"
+);

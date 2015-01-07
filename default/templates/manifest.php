@@ -1,6 +1,9 @@
 <?php
 
 function getManifest ($typeOfDemo) {
+    
+    $manifest = array(); // just to avoid warnings about being uninitialized
+    
     $manifest["title"]["type"] = "htmlString";
     $manifest["title"]["html"] = "<title>Janrain Demo Site</title>";
     
@@ -54,6 +57,10 @@ function getManifest ($typeOfDemo) {
             $manifest["tokenURL"]["type"] = "path";
             $manifest["tokenURL"]["extension"] = "php";
         }
+    }
+    
+    elseif ($typeOfDemo === "engagement") {
+        $manifest["janrainSettings"]["optional"] = TRUE;
     }
     
     return $manifest;
