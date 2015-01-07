@@ -1,0 +1,85 @@
+<p>This is a demo of Janrain Enterprise with <b>Site Activity Feed</b>.</p>
+
+<p>Try viewing the source to see what's going on.</p>
+
+<b>Site Activity Feed</b> displays the activities consumers participate in while on your site, such as
+comments and shares, in real-time social feeds. Let consumers filter activities
+by the individual, friends from social networks, or all site users, so they can
+see which content is engaging the rest of your community.
+<br><br>
+
+<p>
+Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
+<a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
+</p>
+
+<hr>
+
+<!-- Begin HTML required for Site Activity module -->
+
+<!-- Old html
+<div class="river">
+ <ul id="rivers-tabs"></ul>
+ <div id="rivers-stream"></div>
+</div>
+
+-->
+
+<div id="site-activity"></div>
+
+<!-- End Site Activity HTML -->
+
+<!-- Begin script required for Site Activity module -->
+
+
+<script>
+var Arktan = {};
+Arktan.settings = {
+  "source":{
+    "name": "Janrain",
+    "uri": "http://janrain-solutions.appspot.com/"
+  },
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+  "enableCapture":true,
+  "apps": [
+  {
+"type": "siteActivity",
+"id": "rivers",
+"targetDOM": "site-activity",
+"domain": "http://www.janrain.com/solutions", "siteActivityTitle": "Site Activity", "myActivityTitle": "My Activity", "friendsActivityTitle": "Friends Activity"
+}
+
+  /*---- Old setting values -----
+  {
+    "type":"tabs",
+    "id": "streams",
+    "targetDOM":"rivers-stream",
+    "tabsTargetDOM":"rivers-tabs",
+    "tabs" : [{
+      "id": "all",
+      "title": "Site Activity",
+      "targetURL": "http://www.janrain.com/solutions/id_All_Site_Activity",
+      "streamID": "http://www.janrain.com/solutions/id_All_Site_Activity"
+    },{
+      "id": "me",
+      "title": "My Activity",
+      "targetURL": "http://www.janrain.com/solutions/id_All_Site_Activity",
+      "streamID": "http://www.janrain.com/solutions/id_All_Site_Activity",
+      "type":"user"
+    },{
+      "id": "friends",
+      "title": "Friends Activity",
+      "targetURL": "http://www.janrain.com/solutions/id_All_Site_Activity",
+      "streamID": "http://www.janrain.com/solutions/id_All_Site_Activity",
+      "type":"friends" } ]
+    }
+    ------ */
+    ]};
+    </script>
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+
+<!-- End Site Activity script -->

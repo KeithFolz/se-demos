@@ -18,7 +18,8 @@ $links["enterprise"] = array (
     "google_analytics" => "Google Analytics",
     "standard" => "Standard",
     "widget_visible_immediately" => "Widget Visible Immediately",
-    "commenting" => "Commenting"
+    "commenting" => "Commenting",
+    "site_activity" => "Site Activity"
 );
 
 $links["socialLogin"] = array (
