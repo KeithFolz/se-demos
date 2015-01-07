@@ -34,5 +34,6 @@ $links["socialLogin"] = array (
 );
 
 $links["engagement"] = array (
-    "socialSharing" => "Social Sharing"
+    "socialSharing" => "Social Sharing",
+    "curated_social" => "Curated Social Feeds"
 );
