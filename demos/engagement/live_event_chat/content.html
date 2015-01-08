@@ -4,13 +4,13 @@
 
 
 <p>
-Drive customer engagement during high-traffic events by enabling real-time
-community conversations. Consumers can interact with each other and voice
-opinions during high-profile events, TV programs, webcasts, and more.
+  Drive customer engagement during high-traffic events by enabling real-time
+  community conversations. Consumers can interact with each other and voice
+  opinions during high-profile events, TV programs, webcasts, and more.
 </p><p>
-Live Event Chat differs from Commenting in that each instance of Chat must be
-provisioned in the dashboard, but the instances can easily be used in many
-locations.
+  Live Event Chat differs from Commenting in that each instance of Chat must be
+  provisioned in the dashboard, but the instances can easily be used in many
+  locations.
 </p>
 
 
@@ -27,8 +27,8 @@ Try out these features on this example implementation:
 </ul>
 
 <p>
-Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
-<a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
+  Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
+  <a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
 </p>
 
 <p><i>Try viewing the source to see what's going on.</i></p>
@@ -39,34 +39,34 @@ Note that this demo is based on the Backplane 1.2 specification. For more detail
 
 <script>
 var Arktan = {};
-  Arktan.settings = {
-    "source":{
-     "name": "Janrain",
-     "uri": "http://www.janrain.com"
-    },
-    "janrainAppName": "janrain-se-demo",
-    "busName": "se-demo",
-    "appkey": "dev.janrain",
-"flagging": "default",
-"deleteOption":true,
-"sortOrder": {
-"enabled": true,
-"defaultOption": "sortByRecentFirst",
-"options": ["sortByRecentFirst", "sortByLikes", "sortByReplies"]
-},
-    "enableCapture":true,
-    "apps" : [
-     {
-     "type":"stream",
-     "id": "streams",
-     "streamTarget":"chat-stream",
-     "streamID": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1",
-     "maxItems": 5,
-     "submitTarget":"chat-form",
-     "submitURL": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1",
+Arktan.settings = {
+  "source":{
+    "name": "Janrain",
+    "uri": "http://www.janrain.com"
+  },
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+  "flagging": "default",
+  "deleteOption":true,
+  "sortOrder": {
+    "enabled": true,
+    "defaultOption": "sortByRecentFirst",
+    "options": ["sortByRecentFirst", "sortByLikes", "sortByReplies"]
+  },
+  "enableCapture":true,
+  "apps" : [
+  {
+    "type":"stream",
+    "id": "streams",
+    "streamTarget":"chat-stream",
+    "streamID": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1",
+    "maxItems": 5,
+    "submitTarget":"chat-form",
+    "submitURL": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1",
   }
-]};
-</script>
+  ]};
+  </script>
 
 <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
 <script src="http://cdn.arktan.com/ark-woj-min.js"></script>
