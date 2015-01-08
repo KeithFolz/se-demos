@@ -19,8 +19,7 @@ $links["enterprise"] = array (
     "google_analytics" => "Google Analytics",
     "standard" => "Standard",
     "widget_visible_immediately" => "Widget Visible Immediately",
-    "commenting" => "Commenting",
-    "site_activity" => "Site Activity"
+    "commenting" => "Commenting"
 );
 
 $links["socialLogin"] = array (
@@ -35,6 +34,7 @@ $links["socialLogin"] = array (
 
 $links["engagement"] = array (
     "socialSharing" => "Social Sharing",
+    "site_activity" => "Site Activity",
     "curated_social" => "Curated Social Feeds",
     "live_event_chat" => "Live Event Chat"
 );
