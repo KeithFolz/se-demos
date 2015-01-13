@@ -3,6 +3,7 @@
 // These are the category names to display in the leftNav
 $displayNames["enterprise"] = "Enterprise";
 $displayNames["socialLogin"] = "Social Login";
+$displayNames["socialRedirect"] = "Social Login";
 $displayNames["socialAjax"] = "Social Login";
 $displayNames["engagement"] = "Engagement";
 
