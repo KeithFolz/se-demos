@@ -1,0 +1,65 @@
+<!-- This is a demo of <b>Counter</b>. -->
+<h2> Counter </h2>
+
+<p>A Counter can be added to any stream. Here, it is added to the stream behind Curated Tweets. Adding a counter can add value for your visitors by indicating how many posts have been made to that stream as a general indicator of that stream's overall popularity.
+</p>
+
+<!-- Here is the html needed to display our stream and counter. -->
+<div align="center" width="auto">
+<table border="3px">
+  <tr>
+    <td><strong>Total Comments</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><span id="counter1"></span></td>
+  </tr>
+</table>
+</div>
+<div id="default_stream"></div>
+
+<!-- End of the html used to display the stream and counter -->
+
+<!-- Begin script required for counter module -->
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+<script>
+var ArktanSocialStreamsConfig = {
+    "source":{
+     "name": "Janrain",
+     "uri": "http://www.janrain.com"
+    },
+    "janrainAppName": "janrain-se-demo",
+    "busName": "se-demo",
+    "appkey": "dev.janrain",
+    "visualization":{
+        "vizname":"grid1",
+        "columnWidth":240
+    		},
+    "reply": true,
+    "autoload": true,
+
+    "apps" : [
+
+	{
+ 	 "type":"stream",
+	  "streamTarget":"default_stream",
+	  "id": "all",
+	  "streamID": "http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1",
+	  "targetURL":"http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
+	},
+	  {
+	  "type":"counter", 
+	  "id": "counter1", 
+      "targetDOM": "counter1", 
+	  "streamID": "http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
+      }
+
+      ]
+};
+	$(document).ready(function(){
+ 		 Arktan.SocialApps.install(ArktanSocialStreamsConfig);
+	});
+</script>
+
+<!-- End script needed by counter module -->
