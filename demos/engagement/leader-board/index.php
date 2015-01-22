@@ -20,7 +20,7 @@ $typeOfDemo = "engagement";
 
 /******* Settings for all types of demos *************/
 // PAGE TITLE
-$configItems["title"] = "<title>Janrain Post Counter</title>";
+$configItems["title"] = "<title>Janrain Leader-Board</title>";
 
 // PAGE CONTENT
 // $configItems["content"] = "";

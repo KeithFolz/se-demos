@@ -1,0 +1,69 @@
+<!-- This is a demo of <b>Counter</b>. -->
+<h2> Leader Board </h2>
+
+<p>Leader boards are cool. So are fezzes.</p>
+
+<!-- Here is the html needed to display our stream and counter. -->
+<div align="center" width="auto">
+<table border="3px">
+  <tr>
+    <td><strong>Super Popular Sports</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><span id="trend1"></span></td>
+  </tr>
+</table>
+</div>
+<div id="default_stream"></div>
+
+<!-- End of the html used to display the stream and counter -->
+
+<!-- Begin script required for counter module -->
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+<script>
+var ArktanSocialStreamsConfig = {
+    "source":{
+     "name": "Janrain",
+     "uri": "http://www.janrain.com"
+    },
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+    "visualization":{
+        "vizname":"grid1",
+        "columnWidth":240
+    },
+    "reply": true,
+  "autoload": true,
+    "apps" : [
+  
+     {
+     "type":"stream",
+     "id": "streams",
+     "streamTarget":"default_stream",
+     "streamID": "http://www.janrain.com/id_BestSportsEver",
+     "maxItems": 5,
+     "submitTarget":"chat-form",
+     "submitURL": "http://www.janrain.com/id_BestSportsEver",
+  	  },
+
+      {	
+	"type":"trend", 
+	"id": "trend1", 
+	"targetDOM": "trend1", 
+	"trendID": "http://www.janrain.com/id_OddSports", 
+	"itemsPerPage": 8,
+	"hideTimestamp": true,
+	"theme":"whatshot-with-links"
+       }
+
+      ]
+};
+	$(document).ready(function(){
+ 		 Arktan.SocialApps.install(ArktanSocialStreamsConfig);
+	});
+</script>
+
+<!-- End script needed by counter module -->

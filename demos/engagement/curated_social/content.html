@@ -16,16 +16,18 @@ var ArktanSocialStreamsConfig = {
   "source":{
   "name": "Janrain",
   "uri": "http://www.janrain.com"
-},
+	},
   "janrainAppName": "janrain-se-demo",
   "busName": "se-demo",
   "appkey": "dev.janrain",
     "visualization":{
         "vizname":"grid1",
         "columnWidth":240
-    },
+    		},
     "reply": true,
   "autoload": true,
+  
+  
 "apps": [
 
 {
@@ -38,9 +40,9 @@ var ArktanSocialStreamsConfig = {
 
 ]
 };
-$(document).ready(function(){
-  Arktan.SocialApps.install(ArktanSocialStreamsConfig);
-});
+	$(document).ready(function(){
+ 		 Arktan.SocialApps.install(ArktanSocialStreamsConfig);
+	});
 </script>
 
 <!-- End Curated Tweets code -->
