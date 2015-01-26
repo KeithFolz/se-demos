@@ -7,6 +7,16 @@ keywords, length, type, content included, and much more. Let your customers
 reply to tweets directly from within your site.</p>
 
 <!-- Begin code required for Curated Tweets module -->
+//The table is for displaying the counter. A table is not required
+//to use the counter, though.
+<table border="3px">
+  <tr>
+    <td><strong>Total Comments</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><span id="counter1"></span></td>
+  </tr>
+</table>
 
 <div id="default_stream"></div>
 <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
@@ -30,13 +40,22 @@ var ArktanSocialStreamsConfig = {
   
 "apps": [
 
-{
-  "type":"stream",
-  "streamTarget":"default_stream",
-  "id": "all",
-  "streamID": "http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1",
-  "targetURL":"http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
-}
+	{
+	"type":"stream",
+	"streamTarget":"default_stream",
+	"id": "all",
+	"streamID": "http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1",
+	"targetURL":"http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
+	},
+	{
+	"type":"counter", 
+	"id": "counter1", 
+	"targetDOM": "counter1", 
+	"streamID": "http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
+    }
+
+
+
 
 ]
 };

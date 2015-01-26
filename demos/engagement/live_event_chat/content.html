@@ -54,7 +54,7 @@ Arktan.settings = {
   },
   "enableCapture":true,
   "apps" : [
-  {
+  	{
     "type":"stream",
     "id": "streams",
     "streamTarget":"chat-stream",
@@ -62,7 +62,13 @@ Arktan.settings = {
     "maxItems": 5,
     "submitTarget":"chat-form",
     "submitURL": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1",
-  }
+  	},
+	{
+	"type":"counter", 
+	"id": "counter1", 
+	"targetDOM": "counter1", 
+	"streamID": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1"
+	}
   ]};
   </script>
 
@@ -72,6 +78,23 @@ Arktan.settings = {
 <!-- End Live Event Chat script -->
 
 <!-- Begin HTML required for Live Event Chat module -->
+<!-- Here a table is used to hold the counter. A table is not required to use the counter. -->
+<div align="center" width="auto">
+<table border="3px">
+  <tr>
+    <td><strong>Total Comments</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><span id="counter1"></span></td>
+  </tr>
+</table>
+</div>
+
+<div class="river">
+  <div id="chat-form"></div>
+  <div id="chat-stream"></div>
+</div>
+
 
 <div class="river">
   <div id="chat-form"></div>
