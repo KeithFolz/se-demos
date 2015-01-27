@@ -211,7 +211,7 @@ function janrainCaptureWidgetOnLoad() {
 
             // Required call for Commenting module
             jQuery("#article-comments").arktanArticleComments();
-
+			//jQuery("#article-comments-counter").arktanSocialCounter();
         });
 
     /*                                                                        *\

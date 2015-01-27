@@ -32,6 +32,31 @@ Note that this demo is based on the Backplane 1.2 specification. For more detail
 <!-- Begin HTML required for Commenting module
 http://demos.janrain.com/JanrainDemoSites/demos/enterprise
 -->
+<p > Click <a href="#"><span id="showCounter"><strong>HERE</strong></span></a> to <span id="counterViewHide">view</span> the counter </p>
+
+<div id = "commentCounter" style="display:none" align="center" width="auto">
+<!-- The table is used simply as a container for the counter. It is not required. -->
+<table border="3px">
+  <tr>
+    <td><strong>Total Comments</strong></td>
+  </tr>
+  <tr>
+  <td align="center">
+  
+    <!-- The following span is required for generating a counter for the comment
+     -- module. Counters are optional, of course. The <span> can be substituted 
+     -- for a <div> as needed.  -->
+     
+    <span id="article-comments-counter" 
+	data-url="janrain-solutions.appspot.com/enterprise/commenting" 
+	data-domain="http://www.janrain.com/solutions" 
+	data-appkey="dev.janrain">
+	</span> 
+	
+  </td>
+  </tr>
+</table>
+</div>
 
 <div id="article-comments"
   class="active"
@@ -55,4 +80,29 @@ var Arktan = {};
 Arktan.settings = {
 "enableCapture":true };
 </script>
+
 <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script> <script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+<!-- the following script is simply for showing or hiding the optional counter.
+ -- The counter can be set to show on any event, including document ready or onload. -->
+ 
+<script type="text/javascript">
+	$('#showCounter').toggle(
+	function(){
+		jQuery("#article-comments-counter").arktanSocialCounter();
+		$('#commentCounter').show();
+		$('#counterViewHide').html("hide");
+		},
+	function(){
+		$('#commentCounter').hide();
+		$('#counterViewHide').html("show");
+		}
+	);
+</script>
+
+
+
+
+
+
+
