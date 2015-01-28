@@ -19,6 +19,11 @@ function getManifest ($typeOfDemo) {
     $manifest["otherScripts"]["type"] = "inlineHTML";
     $manifest["otherScripts"]["extension"] = "html";
     $manifest["otherScripts"]["optional"] = TRUE;
+    
+    /*
+    $manifest["cssBlock"]["type"] = "inlineHTML";
+    $manifest["cssBlock"]["extension"] = "html";
+    */
 
     if ($typeOfDemo === "enterprise") {
         

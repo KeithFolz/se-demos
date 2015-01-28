@@ -20,7 +20,7 @@ include $paths["home"] . "/demoGenerator.php";
 // "enterprise"
 // "socialAjax"
 // "socialRedirect"
-// use "enterprise" for ugc
+// "engagement"
 
 $typeOfDemo = "enterprise";
 
