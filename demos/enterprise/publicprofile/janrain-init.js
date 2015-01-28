@@ -190,6 +190,9 @@ function janrainCaptureWidgetOnLoad() {
     janrain.events.onCaptureLoginFailed.addHandler(implFuncs.handleDeactivatedAccountLogin);
     janrain.events.onCaptureAccountDeactivateSuccess.addHandler(implFuncs.handleAccountDeactivation);
 
+    //Added to handle edit profile nav buttons
+    janrain.events.onCaptureRenderComplete.addHandler(implFuncs.setNavigationForEditProfileBegin);
+
     /*--
         SHOW EVENTS:
         Uncomment this line to show events in your browser's console. You must
@@ -221,6 +224,13 @@ function janrainExampleImplementationFunctions() {
         document.getElementById("captureSignOutLink").style.display = 'none';
         document.getElementById("captureProfileLink").style.display = 'none';
         document.getElementById("editProfile").style.display = 'none';
+    }
+
+    function setNavigationForEditProfileBegin(result) {
+        if (result.screen == "editProfile") {
+          document.getElementById("captureProfileLink").style.display = 'none';
+          document.getElementById("hideProfileLink").style.display = '';
+        }
     }
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -266,6 +276,7 @@ function janrainExampleImplementationFunctions() {
         enhanceReturnExperience: enhanceReturnExperience,
         hideResendLink: hideResendLink,
         handleDeactivatedAccountLogin: handleDeactivatedAccountLogin,
-        handleAccountDeactivation: handleAccountDeactivation
+        handleAccountDeactivation: handleAccountDeactivation,
+        setNavigationForEditProfileBegin: setNavigationForEditProfileBegin
     };
 }
