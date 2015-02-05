@@ -1,0 +1,93 @@
+<!-- This is a demo of <b>Counter</b>. -->
+<h2> Posts Per Minute </h2>
+
+<p>This is a demo for Janrain Enterprise with <strong>Posts Per Minute. </strong>
+
+Add simple near-realtime analytics to your site with a posts per minute counter -- based on a calculated trend -- and/or a posts per minute graph that gives a visual representation of posts per minute in one minute time slices. Perfect for giving your visitors a quick overview of the social activity behind those trending topics or celebrities..</p>
+
+<p>
+Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
+<a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
+</p>
+
+<p>Try viewing the source to see what's going on.</p>
+
+<br>
+<!-- Here is the html used to help format and display our stream and counter. -->
+<!-- Note that a table is not necessary to hold the <div> or <span> -->
+<hr>
+<div align="center">
+<table>
+<td style="text-align:left;vertical-align:middle;"><span><h4>Posts Per Minute: </h4></span></td>
+<td style="text-align:right;vertical-align:top;"><span id="ppm-all"></span></td>
+</table>
+</div>
+<br/>
+
+<div align="center">
+<table>
+<tr><td<span style = "align:center"><h4>PPM Chart</h4></span></td></tr>
+<tr><td style="border: 3px solid black;"><div class="chart" id="ppm-chart1" style="width: 300px; height: 200px;align:center;"></div></td></tr>
+</table>
+</div>
+<br><hr>
+<h4>Streaming posts used in the PPM Chart:</h4>
+
+<div id="default_stream"></div>
+<!-- End of the html used to display the stream and counter -->
+
+<!-- Begin script required for counter module -->
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+<script>
+var ArktanSocialStreamsConfig = {
+	"source":{
+		"name": "Arktan.com",
+		"uri": "http://www.arktan.com"
+		},
+		"janrainAppName": "arktan-ext-poc",
+		"busName": "arktan-ext-poc",
+		"appkey": "dev.janrain",
+    		"visualization":{
+        	"vizname":"grid4",
+        	"columnWidth":240
+    		},
+		"reply": false,
+		"autoload": false,
+		"apps": [
+		  {
+  		 	 "type":"stream",
+    		 "id": "streams",
+   			 "streamTarget":"default_stream",
+  			 "streamID": "http://www.janrain.com/id_ThreeTwitterHashtags",
+   			 "maxItems": 5
+  },
+		
+		
+		{	
+		"type":"postsPerMinute", 
+		"id": "ppm1", 
+		"targetDOM": "ppm-all", 
+		"trendID" : "http://www.janrain.com/id_PPMFemVocs",
+		"filter":"all"
+		},
+			{	
+		"type":"postsPerMinuteChart", 
+		"id": "ppm-chart1", 
+		"targetDOM": "ppm-chart1", 
+		"streamID": "http://www.janrain.com/id_ThreeTwitterHashtags", 
+		"metric": "minutes",
+		"interval": 10 //indicates how many bars to show.
+		},	
+	
+	]
+	}; //end of ArktanSocialStreamsConfig 
+
+	$(document).ready(function(){  //When the document is ready, load the configuration
+		Arktan.SocialApps.install(ArktanSocialStreamsConfig);	
+	});  //Document ready handler
+
+	</script>
+
+<!-- End script needed by counter module -->
