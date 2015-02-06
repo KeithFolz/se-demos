@@ -34,15 +34,13 @@ http://demos.janrain.com/JanrainDemoSites/demos/enterprise
 -->
 <p > Click <a href="#"><span id="showCounter"><strong>HERE</strong></span></a> to <span id="counterViewHide">view</span> the counter </p>
 
-<div id = "commentCounter" style="display:none" align="center" width="auto">
+
+<div id = "commentCounter" style="display:none" align="left" width="auto">
 <!-- The table is used simply as a container for the counter. It is not required. -->
-<table border="3px">
-  <tr>
-    <td><h4>Total Comments</h4></td>
-  </tr>
-  <tr>
-  <td align="center">
-  
+
+<table>  <!--single row 2 column table -->
+ <td style="text-align:left;vertical-align:middle;"><span><h4>Total Comments: </h4></span></td>
+ <td style="text-align:right;vertical-align:top;">  
     <!-- The following span is required for generating a counter for the comment
      -- module. Counters are optional, of course. The <span> can be substituted 
      -- for a <div> as needed.  -->
@@ -51,12 +49,12 @@ http://demos.janrain.com/JanrainDemoSites/demos/enterprise
 	data-url="janrain-solutions.appspot.com/enterprise/commenting" 
 	data-domain="http://www.janrain.com/solutions" 
 	data-appkey="dev.janrain">
-	</span> 
-	
+	</span> 	
   </td>
-  </tr>
 </table>
 </div>
+
+
 
 <div id="article-comments"
   class="active"
