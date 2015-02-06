@@ -64,7 +64,7 @@ Arktan.settings = {
     "submitURL": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1",
   	},
 	{
-	"type":"counter", 
+	"type":"counter", //totally optional.
 	"id": "counter1", 
 	"targetDOM": "counter1", 
 	"streamID": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1"
@@ -77,18 +77,19 @@ Arktan.settings = {
 
 <!-- End Live Event Chat script -->
 
-<!-- Begin HTML required for Live Event Chat module -->
-<!-- Here a table is used to hold the counter. A table is not required to use the counter. -->
-<div align="center" width="auto">
-<table border="3px">
-  <tr>
-    <td><h4>Total Comments</h4></td>
-  </tr>
-  <tr>
-    <td align="center"><span id="counter1"></span></td>
-  </tr>
+
+
+<!-- Begin HTML to hold the optional counter. 
+	A table is not required to use the counter, it is just use for convenience. -->
+	
+<table> <!--one row two column table -->
+<td style="text-align:left;vertical-align:middle;"><span><h4>Total Posts: </h4></span></td>
+<td style="text-align:right;vertical-align:top;"><span id="counter1"></span></td>
 </table>
-</div>
+
+<!-- End HTML to hold optional counter. -->
+
+<!-- Begin HTML required for Live Event Chat module -->
 
 <div class="river">
   <div id="chat-form"></div>
