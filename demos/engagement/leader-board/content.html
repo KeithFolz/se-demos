@@ -24,7 +24,7 @@ Note that this demo is based on the Backplane 1.2 specification. For more detail
 <div align="center" width="auto">
 <table border="3px">
   <tr>
-    <td align="center"><strong>Popular Female Vocalists</strong></td>
+    <td align="center"><h4>Popular Female Vocalists</h4></td>
   </tr>
   <tr>
     <td align="center"><span id="trend1"></span></td>
@@ -60,7 +60,7 @@ var ArktanSocialStreamsConfig = {
 		"apps": [
 		
 		{
-		"type":"tabs",
+		"type":"tabs", //Currently the theme 'whatshot-with-links' depends on the tabs type.
 		"id": "tab-parent", 
 		"targetDOM":"rivers-stream", 
 		"tabsTargetDOM":"rivers-tabs",
@@ -74,12 +74,12 @@ var ArktanSocialStreamsConfig = {
 		 },
 		
 		{	
-		"type":"trend", 
+		"type":"trend", //leader board source -- must follow the tabs app module
 		"id": "trend1", 
 		"targetDOM": "trend1", 
 		"theme":"whatshot-with-links",
 		"trendID": "http://www.janrain.com/id_Female_Vocalists", 
-		"itemsPerPage": 3,
+		"itemsPerPage": 7,
 		"hideTimestamp": true
 
 		}
