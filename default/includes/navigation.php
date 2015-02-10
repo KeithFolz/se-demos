@@ -19,6 +19,7 @@ $links["enterprise"] = array (
     "noPopup" => "FullScreen IDPs",
     "google_analytics" => "Google Analytics",
     "standard" => "Standard",
+    "publicprofile" => "Public Profile",
     "widget_visible_immediately" => "Widget Visible Immediately"
 );
 

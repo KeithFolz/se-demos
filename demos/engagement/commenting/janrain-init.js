@@ -80,7 +80,7 @@ For more information about these settings, see the following documents:
 
     // --- Capture Widget Settings ---------------------------------------------
     janrain.settings.capture.redirectUri = 'http://localhost/';
-    janrain.settings.capture.flowName = 'standard_newer';
+    janrain.settings.capture.flowName = 'standard_publicprofile';
     janrain.settings.capture.flowVersion = 'HEAD';
     janrain.settings.capture.registerFlow = 'socialRegistration';
     janrain.settings.capture.setProfileCookie = true;
