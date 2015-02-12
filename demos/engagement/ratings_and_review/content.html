@@ -1,0 +1,120 @@
+
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+
+
+<p>This is a demo of Janrain Enterprise with <b>Ratings and Reviews</b>.</p>
+
+<p>
+
+Empower customers to rate and review products or content across your sites.
+Create social proof by enabling customers to become advocates.
+Define sub-categories for customers to rate, and sort reviews based on
+chronology, number of ratings, most liked or most active.
+Reviews are fully integrated with social networks, SEO-friendly, responsive
+for mobile, and include extensive filtering and moderation tools.
+<br><br>
+Ratings and Review instances can easily be provisioned automatically with the creation
+of new pages and/or products.
+<br><br>
+Try out these features on this example implementation:
+<ul>
+  <li>After signing into site, you are also signed into ratings and reviews</li>
+  <li>Like a review</li>
+  <li>Comment on a review</li>
+  <li>Share review to Facebook and Twitter (if logged in with that IDP)</li>
+  <li>Dirty word filter prevents offensive posts</li>
+  <li>Reviews added on this page also show in Site Activity Feed</li>
+</ul>
+
+Coming Soon:
+<ul>
+  <li>Review sort order choices</li>
+  <li>Users can delete their own reviews</li>
+</ul>
+
+Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
+        <a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
+
+</p>
+
+<br><br>
+<p>Try viewing source in the page to see what's going on here.</p>
+
+
+
+<!-- Begin HTML required for Commenting module -->
+<div id="arkComments" style="margin: 20px 0; padding: 20px; border: 0; background: #fff; overflow: hidden; ">
+
+	<span id="article-comments-counter"
+		data-appkey="dev.janrain"
+		data-url="janrain-solutions.appspot.com/enterprise/ratingsreviews"
+		data-domain="http://www.janrain.com/solutions"
+		data-ratings="true"
+		data-average-rating-target="article-comments-averagerating"
+		data-counter-type="post">
+	</span>
+	<span class="article-comments-counter-text">Reviews</span>
+	<span id="article-comments-averagerating"></span>
+		<br><br>
+	<div id="article-comments"
+		class="active"
+		data-source-name="Janrain"
+		data-source-uri="www.janrain.com"
+		data-appkey="dev.janrain"
+		data-appid="janrain-se-demo"
+		data-busname="se-demo"
+		data-self-comments="true" 
+		data-url="janrain-solutions.appspot.com/enterprise/ratingsreviews"
+		data-domain="http://www.janrain.com/solutions"
+		data-enable-capture="true"
+		data-ratings="true"
+		data-user-activity="true">
+	</div>
+</div>
+
+<!-- End Commenting HTML -->
+
+<hr>
+<h2>Moderation Capabilities</h2>
+
+In addition to the dirty-word filter, additional filters can be added to modify
+the automatic moderation behavior. Comment stream can also be pre-moderated,
+which requires that all comments be approved before appearing in the stream.
+<p>
+  <img src='/static/images/CommentsFilters.png'  width="700">
+</p>
+<p>
+  <!-- Adding screenshot of moderation screen after screen is fixed. -->
+</p>
+
+<hr>
+ </div>
+
+</div>
+<script type="text/javascript">
+/*
+    // after the main Janrain Enterprise javascript has loaded, we can make some additional settings tweaks.
+    // see: http://developers.janrain.com/documentation/widgets/social-sign-in-widget/social-sign-in-widget-api/settings/
+    (function () {
+        janrain.settings.capture.backplane = true;
+        janrain.settings.capture.backplaneBusName = 'se-demo';
+        janrain.settings.capture.backplaneVersion = 1.2;
+        janrain.settings.capture.backplaneBlock = 20;
+                    // Required call for Commenting module
+
+    })();
+    */
+    <!-- Following handler calls the Arktan Ratings and Review Module -->
+
+   $( document ).ready(function() {
+    jQuery("#article-comments").arktanArticleComments();
+    jQuery("#article-comments-counter").arktanSocialCounter();
+    });
+
+</script>
+
+
+
+
