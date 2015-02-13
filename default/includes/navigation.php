@@ -39,5 +39,9 @@ $links["engagement"] = array (
     "live_event_chat" => "Live Event Chat",
     "site_activity" => "Site Activity",
     "curated_social" => "Curated Tweets",
+<<<<<<< HEAD
     "ratings_and_review" => "Ratings and Review"
+=======
+    "leader_board" => "Leader Board"
+>>>>>>> master
 );
