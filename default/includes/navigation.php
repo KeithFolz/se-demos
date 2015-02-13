@@ -38,5 +38,6 @@ $links["engagement"] = array (
     "commenting" => "Commenting",
     "live_event_chat" => "Live Event Chat",
     "site_activity" => "Site Activity",
-    "curated_social" => "Curated Tweets"
+    "curated_social" => "Curated Tweets",
+    "leader_board" => "Leader Board"
 );
