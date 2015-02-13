@@ -1,9 +1,33 @@
+<<<<<<< HEAD
 <!-- This is a demo of <b>Counter</b>. -->
 <h2> Posts Per Minute </h2>
 
 <p>This is a demo for Janrain Enterprise with <strong>Posts Per Minute. </strong>
 
 Add simple near-realtime analytics to your site with a posts per minute counter -- based on a calculated trend -- and/or a posts per minute graph that gives a visual representation of posts per minute in one minute time slices. Perfect for giving your visitors a quick overview of the social activity behind those trending topics or celebrities..</p>
+=======
+<!-- <p>This is a demo of Janrain Enterprise with <b>Commenting</b>.</p> -->
+<h2> Commenting </h2>
+
+Let customers sign in and publish comments on articles or other site content.
+Comments are fully integrated with social networks, SEO-friendly, responsive
+for mobile, and include extensive filtering and moderation tools.
+<br><br>
+Commenting instances can easily be provisioned automatically with the creation
+of new pages and/or posts.
+<br><br>
+Try out these features on this example implementation:
+<ul>
+  <li>After signing into site, you are also signed into commenting</li>
+  <li>Like a post</li>
+  <li>Comment on a comment</li>
+  <li>Share comment to Facebook and Twitter (if logged in with that IDP)</li>
+  <li>Dirty word filter prevents offensive posts</li>
+  <li>Comments added on this page also show in Site Activity Feed</li>
+  <li>Comment sort order choices</li>
+  <li>Users can delete their own posts</li>
+</ul>
+>>>>>>> master
 
 <p>
 Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
@@ -12,6 +36,7 @@ Note that this demo is based on the Backplane 1.2 specification. For more detail
 
 <p>Try viewing the source to see what's going on.</p>
 
+<<<<<<< HEAD
 <br>
 <!-- Here is the html used to help format and display our stream and counter. -->
 <!-- Note that a table is not necessary to hold the <div> or <span> -->
@@ -91,3 +116,34 @@ var ArktanSocialStreamsConfig = {
 	</script>
 
 <!-- End script needed by counter module -->
+=======
+<hr>
+
+<!-- Begin HTML required for Commenting module
+http://demos.janrain.com/JanrainDemoSites/demos/enterprise
+-->
+
+<div id="article-comments"
+  class="active"
+  data-appid="janrain-se-demo"
+  data-appkey="dev.janrain"
+  data-busname="se-demo"
+  data-url="janrain-solutions.appspot.com/enterprise/commenting"
+  data-domain="http://www.janrain.com/solutions"
+  data-enable-capture="true"
+  data-sort-order="true"
+  data-sort-order-default="sortByRecentFirst"
+  data-sort-order-options="sortByRecentFirst,sortByLikes,sortByReplies"
+  data-flagging-type="default"
+  data-delete-comments="true">
+</div>
+
+<!-- End Commenting HTML -->
+
+￼<script type="text/javascript">
+var Arktan = {};
+Arktan.settings = {
+"enableCapture":true };
+</script>
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script> <script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+>>>>>>> master
