@@ -1,10 +1,4 @@
-
-<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
-<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
-
-
-
-<p>This is a demo of Janrain Enterprise with <b>Ratings and Reviews</b>.</p>
+<p>This is a demo of Janrain Engagement with <b>Ratings and Reviews</b>.</p>
 
 <p>
 
@@ -41,79 +35,40 @@ Note that this demo is based on the Backplane 1.2 specification. For more detail
 
 <br><br>
 <p>Try viewing source in the page to see what's going on here.</p>
+<hr>
 
+<!-- Begin HTML required for Commenting module
+http://demos.janrain.com/JanrainDemoSites/demos/enterprise
+-->
 
-
-<!-- Begin HTML required for Commenting module -->
-<div id="arkComments" style="margin: 20px 0; padding: 20px; border: 0; background: #fff; overflow: hidden; ">
-
-	<span id="article-comments-counter"
-		data-appkey="dev.janrain"
-		data-url="janrain-solutions.appspot.com/enterprise/ratingsreviews"
-		data-domain="http://www.janrain.com/solutions"
-		data-ratings="true"
-		data-average-rating-target="article-comments-averagerating"
-		data-counter-type="post">
-	</span>
-	<span class="article-comments-counter-text">Reviews</span>
-	<span id="article-comments-averagerating"></span>
-		<br><br>
-	<div id="article-comments"
+<div id="article-comments"
 		class="active"
 		data-source-name="Janrain"
 		data-source-uri="www.janrain.com"
 		data-appkey="dev.janrain"
 		data-appid="janrain-se-demo"
 		data-busname="se-demo"
-		data-self-comments="true" 
+		data-self-comments="true"   //true = one user one vote
 		data-url="janrain-solutions.appspot.com/enterprise/ratingsreviews"
 		data-domain="http://www.janrain.com/solutions"
 		data-enable-capture="true"
 		data-ratings="true"
 		data-user-activity="true">
 	</div>
-</div>
 
 <!-- End Commenting HTML -->
 
-<hr>
-<h2>Moderation Capabilities</h2>
-
-In addition to the dirty-word filter, additional filters can be added to modify
-the automatic moderation behavior. Comment stream can also be pre-moderated,
-which requires that all comments be approved before appearing in the stream.
-<p>
-  <img src='/static/images/CommentsFilters.png'  width="700">
-</p>
-<p>
-  <!-- Adding screenshot of moderation screen after screen is fixed. -->
-</p>
-
-<hr>
- </div>
-
-</div>
-<script type="text/javascript">
-/*
-    // after the main Janrain Enterprise javascript has loaded, we can make some additional settings tweaks.
-    // see: http://developers.janrain.com/documentation/widgets/social-sign-in-widget/social-sign-in-widget-api/settings/
-    (function () {
-        janrain.settings.capture.backplane = true;
-        janrain.settings.capture.backplaneBusName = 'se-demo';
-        janrain.settings.capture.backplaneVersion = 1.2;
-        janrain.settings.capture.backplaneBlock = 20;
-                    // Required call for Commenting module
-
-    })();
-    */
-    <!-- Following handler calls the Arktan Ratings and Review Module -->
-
-   $( document ).ready(function() {
-    jQuery("#article-comments").arktanArticleComments();
-    jQuery("#article-comments-counter").arktanSocialCounter();
-    });
-
+￼<script type="text/javascript">
+var Arktan = {};
+Arktan.settings = {
+"enableCapture":true };
 </script>
+
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script> <script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+
+
+
 
 
 
