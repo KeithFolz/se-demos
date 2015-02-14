@@ -1,6 +1,6 @@
 <?php
 
-//require_once('config.php');
+require_once('config.php');
 
 //-----------------
 
@@ -8,10 +8,10 @@ $path_to_api_key_file = "/Janrain/apiKeyCapture.txt";
 
 if (file_exists($path_to_api_key_file)) {}
 else {
-echo '{
-    "stat": "error",
-    "error_description": "Sorry, could not find the api key file $path_to_api_key_file"
-}';
+    echo '{
+        "stat": "error",
+        "error_description": "Sorry, could not find the api key file $path_to_api_key_file"
+    }';
     //echo "<p>Sorry, could not find the api key file $path_to_api_key_file</p>";
     exit;
 }
@@ -31,7 +31,7 @@ if (!empty($_SESSION['uuid'])) {
     // permissions and access schema for the 'for_client_id' parameter.
     $params = array(
         'client_id' => JANRAIN_ISSUER_CLIENT_ID,
-        'client_secret' => JANRAIN_ISSUER_CLIENT_SECRET,
+        'client_secret' => $api_key,
         'for_client_id' => JANRAIN_LOGIN_CLIENT_ID,
         'type_name' => 'user',
         'uuid' => $_SESSION['uuid']

@@ -288,6 +288,18 @@ function janrainCaptureWidgetOnLoad() {
     // This should be the last line in janrainCaptureWidgetOnLoad()
     //janrain.capture.ui.start();
 
+    // When the end-user logs in, send the access token to the server-side PHP
+    // script to start the server-side session.
+    janrain.events.onCaptureLoginSuccess.addHandler(function(result) {
+        $.post("start_session.php", {'access_token': result.accessToken});
+    });
+
+    // When the end-user ends the client-side session, send a request to the
+    // server-side PHP script to end the server-side session.
+    janrain.events.onCaptureSessionEnded.addHandler(function(result) {
+        $.post("end_session.php");
+    });
+
     // If the access token stored in local storage expires (or is deleted), get
     // a new access token from the server-side PHP script and start a new
     // client-side session.
@@ -320,7 +332,7 @@ function janrainExampleImplementationFunctions() {
             } else {
                 console.log(result.error_description);
             }
-            
+
         });
     }
 
