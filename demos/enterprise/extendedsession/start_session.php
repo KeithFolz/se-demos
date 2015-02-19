@@ -30,7 +30,10 @@ if (!empty($_POST['access_token'])) {
     $_SESSION['access_token'] = $_POST['access_token'];
     $_SESSION['uuid'] = json_decode($response, true)['result']['uuid'];
 
+    $uuid = $_SESSION['uuid'];
+
     echo $response;
+
 
 } else {
     echo '{

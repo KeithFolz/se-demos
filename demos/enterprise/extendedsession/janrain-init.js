@@ -291,7 +291,21 @@ function janrainCaptureWidgetOnLoad() {
     // When the end-user logs in, send the access token to the server-side PHP
     // script to start the server-side session.
     janrain.events.onCaptureLoginSuccess.addHandler(function(result) {
-        $.post("start_session.php", {'access_token': result.accessToken});
+        $.post("start_session.php", {'access_token': result.accessToken}
+        , function(result2) {
+            alert( "success" );
+          })
+          .done(function(result2) {
+            console.log(result2);
+            alert( "second success" );
+          })
+          .fail(function(result2) {
+            console.log(result2.error_description);
+            alert( "error" );
+          })
+          .always(function() {
+            alert( "finished" );
+        });
     });
 
     // When the end-user ends the client-side session, send a request to the

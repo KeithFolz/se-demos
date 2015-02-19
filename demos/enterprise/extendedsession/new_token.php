@@ -48,11 +48,11 @@ if (!empty($_SESSION['uuid'])) {
 
     echo $response;
 
-} else {
-    echo '{
-        "stat": "error",
-        "error_description": "User is not authenticated. Cannot get a new token."
-    }';
-}
+  } else {
+      echo '{
+          "stat": "error",
+          "error_description": "User is not authenticated. Cannot get a new token."
+      }';
+  }
 
 ?>
