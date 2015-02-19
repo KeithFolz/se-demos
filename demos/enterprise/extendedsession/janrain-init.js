@@ -189,7 +189,7 @@ function janrainCaptureWidgetOnLoad() {
     janrain.events.onCaptureLoginFailed.addHandler(implFuncs.handleDeactivatedAccountLogin);
     janrain.events.onCaptureAccountDeactivateSuccess.addHandler(implFuncs.handleAccountDeactivation);
 
-    janrain.events.onCaptureSessionNotFound.addHandler(implFuncs.handleInvalidToken);
+    //janrain.events.onCaptureSessionNotFound.addHandler(implFuncs.handleInvalidToken);
     janrain.events.onCaptureSaveFailed.addHandler(implFuncs.handleInvalidToken);
 
 
@@ -335,9 +335,9 @@ function janrainCaptureWidgetOnLoad() {
 // Reference implementation navigation.
 function janrainExampleImplementationFunctions() {
 
-
     function handleInvalidToken(result) {
         //janrain.capture.ui.modal.close();
+        console.log(result);
         alert("Invalid Token!");
 
         $.getJSON('new_token.php', function(result) {
@@ -346,8 +346,10 @@ function janrainExampleImplementationFunctions() {
             } else {
                 console.log(result.error_description);
             }
-
         });
+        janrain.settings.capture.screenToRender = result.screen;
+        janrain.capture.ui.renderScreen(result.screen);
+        janrain.capture.ui.modal.open();
     }
 
     function setNavigationForLoggedInUser(result) {

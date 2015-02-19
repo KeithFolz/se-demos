@@ -34,7 +34,6 @@ if (!empty($_POST['access_token'])) {
 
     echo $response;
 
-
 } else {
     echo '{
         "stat": "error",
