@@ -325,11 +325,26 @@ function janrainCaptureWidgetOnLoad() {
     // If the access token stored in local storage expires (or is deleted), get
     // a new access token from the server-side PHP script and start a new
     // client-side session.
-    if (localStorage.getItem("janrainCaptureToken") && Date.parse(localStorage.getItem("janrainCaptureToken_Expires")) > Date.parse(Date())  ) {  
+    if (localStorage.getItem("janrainCaptureToken") && Date.parse(localStorage.getItem("janrainCaptureToken_Expires")) > Date.parse(Date())  ) {
         janrain.capture.ui.start();
     } else {
         alert("No token detected or token expired on page refresh");
-        $.getJSON('new_token.php', function(result) {
+
+/**
+        //Backplane.resetCookieChannel();
+        var channelId = Backplane.getChannelID();
+
+        if(channelId) {
+          console.log("Channel ID Defined");
+        }
+        else {
+          console.log("Channel ID Undefined");
+        }
+**/
+var channelId = "";
+
+        //$.getJSON('new_token.php', function(result) {
+        $.post('new_token.php', {'newChannelId': channelId}, function(result) {
             if (result.stat == "ok") {
                 janrain.capture.ui.createCaptureSession(result.accessToken);
                 console.log("new_token finished");
@@ -349,9 +364,22 @@ function janrainExampleImplementationFunctions() {
         //console.log(result);
         alert("handleInvalidToken");
 
-        $.getJSON('new_token.php', function(result) {
+        //Backplane.resetCookieChannel();
+        var channelId = Backplane.getChannelID();
+
+        if(channelId) {
+          console.log("Channel ID Defined");
+        }
+        else {
+          console.log("Channel ID Undefined");
+        }
+
+        //$.getJSON('new_token.php', {'newChannelId': channelId}, function(result) {
+        $.post('new_token.php', {'newChannelId': channelId}, function(result) {
             if (result.stat == "ok") {
+                console.log(result);
                 janrain.capture.ui.createCaptureSession(result.accessToken);
+
             } else {
                 console.log(result.error_description);
             }

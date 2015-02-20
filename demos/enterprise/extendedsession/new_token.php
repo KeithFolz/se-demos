@@ -46,7 +46,25 @@ if (!empty($_SESSION['uuid'])) {
     $response = curl_exec($curl);
     curl_close($curl);
 
+    // BP Channel Refresh
+    //$_POST['newChannelId']
+    $params = array(
+        'access_token' => $response.accessToken,
+        'type_name' => 'user'
+    );
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, JANRAIN_CAPTURE_SERVER."/entity");
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params));
+
+    $responseEntity = curl_exec($curl);
+    curl_close($curl);
+
+
     echo $response;
+
 
   } else {
       echo '{
