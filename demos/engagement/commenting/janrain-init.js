@@ -112,6 +112,9 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.backplaneVersion = 1.2;
     janrain.settings.capture.backplaneBlock = 20;
 
+    //keep a user logged into commenting after refresh
+    janrain.settings.capture.backplaneReplayOnPageLoad = true;
+
     // --- BEGIN WIDGET INJECTION CODE -----------------------------------------
     /********* WARNING: *******************************************************\
     |      DO NOT EDIT THIS SECTION                                            |
@@ -194,7 +197,7 @@ function janrainCaptureWidgetOnLoad() {
         Uncomment this line to show events in your browser's console. You must
         include janrain-utils.js to run this function.
                                                                             --*/
-    // janrainUtilityFunctions().showEvents();
+     janrainUtilityFunctions().showEvents();
 
     // helper function for displaying backplane events
     function writeTo(theId, content, overwrite) {

@@ -112,6 +112,10 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.backplaneVersion = 1.2;
     janrain.settings.capture.backplaneBlock = 20;
 
+    //keep a user logged into commenting after refresh
+    janrain.settings.capture.backplaneReplayOnPageLoad = true;
+
+
     // --- BEGIN WIDGET INJECTION CODE -----------------------------------------
     /********* WARNING: *******************************************************\
     |      DO NOT EDIT THIS SECTION                                            |
@@ -279,6 +283,9 @@ function janrainCaptureWidgetOnLoad() {
 
             });
 
+            // Required call for Commenting module
+            jQuery("#article-comments").arktanArticleComments();
+
         });
 
     /*                                                                        *\
@@ -291,7 +298,8 @@ function janrainCaptureWidgetOnLoad() {
     // When the end-user logs in, send the access token to the server-side PHP
     // script to start the server-side session.
     janrain.events.onCaptureLoginSuccess.addHandler(function(result) {
-        $.post("start_session.php", {'access_token': result.accessToken}
+        $.post("start_session.php", {'access_token': result.accessToken});
+        /**
         , function(result2) {
             alert( "success" );
           })
@@ -305,7 +313,7 @@ function janrainCaptureWidgetOnLoad() {
           })
           .always(function() {
             alert( "finished" );
-        });
+        });**/
     });
 
     // When the end-user ends the client-side session, send a request to the
@@ -317,13 +325,14 @@ function janrainCaptureWidgetOnLoad() {
     // If the access token stored in local storage expires (or is deleted), get
     // a new access token from the server-side PHP script and start a new
     // client-side session.
-    if (localStorage.getItem("janrainCaptureToken")) {
+    if (localStorage.getItem("janrainCaptureToken") && Date.parse(localStorage.getItem("janrainCaptureToken_Expires")) > Date.parse(Date())  ) {  
         janrain.capture.ui.start();
     } else {
-        alert("Getting new token");
+        alert("No token detected or token expired on page refresh");
         $.getJSON('new_token.php', function(result) {
             if (result.stat == "ok") {
                 janrain.capture.ui.createCaptureSession(result.accessToken);
+                console.log("new_token finished");
             } else {
                 console.log(result.error_description);
             }
@@ -337,8 +346,8 @@ function janrainExampleImplementationFunctions() {
 
     function handleInvalidToken(result) {
         //janrain.capture.ui.modal.close();
-        console.log(result);
-        alert("Invalid Token!");
+        //console.log(result);
+        alert("handleInvalidToken");
 
         $.getJSON('new_token.php', function(result) {
             if (result.stat == "ok") {
@@ -350,6 +359,10 @@ function janrainExampleImplementationFunctions() {
         janrain.settings.capture.screenToRender = result.screen;
         janrain.capture.ui.renderScreen(result.screen);
         janrain.capture.ui.modal.open();
+
+        if (localStorage.getItem("janrainCaptureToken")) {
+          setNavigationForLoggedInUser;
+        }
     }
 
     function setNavigationForLoggedInUser(result) {
