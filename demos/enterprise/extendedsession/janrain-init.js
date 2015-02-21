@@ -217,6 +217,8 @@ function janrainCaptureWidgetOnLoad() {
 
         janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
 
+
+
             /*
             * An important thing to note in this demo: while the Enterprise solution makes *some* of the Backplane calls
             * for you, it in no way prevents you from doing others yourself.
@@ -245,46 +247,60 @@ function janrainCaptureWidgetOnLoad() {
             * but you can also manage these settings directly on the page - see bottom of this page where we do this.
             * */
 
+            // Resetting the backplan channel
+            console.log(Backplane.getChannelID());
+            Backplane.resetCookieChannel();
+            setTimeout(function(){
+              console.log(Backplane.getChannelID());
 
-            bpChannel = Backplane.getChannelID();
+              var bpChannel = Backplane.getChannelID();
 
-            writeTo('event-list', '<li>Channel created: <a target="_blank" href="'
-                    + bpChannel + '">' + bpChannel + '</a>.<br>(Try viewing; will contain ' +
-                    'channel data after you authenticate.)</li>');
+              // start testing this... who knows when/where to call it?
+              $.post('bp_identity.php', {'bp_channel_id': bpChannel, 'access_token': localStorage.getItem("janrainCaptureToken")}, function(ajaxResponse) {
+                console.log("Test");
+                  console.log(ajaxResponse);
+                  console.log("Test");
+              });
 
-            Backplane.expectMessages('identity/login');
-            writeTo('event-list', '<li>Expecting messages.</li>');
+              writeTo('event-list', '<li>Channel created: <a target="_blank" href="'
+                      + bpChannel + '">' + bpChannel + '</a>.<br>(Try viewing; will contain ' +
+                      'channel data after you authenticate.)</li>');
 
-            window.bpSubscription = Backplane.subscribe(function(backplaneMessage) {
+              Backplane.expectMessages('identity/login');
+              writeTo('event-list', '<li>Expecting messages.</li>');
 
-                writeTo('event-list', '<li>New '+backplaneMessage.type+' message received. (Try viewing in the JS console.)</li>');
-                console.log ("RAW BACKPLANE MESSAGE; TYPE == '"+backplaneMessage.type + "':");
-                console.log (backplaneMessage);
+              window.bpSubscription = Backplane.subscribe(function(backplaneMessage) {
 
-                if (backplaneMessage.type == 'identity/login') {
+                  writeTo('event-list', '<li>New '+backplaneMessage.type+' message received. (Try viewing in the JS console.)</li>');
+                  console.log ("RAW BACKPLANE MESSAGE; TYPE == '"+backplaneMessage.type + "':");
+                  console.log (backplaneMessage);
 
-                    var avatarUrl = '';
-                    try {
-                        avatarUrl = backplaneMessage.payload.identities.entry.accounts[0].photos[0].value;
-                    } catch(err) {
-                        console.log ("error retrieving avatarUrl: ");
-                        console.log (err);
-                    }
-                    var avatar = '';
-                    if ( avatarUrl != '' ) {
-                        avatar = '<img src="'+avatarUrl+'" style="float:left; width:50px; padding:2px;">';
-                    }
-                    writeTo('welcome-msg', avatar+'Welcome, '+backplaneMessage.payload.identities.entry.displayName + '!', true);
+                  if (backplaneMessage.type == 'identity/login') {
 
-                }
+                      var avatarUrl = '';
+                      try {
+                          avatarUrl = backplaneMessage.payload.identities.entry.accounts[0].photos[0].value;
+                      } catch(err) {
+                          console.log ("error retrieving avatarUrl: ");
+                          console.log (err);
+                      }
+                      var avatar = '';
+                      if ( avatarUrl != '' ) {
+                          avatar = '<img src="'+avatarUrl+'" style="float:left; width:50px; padding:2px;">';
+                      }
+                      writeTo('welcome-msg', avatar+'Welcome, '+backplaneMessage.payload.identities.entry.displayName + '!', true);
 
-                //If we had no further interest in backplane events we could stop listening.
-                //Backplane.unsubscribe(window.bpSubscription);
+                  }
 
-            });
+                  //If we had no further interest in backplane events we could stop listening.
+                  //Backplane.unsubscribe(window.bpSubscription);
 
-            // Required call for Commenting module
-            jQuery("#article-comments").arktanArticleComments();
+              });
+
+              // Required call for Commenting module
+              jQuery("#article-comments").arktanArticleComments();
+
+            }, 150);
 
         });
 
