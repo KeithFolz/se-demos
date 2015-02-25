@@ -40,6 +40,7 @@ $links["engagement"] = array (
     "site_activity" => "Site Activity",
     "curated_social" => "Curated Tweets",
     "ratings_and_review" => "Ratings and Review",
-	"leader_board" => "Leader Board"
+	"leader_board" => "Leader Board",
+	"tabbed_streams" => "Tabbed Streams"
 
 );

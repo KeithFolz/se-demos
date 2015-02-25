@@ -1,13 +1,15 @@
-<p>This is a demo of Janrain Engagement with <b>Tabs</b>.</p>
+<p>This is a demo of Janrain Engagement with <b>Tabbed Streams</b>.</p>
 
 <p>
-A tabbed interface is a stylish way for your visitors to choose from a list of curated streams.
+A tabbed interface is an intuitive and stylish way for your visitors to choose from a list of curated streams, whether those streams are of Tweets, Facebook posts, Instagram, or any of the other available social media.
 </p>
+
+<!--
 <p>
 Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
         <a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
 </p>
-
+-->
 <br><br>
 <p>Try viewing source in the page to see what's going on here.</p>
 <hr>
@@ -113,6 +115,20 @@ var ArktanSocialStreamsConfig = {
 	});  //Document ready handler
 
 	</script>
+
+
+<script type="text/javascript">
+
+    // after the main Janrain Enterprise javascript has loaded, we can make some additional settings tweaks.
+    // see: http://developers.janrain.com/documentation/widgets/social-sign-in-widget/social-sign-in-widget-api/settings/
+    (function () {
+        janrain.settings.capture.backplane = false;
+        janrain.settings.capture.backplaneBusName = 'se-demo';
+        janrain.settings.capture.backplaneVersion = 1.2;
+        janrain.settings.capture.backplaneBlock = 20;
+    })();
+
+</script>
 
 
 
