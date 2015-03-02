@@ -41,6 +41,7 @@ $links["engagement"] = array (
     "curated_social" => "Curated Tweets",
     "ratings_and_review" => "Ratings and Review",
 	"leader_board" => "Leader Board",
-	"tabbed_streams" => "Tabbed Streams"
+	"tabbed_streams" => "Tabbed Streams",
+	"wordbox" => "WordBox"
 
 );
