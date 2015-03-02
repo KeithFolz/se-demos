@@ -19,7 +19,9 @@ $links["enterprise"] = array (
     "noPopup" => "FullScreen IDPs",
     "google_analytics" => "Google Analytics",
     "standard" => "Standard",
-    "widget_visible_immediately" => "Widget Visible Immediately"
+    "publicprofile" => "Public Profile",
+    "widget_visible_immediately" => "Widget Visible Immediately",
+    "extendedsession" => "Extended Session"
 );
 
 $links["socialLogin"] = array (
@@ -37,5 +39,8 @@ $links["engagement"] = array (
     "commenting" => "Commenting",
     "live_event_chat" => "Live Event Chat",
     "site_activity" => "Site Activity",
-    "curated_social" => "Curated Tweets"
+    "curated_social" => "Curated Tweets",
+    "ratings_and_review" => "Ratings and Review",
+	"leader_board" => "Leader Board"
+
 );

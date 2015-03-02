@@ -4,11 +4,16 @@
 <a href="#" id="captureSignInLink" onclick="janrain.capture.ui.renderScreen('signIn')">Sign In / Sign Up</a>
 
 <!-- Link to the profile page as needed -->
+<!-- commenting this profile edit link out as it is outside of standard deployment and pulling in bad nav links
 <p>
 <a href="/JanrainDemoSites/default/templates/enterprise/editProfile.html?screenToRender=editProfile" id="captureProfileLink" style="display:none">Edit Profile</a>
 </p>
 
 <p>
+-->
+
+<a href="#" id="captureProfileLink" style="display:none" onclick="janrain.capture.ui.renderScreen('editProfile')">Edit Profile</a>
+<a href="#" id="hideProfileLink" style="display:none" onclick="document.getElementById('editProfile').style.display = 'none'; document.getElementById('captureProfileLink').style.display = ''; document.getElementById('hideProfileLink').style.display = 'none';">Hide Profile</a>
 <!-- Add the class 'capture_end_session' for the log out link -->
 <a href="#" id="captureSignOutLink" class="capture_end_session" style="display:none">Sign Out</a>
 </p>
