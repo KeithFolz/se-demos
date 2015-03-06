@@ -42,6 +42,6 @@ $links["engagement"] = array (
     "ratings_and_review" => "Ratings and Review",
 	"leader_board" => "Leader Board",
 	"tabbed_streams" => "Tabbed Streams",
-	"wordbox" => "WordBox"
+	"word_cloud" => "Word Cloud"
 
 );
