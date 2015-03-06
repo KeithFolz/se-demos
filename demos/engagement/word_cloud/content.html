@@ -1,4 +1,4 @@
-<p>This is a demo of Janrain Engagement with a <b>WordBox</b>.</p>
+<p>This is a demo of Janrain Engagement with a <b>Word Cloud</b>.</p>
 
 <p>
 A WordBox is a playful but informative way to show the relative popularity of a curated list of celebrities or topics. Font-size is used as an indication of popularity. Clicking on any link inside the box changes the topic of the posts below to match that of the link topic.
@@ -7,29 +7,23 @@ A WordBox is a playful but informative way to show the relative popularity of a 
 
 <p>Try viewing source in the page to see what's going on here.</p>
 <hr>
-<p >
-<div align="center"><h4>Female Vocalist WordBox</h4>
 
-<!-- Begin HTML required for Wordbox module -->
-<div id="wordbox1" style="vertical-align:middle;"></div>
-<!-- End required HTML for Wordbox -->
+
+<div>
+<div id="title-cloud" style="float:left; width:30%;">Female Vocalist Word Cloud</div>
+<div id="title-stream" style="float:left; width:65%;"><div align="center">Post View</div></div>
 </div>
-</p>
+<br>
+<div>
+ <div id="wordbox1" style="float:left; width:30%;"></div>
+ <div id="rivers-stream" style="float:left; width: 65%;"></div>
+ </div>
+ <br style="clear: left;" />
+
 
 <br><hr>
-    <div class="river" >
-
-     <ul id="rivers-tabs" ></ul>
-
-    <div id="rivers-stream" ></div>
-	</div>
-
-<!-- End Commenting HTML -->
-
-<!-- End Commenting HTML -->
 
 
-<!-- End of the html used to display the stream and counter -->
 
 <!-- Begin script required for counter module -->
 <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
@@ -46,7 +40,7 @@ var ArktanSocialStreamsConfig = {
 		"appkey": "dev.janrain",
     		"visualization":{
         	    "vizname":"grid4",
-                "columnWidth":275,
+                "columnWidth":240,
                 "itemHeight":250,
                 "customScroll":true
     		},
