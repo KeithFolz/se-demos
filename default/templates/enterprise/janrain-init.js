@@ -65,7 +65,7 @@ For more information about these settings, see the following documents:
 
     // These are the URLs for your Engage app's load.js file, which is necessary
     // to load the Capture Widget.
-    
+
     var httpsLoadUrl = "https://rpxnow.com/load/janrain-se-demo";
     var httpLoadUrl = "http://widget-cdn.rpxnow.com/load/janrain-se-demo";
 
@@ -189,14 +189,18 @@ function janrainCaptureWidgetOnLoad() {
     janrain.events.onCaptureLoginFailed.addHandler(implFuncs.handleDeactivatedAccountLogin);
     janrain.events.onCaptureAccountDeactivateSuccess.addHandler(implFuncs.handleAccountDeactivation);
 
+    //Added to handle edit profile nav buttons
+    janrain.events.onCaptureRenderComplete.addHandler(implFuncs.setNavigationForEditProfileBegin);
+    //Todo: add this handler to all demos that already customized janrain-init
+
     /*--
         SHOW EVENTS:
         Uncomment this line to show events in your browser's console. You must
         include janrain-utils.js to run this function.
                                                                             --*/
-    // janrainUtilityFunctions().showEvents();
+     //janrainUtilityFunctions().showEvents();
 
-/********* Add event handlers here  *******************************************/ 
+/********* Add event handlers here  *******************************************/
 
 
     /*                                                                        *\
@@ -220,6 +224,13 @@ function janrainExampleImplementationFunctions() {
         document.getElementById("captureSignOutLink").style.display = 'none';
         document.getElementById("captureProfileLink").style.display = 'none';
         document.getElementById("editProfile").style.display = 'none';
+    }
+
+    function setNavigationForEditProfileBegin(result) {
+        if (result.screen == "editProfile") {
+          document.getElementById("captureProfileLink").style.display = 'none';
+          document.getElementById("hideProfileLink").style.display = '';
+        }
     }
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -265,6 +276,7 @@ function janrainExampleImplementationFunctions() {
         enhanceReturnExperience: enhanceReturnExperience,
         hideResendLink: hideResendLink,
         handleDeactivatedAccountLogin: handleDeactivatedAccountLogin,
-        handleAccountDeactivation: handleAccountDeactivation
+        handleAccountDeactivation: handleAccountDeactivation,
+        setNavigationForEditProfileBegin: setNavigationForEditProfileBegin
     };
 }

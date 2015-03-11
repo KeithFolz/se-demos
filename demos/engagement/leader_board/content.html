@@ -1,0 +1,99 @@
+<!-- This is a demo of <b>Counter</b>. -->
+<h2> Leader Board </h2>
+
+<p>This is a demo for Janrain Enterprise with Leader Board.
+
+Integrate a visualization of clickable trends or celebrities, 
+such as athletes and artists, showing the total number real-time updates 
+of public and private social media mentions. Great for on-air display during 
+live broadcast events or for demonstrating trending topics and celebrities in 
+a visual way.</p>
+
+<p>
+Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
+<a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
+</p>
+
+<p>Try viewing the source to see what's going on.</p>
+
+<br>
+<!-- Here is the html used to display our stream and counter. -->
+<!-- Note that a table is not necessary to hold the <div> or <span> -->
+
+
+<hr>
+<p>Click on a name or an image to change what the stream below shows.</p>
+
+<div>
+<div id="title-board" style="float:left; width:30%;">Popular Female Vocalists</div>
+<div id="title-stream" style="float:left; width:65%;"><div align="center">Post View</div></div>
+</div>
+<br>
+<div id="outer-box-container">
+ <div id="trend1" style="float:left; width:30%;"></div>
+ <div id="rivers-stream" style="float:left; width: 65%;"></div>
+ </div>
+ <br style="clear: left;" />
+
+
+<br>
+
+
+<!-- End of the html used to display the stream and counter -->
+
+<!-- Begin script required for counter module -->
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+<script>
+var ArktanSocialStreamsConfig = {
+	"source":{
+		"name": "Arktan.com",
+		"uri": "http://www.arktan.com"
+		},
+		"janrainAppName": "arktan-ext-poc",
+		"busName": "arktan-ext-poc",
+		"appkey": "dev.janrain",
+    		"visualization":{
+        	"vizname":"grid4",
+        	"columnWidth":240
+    		},
+		"reply": false,
+		"autoload": true,
+		"apps": [
+		
+		{
+		"type":"tabs", //Currently the theme 'whatshot-with-links' depends on the tabs type.
+		"id": "tab-parent", 
+		"targetDOM":"rivers-stream", 
+		"tabsTargetDOM":"rivers-tabs",
+		"tabs": [
+			{
+				"id": "tab2", 
+				"title": "Facebook Posts", 
+				"streamID": "http://www.janrain.com/id_Female_Vocalist_Counter",
+			}
+			]
+		 },
+		
+		{	
+		"type":"trend", //leader board source -- must follow the tabs app module
+		"id": "trend1", 
+		"targetDOM": "trend1", 
+		"theme":"whatshot-with-links",  //This theme give you clickable links in the leader board.
+		"trendID": "http://www.janrain.com/id_Female_Vocalists", 
+		//"itemsPerPage": 5,  //Can be used to limit starting number of trend bars. Not used eliminates the 'More' button at the bottom.
+		//"hideTimestamp": true
+
+		}
+
+	]
+	}; //end of ArktanSocialStreamsConfig 
+
+	$(document).ready(function(){  //When the document is ready, load the configuration
+		Arktan.SocialApps.install(ArktanSocialStreamsConfig);	
+	});  //Document ready handler
+
+	</script>
+
+<!-- End script needed by counter module -->
