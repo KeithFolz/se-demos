@@ -32,29 +32,14 @@ Note that this demo is based on the Backplane 1.2 specification. For more detail
 <!-- Begin HTML required for Commenting module
 http://demos.janrain.com/JanrainDemoSites/demos/enterprise
 -->
-<p > Click <a href="#"><span id="showCounter"><strong>HERE</strong></span></a> to <span id="counterViewHide">view</span> the counter </p>
-
-
-<div id = "commentCounter" style="display:none" align="left" width="auto">
-<!-- The table is used simply as a container for the counter. It is not required. -->
-
-<table>  <!--single row 2 column table -->
- <td style="text-align:left;vertical-align:middle;"><span><h4>Total Comments: </h4></span></td>
- <td style="text-align:right;vertical-align:top;">  
-    <!-- The following span is required for generating a counter for the comment
-     -- module. Counters are optional, of course. The <span> can be substituted 
-     -- for a <div> as needed.  -->
-     
-    <span id="article-comments-counter" 
+<div id="title-counter" style="float:left;">Total Comments: </div>
+<div id="article-comments-counter" style="float:left;"
 	data-url="janrain-solutions.appspot.com/enterprise/commenting" 
 	data-domain="http://www.janrain.com/solutions" 
 	data-appkey="dev.janrain">
-	</span> 	
-  </td>
-</table>
-</div>
+	</div> 	
 
-
+<br><hr>
 
 <div id="article-comments"
   class="active"
@@ -83,8 +68,8 @@ Arktan.settings = {
 
 <!-- the following script is simply for showing or hiding the optional counter. This script should 
   -- be in a file, and not located in the body of the page.
- -- The counter can be set to show on any event, including document ready or onload. -->
- 
+ <!-- The counter can be set to show on any event, including document ready or onload. -->
+ <!--
 <script type="text/javascript">
 	$('#showCounter').toggle(
 	function(){
@@ -98,6 +83,8 @@ Arktan.settings = {
 		}
 	);
 </script>
+
+-->
 
 
 
