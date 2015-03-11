@@ -212,9 +212,9 @@ function janrainCaptureWidgetOnLoad() {
 
         janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
 
-            // Required call for Commenting module
+            // Required call for Commenting module and the optional counter.
             jQuery("#article-comments").arktanArticleComments();
-
+			jQuery("#article-comments-counter").arktanSocialCounter();
         });
 
     /*                                                                        *\
