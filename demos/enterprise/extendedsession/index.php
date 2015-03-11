@@ -57,7 +57,7 @@ $configItems["title"] = "<title>Janrain Enterprise with Backplane</title>";
 // Scripts should all be in a single html file
 // enclosed by <script></script> tags.
 // Note: default value is empty. 
-$configItems["otherScripts"] = "script.html";
+// $configItems["otherScripts"] = "script.html";
 
 /*************** SOCIAL LOGIN SETTINGS ************/
 

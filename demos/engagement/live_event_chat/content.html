@@ -11,7 +11,6 @@
   locations.
 </p>
 
-
 Try out these features on this example implementation:
 <ul>
   <li>After signing into site, you are also signed into Live Event Chat</li>
@@ -64,7 +63,7 @@ Arktan.settings = {
     "submitURL": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1",
   	},
 	{
-	"type":"counter", 
+	"type":"counter", //totally optional.
 	"id": "counter1", 
 	"targetDOM": "counter1", 
 	"streamID": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1"
@@ -77,18 +76,14 @@ Arktan.settings = {
 
 <!-- End Live Event Chat script -->
 
+<!-- Begin HTML to hold the optional counter.  -->
+<div id="title-counter" style="float:left;">Total Posts: </div>
+<div id="counter1" style="float:left;"></div>
+<br><hr>
+
+<!-- End HTML to hold optional counter. -->
+
 <!-- Begin HTML required for Live Event Chat module -->
-<!-- Here a table is used to hold the counter. A table is not required to use the counter. -->
-<div align="center" width="auto">
-<table border="3px">
-  <tr>
-    <td><strong>Total Comments</strong></td>
-  </tr>
-  <tr>
-    <td align="center"><span id="counter1"></span></td>
-  </tr>
-</table>
-</div>
 
 <div class="river">
   <div id="chat-form"></div>
