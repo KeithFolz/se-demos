@@ -7,17 +7,18 @@ keywords, length, type, content included, and much more. Let your customers
 reply to tweets directly from within your site. (Shown with an optional counter.)</p>
 
 <!-- Begin code required for Curated Tweets module -->
-<!-- A table is not required for using the counter. This is just for 
+
+<!-- A table is not required for using the counter. This is just for
 	 a simple presentation method. -->
-	 
-	 
+
+
 <div align="left">
 <table>
 <td style="text-align:left;vertical-align:middle;"><span><h4>Total Tweets:  </h4></span></td>
 <td style="text-align:right;vertical-align:top;"><span id="counter1"></span></td>
 </table>
-</div>	 
-	 
+</div>
+
 
 
 <div id="default_stream"></div>
@@ -38,9 +39,10 @@ var ArktanSocialStreamsConfig = {
     		},
     "reply": true,
   "autoload": true,
-  
-  
+
+
 "apps": [
+
 
 {
   "type":"stream",
@@ -50,9 +52,9 @@ var ArktanSocialStreamsConfig = {
   "targetURL":"http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
 },
  {
-	  "type":"counter", 
-	  "id": "counter1", 
-      "targetDOM": "counter1", 
+	  "type":"counter",
+	  "id": "counter1",
+      "targetDOM": "counter1",
 	  "streamID": "http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
       }
 
