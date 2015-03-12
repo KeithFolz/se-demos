@@ -69,7 +69,7 @@ $configItems["title"] = "<title>Janrain Enterprise with Backplane</title>";
 //$configItems["otherScripts"] = "script.html";
 
 // Note: default value is empty. 
-// $configItems["otherScripts"] = "script.html";
+ $configItems["otherScripts"] = "script.html";
 
 
 /*************** SOCIAL LOGIN SETTINGS ************/
