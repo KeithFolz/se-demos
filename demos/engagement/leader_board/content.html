@@ -19,22 +19,27 @@ Note that this demo is based on the Backplane 1.2 specification. For more detail
 <br>
 <!-- Here is the html used to display our stream and counter. -->
 <!-- Note that a table is not necessary to hold the <div> or <span> -->
+
+
 <hr>
 <p>Click on a name or an image to change what the stream below shows.</p>
-<div align="center" width="auto">
-<table border="3px">
-  <tr>
-    <td align="center"><h4>Popular Female Vocalists</h4></td>
-  </tr>
-  <tr>
-    <td align="center"><span id="trend1"></span></td>
-  </tr>
-</table>
+
+
+<div>
+<div id="title-board" style="float:left; width:30%;">Popular Female Vocalists</div>
+<div id="title-stream" style="float:left; width:65%;"><div align="center">Post View</div></div>
+
 </div>
+<br>
+<div id="outer-box-container">
+ <div id="trend1" style="float:left; width:30%;"></div>
+ <div id="rivers-stream" style="float:left; width: 65%;"></div>
+ </div>
+ <br style="clear: left;" />
+
 
 <br>
-<div id="rivers-stream"></div>
-<div id="rivers-tab"></div>
+
 
 <!-- End of the html used to display the stream and counter -->
 
@@ -56,7 +61,7 @@ var ArktanSocialStreamsConfig = {
         	"columnWidth":240
     		},
 		"reply": false,
-		"autoload": false,
+		"autoload": true,
 		"apps": [
 		
 		{
@@ -77,11 +82,10 @@ var ArktanSocialStreamsConfig = {
 		"type":"trend", //leader board source -- must follow the tabs app module
 		"id": "trend1", 
 		"targetDOM": "trend1", 
-		"theme":"whatshot-with-links",
+		"theme":"whatshot-with-links",  //This theme give you clickable links in the leader board.
 		"trendID": "http://www.janrain.com/id_Female_Vocalists", 
-		"itemsPerPage": 7,
-		"hideTimestamp": true
-
+		//"itemsPerPage": 5,  //Can be used to limit starting number of trend bars. Not used eliminates the 'More' button at the bottom.
+		//"hideTimestamp": true
 		}
 
 	]

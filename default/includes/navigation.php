@@ -21,6 +21,8 @@ $links["enterprise"] = array (
     "standard" => "Standard",
     "publicprofile" => "Public Profile",
     "widget_visible_immediately" => "Widget Visible Immediately"
+    "widget_visible_immediately" => "Widget Visible Immediately",
+    "extendedsession" => "Extended Session"
 );
 
 $links["socialLogin"] = array (
@@ -42,5 +44,6 @@ $links["engagement"] = array (
     "ratings_and_review" => "Ratings and Review",
 	"leader_board" => "Leader Board",
 	"posts_per_minute" => "Posts Per Minute"
+
 
 );
