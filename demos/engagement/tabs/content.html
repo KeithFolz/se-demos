@@ -1,0 +1,132 @@
+<p>This is a demo of Janrain Engagement with <b>Tabbed Streams</b>.</p>
+<p>
+A tabbed interface enables your visitors to choose from a list of curated streams, whether those streams are of Tweets, Facebook posts, Instagram, or any of the other available social media.
+</p>
+<!--
+<p>
+Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
+        <a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
+</p>
+-->
+<br>
+<p>Try viewing source in the page to see what's going on here.</p>
+<hr>
+
+
+
+
+<!-- Begin HTML required for tabs module
+http://demos.janrain.com/JanrainDemoSites/demos/enterprise
+-->
+
+    <div class="river">
+
+     <ul id="rivers-tabs"></ul>
+
+    <div id="rivers-stream" ></div>
+	</div>
+
+<!-- End Commenting HTML -->
+
+
+<!-- End of the html used to display the stream and counter -->
+
+<!-- Begin script required for counter module -->
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+<script>
+var ArktanSocialStreamsConfig = {
+	"source":{
+		"name": "Arktan.com",
+		"uri": "http://www.arktan.com"
+		},
+		"janrainAppName": "arktan-ext-poc",
+		"busName": "arktan-ext-poc",
+		"appkey": "dev.janrain",
+    		"visualization":{
+        	    "vizname":"grid4",
+                "columnWidth":275,
+                "itemHeight":250,
+                "customScroll":true
+    		},
+		"reply": false,
+		"autoload": false,
+		"apps": [
+		
+		{
+		"type":"tabs",
+		"id": "tab-parent", 
+		"targetDOM":"rivers-stream", 
+		"tabsTargetDOM":"rivers-tabs",
+		"tabs": [
+			{
+				"id": "tab1", 
+				"title": "Ariana Grande", 
+				"streamID": "http://www.janrain.com/id_Ariana_Grande",
+
+			},
+					
+			{
+				"id": "tab2", 
+				"title": "Katy Perry", 
+				"streamID": "http://www.janrain.com/id_Katy_Perry",
+
+			},
+			
+			{
+				"id": "tab3", 
+				"title": "Madonna", 
+				"streamID": "http://www.janrain.com/id_Madonna",
+
+			},
+			
+			{
+				"id": "tab4", 
+				"title": "Lady Gaga", 
+				"streamID": "http://www.janrain.com/id_Lady_Gaga",
+
+			},
+			{
+				"id": "tab5", 
+				"title": "Taylor Swift", 
+				"streamID": "http://www.janrain.com/id_Taylor_Swift",
+
+			},
+			
+			
+			
+			]
+		 },
+		
+
+
+	]
+	}; //end of ArktanSocialStreamsConfig 
+
+	$(document).ready(function(){  //When the document is ready, load the configuration
+		Arktan.SocialApps.install(ArktanSocialStreamsConfig);	
+	});  //Document ready handler
+
+	</script>
+
+
+<script type="text/javascript">
+
+    // after the main Janrain Enterprise javascript has loaded, we can make some additional settings tweaks.
+    // see: http://developers.janrain.com/documentation/widgets/social-sign-in-widget/social-sign-in-widget-api/settings/
+    (function () {
+        janrain.settings.capture.backplane = false;
+        janrain.settings.capture.backplaneBusName = 'se-demo';
+        janrain.settings.capture.backplaneVersion = 1.2;
+        janrain.settings.capture.backplaneBlock = 20;
+    })();
+
+</script>
+
+
+
+
+
+
+

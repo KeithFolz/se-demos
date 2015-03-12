@@ -16,11 +16,11 @@ include $paths["home"] . "/demoGenerator.php";
 // "socialAjax"
 // "socialRedirect"
 
-$typeOfDemo = "engagement";
+$typeOfDemo = "enterprise";
 
 /******* Settings for all types of demos *************/
 // PAGE TITLE
-$configItems["title"] = "<title>Janrain Posts Per Minute</title>";
+$configItems["title"] = "<title>Janrain Enterprise with Backplane</title>";
 
 // PAGE CONTENT
 // $configItems["content"] = "";
@@ -56,11 +56,8 @@ $configItems["title"] = "<title>Janrain Posts Per Minute</title>";
 // PATH TO ANY OTHER SCRIPTS YOU WANT TO ADD
 // Scripts should all be in a single html file
 // enclosed by <script></script> tags.
-
-// Note: default value is empty.
-// $configItems["otherScripts"] = "scripts.html";
-$configItems["otherScripts"] = "script.html";
-
+// Note: default value is empty. 
+ $configItems["otherScripts"] = "script.html";
 
 /*************** SOCIAL LOGIN SETTINGS ************/
 
