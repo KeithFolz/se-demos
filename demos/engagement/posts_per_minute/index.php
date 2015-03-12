@@ -16,25 +16,12 @@ include $paths["home"] . "/demoGenerator.php";
 // "socialAjax"
 // "socialRedirect"
 
-<<<<<<< HEAD
 $typeOfDemo = "engagement";
 
 /******* Settings for all types of demos *************/
 // PAGE TITLE
-$configItems["title"] = "<title>Janrain Leader-Board</title>";
+$configItems["title"] = "<title>Janrain Posts Per Minute</title>";
 
-=======
->>>>>>> master
-$typeOfDemo = "enterprise";
-
-/******* Settings for all types of demos *************/
-// PAGE TITLE
-$configItems["title"] = "<title>Janrain Enterprise with Backplane</title>";
-
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 // PAGE CONTENT
 // $configItems["content"] = "";
 // The default value for content is determined by $typeOfDemo
@@ -69,19 +56,10 @@ $configItems["title"] = "<title>Janrain Enterprise with Backplane</title>";
 // PATH TO ANY OTHER SCRIPTS YOU WANT TO ADD
 // Scripts should all be in a single html file
 // enclosed by <script></script> tags.
-<<<<<<< HEAD
-
 // Note: default value is empty.
 // $configItems["otherScripts"] = "scripts.html";
-//$configItems["otherScripts"] = "script.html";
+$configItems["otherScripts"] = "script.html";
 
-// Note: default value is empty. 
- $configItems["otherScripts"] = "script.html";
-
-=======
-// Note: default value is empty. 
-// $configItems["otherScripts"] = "script.html";
->>>>>>> master
 
 /*************** SOCIAL LOGIN SETTINGS ************/
 
@@ -89,10 +67,4 @@ $configItems["title"] = "<title>Janrain Enterprise with Backplane</title>";
 
 // $configItems["tokenURL"] = "http://www.sampleTokenUrl.com/not-needed-for-client-side-validation";
 
-<<<<<<< HEAD
-
 showPage($configItems, $typeOfDemo);
-
-=======
-showPage($configItems, $typeOfDemo);
->>>>>>> master

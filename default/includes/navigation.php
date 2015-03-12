@@ -20,7 +20,6 @@ $links["enterprise"] = array (
     "google_analytics" => "Google Analytics",
     "standard" => "Standard",
     "publicprofile" => "Public Profile",
-    "widget_visible_immediately" => "Widget Visible Immediately"
     "widget_visible_immediately" => "Widget Visible Immediately",
     "extendedsession" => "Extended Session"
 );
