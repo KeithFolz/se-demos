@@ -42,7 +42,7 @@ $links["engagement"] = array (
     "curated_social" => "Curated Tweets",
     "ratings_and_review" => "Ratings and Review",
   	"leader_board" => "Leader Board",
-  	"posts_per_minute" => "Posts Per Minute"
+  	"posts_per_minute" => "Posts Per Minute",
   	"tabs" => "Tabbed Streams",
   	"word_cloud" => "Word Cloud"
 
