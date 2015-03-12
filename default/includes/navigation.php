@@ -41,10 +41,9 @@ $links["engagement"] = array (
     "site_activity" => "Site Activity",
     "curated_social" => "Curated Posts",
     "ratings_and_review" => "Ratings and Review",
-	"leader_board" => "Leader Board",
-	"word_cloud" => "Word Cloud",
-	"tabs" =>"Tabbed Streams",
-	"posts_per_minute" =>"Posts Per Minute"
-
+  	"leader_board" => "Leader Board",
+  	"word_cloud" => "Word Cloud",
+  	"tabs" =>"Tabbed Streams",
+  	"posts_per_minute" =>"Posts Per Minute"
 
 );
