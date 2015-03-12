@@ -1,0 +1,129 @@
+<!-- This is a demo of <b>Curated Posts</b>. -->
+<h2> Curated Posts </h2>
+
+<p>Integrate social posts and content from social media such as Twitter, Facebook and Instagram, directly into news-feed style streams on your site. Determine which posts from which sources appear in the stream based on keywords, length, type, content included, and much more. Let your customers reply to posts directly from within your site. (Shown with an optional counter.)
+</p>
+
+<!-- Begin code required for Curated Tweets module -->
+<!-- A table is not required for using the counter. This is just for 
+	 a simple presentation method. -->
+	 
+	 
+<div align="left">
+<div id="title-counter" style="float:left;">Total Posts: </div>
+<div id="counter1" style="float:left;"></div>
+</div>
+<br>
+<hr> 
+<div class="title-horiz">Instagram Only: </div>
+<div class="horizontal_view" id="default_instagram"></div>
+<br>
+<div class="title-horiz">Facebook Only: </div>
+<div class="horizontal_view" id="default_facebook"></div>
+<br>
+<div class="title-horiz">Twitter Only: </div>
+<div class="horizontal_view" id="default_twitter"></div>
+<br>
+<div class="title-horiz">Combined Social Media: Twitter, Facebook and Instagram</div>
+<div id="default_stream">all here:</div>
+
+
+
+
+
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+<script>
+var ArktanSocialStreamsConfig = {
+  "source":{
+  "name": "Janrain",
+  "uri": "http://www.janrain.com"
+	},
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+    "visualization":{
+        "vizname":"grid3",  //this is the horizontal format.
+        "columnWidth":240
+    		},
+    "reply": true,
+  "autoload": true,
+  
+  
+"apps": [
+
+{
+  "type":"stream",
+  "streamTarget":"default_instagram",
+  "id": "demo_instagram",
+  "streamID": "http://www.janrain.com/id_demo_Instagram_stream",
+  "targetURL":"http://www.janrain.com/id_demo_Instagram_stream"
+},
+ 
+ {
+  "type":"stream",
+  "streamTarget":"default_facebook",
+  "id": "demo_facebook",
+  "streamID": "http://www.janrain.com/id_demo_facebook_posts",
+  "targetURL":"http://www.janrain.com/id_demo_facebook_posts"
+},
+ 
+ {
+  "type":"stream",
+  "streamTarget":"default_twitter",
+  "id": "demo_twitter",
+  "streamID": "http://www.janrain.com/id_demo_twitter_posts",
+  "targetURL":"http://www.janrain.com/id_demo_twitter_posts"
+}, 
+ 
+
+]
+};
+
+var ArktanSocialStreamsConfig2 = {
+  "source":{
+  "name": "Janrain",
+  "uri": "http://www.janrain.com"
+	},
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+    "visualization":{
+        "vizname":"grid1",
+        "columnWidth":240
+    		},
+    "reply": true,
+  "autoload": true,
+  
+  
+"apps": [
+
+{
+  "type":"stream",
+  "streamTarget":"default_stream",
+  "id": "all",
+  "streamID": "http://www.janrain.com/id_Curated_Posts",
+  "targetURL":"http://www.janrain.com/id_Curated_Posts"
+},
+ {
+	  "type":"counter", 
+	  "id": "counter1", 
+      "targetDOM": "counter1", 
+	  "streamID": "http://www.janrain.com/id_Curated_Posts"
+      }
+
+]
+};
+
+
+
+
+
+
+	$(document).ready(function(){
+ 		 Arktan.SocialApps.install(ArktanSocialStreamsConfig);
+ 		  Arktan.SocialApps.install(ArktanSocialStreamsConfig2);
+	});
+</script>
+
+<!-- End Curated Tweets code -->
