@@ -39,8 +39,11 @@ $links["engagement"] = array (
     "commenting" => "Commenting",
     "live_event_chat" => "Live Event Chat",
     "site_activity" => "Site Activity",
-    "curated_social" => "Curated Tweets",
+    "curated_social" => "Curated Posts",
     "ratings_and_review" => "Ratings and Review",
-	"leader_board" => "Leader Board"
+	"leader_board" => "Leader Board",
+	"word_cloud" => "Word Cloud",
+	"tabs" =>"Tabbed Streams",
+	"posts_per_minute" =>"Posts Per Minute"
 
 );
