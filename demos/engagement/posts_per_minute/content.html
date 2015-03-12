@@ -1,58 +1,92 @@
-<!-- <p>This is a demo of Janrain Enterprise with <b>Commenting</b>.</p> -->
-<h2> Commenting </h2>
 
-Let customers sign in and publish comments on articles or other site content.
-Comments are fully integrated with social networks, SEO-friendly, responsive
-for mobile, and include extensive filtering and moderation tools.
-<br><br>
-Commenting instances can easily be provisioned automatically with the creation
-of new pages and/or posts.
-<br><br>
-Try out these features on this example implementation:
-<ul>
-  <li>After signing into site, you are also signed into commenting</li>
-  <li>Like a post</li>
-  <li>Comment on a comment</li>
-  <li>Share comment to Facebook and Twitter (if logged in with that IDP)</li>
-  <li>Dirty word filter prevents offensive posts</li>
-  <li>Comments added on this page also show in Site Activity Feed</li>
-  <li>Comment sort order choices</li>
-  <li>Users can delete their own posts</li>
-</ul>
 
-<p>
-Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
-<a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
-</p>
+<!-- This is a demo of <b>Posts Per Minute</b>. -->
+<h2> Posts Per Minute </h2>
+
+<p>This is a demo for Janrain Enterprise with <strong>Posts Per Minute. </strong>
+
+Add simple near-real time analytics to your site with a posts per minute counter -- based on a calculated trend -- and/or a posts per minute graph that gives a visual representation of posts per minute in one minute time slices. Perfect for giving your visitors a quick overview of the social activity behind those trending topics or celebrities.
+
 
 <p>Try viewing the source to see what's going on.</p>
 
+
+
+<br>
+<!-- Here is the html used to help format and display our stream and counter. -->
+
 <hr>
 
-<!-- Begin HTML required for Commenting module
-http://demos.janrain.com/JanrainDemoSites/demos/enterprise
--->
+<div align="center">
+<div id="title-ppmCounter">Posts Per Minute:  <span id="ppm-all"></span></div>
+<br>
+<div id="title-ppmChart">PPM Chart: </div><div class="chart" id="ppm-chart1"></div>
 
-<div id="article-comments"
-  class="active"
-  data-appid="janrain-se-demo"
-  data-appkey="dev.janrain"
-  data-busname="se-demo"
-  data-url="janrain-solutions.appspot.com/enterprise/commenting"
-  data-domain="http://www.janrain.com/solutions"
-  data-enable-capture="true"
-  data-sort-order="true"
-  data-sort-order-default="sortByRecentFirst"
-  data-sort-order-options="sortByRecentFirst,sortByLikes,sortByReplies"
-  data-flagging-type="default"
-  data-delete-comments="true">
+<!-- <span style = "align:center"><h4>PPM Chart</h4></span> -->
+
+
 </div>
 
-<!-- End Commenting HTML -->
+<br><hr>
+<h4>Streaming posts used in the PPM Chart:</h4>
 
-￼<script type="text/javascript">
-var Arktan = {};
-Arktan.settings = {
-"enableCapture":true };
-</script>
-<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script> <script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+<div id="default_stream"></div>
+<!-- End of the html used to display the stream and counter -->
+
+<!-- Begin script required for counter module -->
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+<script>
+var ArktanSocialStreamsConfig = {
+	"source":{
+		"name": "Arktan.com",
+		"uri": "http://www.arktan.com"
+		},
+		"janrainAppName": "arktan-ext-poc",
+		"busName": "arktan-ext-poc",
+		"appkey": "dev.janrain",
+    		"visualization":{
+        	"vizname":"grid4",
+        	"columnWidth":240
+    		},
+		"reply": false,
+		"autoload": false,
+		"apps": [
+		  {
+  		 	 "type":"stream",
+    		 "id": "streams",
+   			 "streamTarget":"default_stream",
+  			 "streamID": "http://www.janrain.com/id_ThreeTwitterHashtags",
+   			 "maxItems":15
+  },
+		
+		
+		{	
+		"type":"postsPerMinute", 
+		"id": "ppm1", 
+		"targetDOM": "ppm-all", 
+		"trendID" : "http://www.janrain.com/id_PPMFemVocs",
+		"filter":"all"
+		},
+			{	
+		"type":"postsPerMinuteChart", 
+		"id": "ppm-chart1", 
+		"targetDOM": "ppm-chart1", 
+		"streamID": "http://www.janrain.com/id_ThreeTwitterHashtags", 
+		"metric": "minutes",
+		"interval": 10 //indicates how many bars to show.
+		},	
+	
+	]
+	}; //end of ArktanSocialStreamsConfig 
+
+	$(document).ready(function(){  //When the document is ready, load the configuration
+		Arktan.SocialApps.install(ArktanSocialStreamsConfig);	
+	});  //Document ready handler
+
+	</script>
+
+<!-- End script needed by ppm module -->
+
+
