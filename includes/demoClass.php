@@ -34,7 +34,7 @@ class demo {
 
         // Title
         // <title>Janrain Demo Sites</title>      
-        $this->buildComponent("title", "file", "html", "title", TRUE);
+        $this->buildComponent("title", "string", "html", "title", TRUE);
         
         // Stylesheet
         $this->buildComponent("screen", "fileRef", "css", "head", TRUE);
@@ -107,7 +107,7 @@ class demo {
         $this->paths["navigation"] = $this->paths["templates"] . "/navigation";
         
         $this->paths["fsHome"] = strstr($home, $this->paths["home"], TRUE);
-        $this->paths["includes"] = $this->paths["fsHome"] . $this->paths["default"] . "/includes";
+        // $this->paths["includes"] = $this->paths["fsHome"] . $this->paths["default"] . "/includes";
 
         $this->paths["cwd"] = getcwd(); // current working directory
     }
@@ -126,22 +126,52 @@ class demo {
     private function findValue($componentName) {
                 
         if (!empty($this->params[$componentName])) {
-            return $this->params[$componentName];
+            
+            if ($this->components[$componentName]["type"] === "file") {
+                
+                $returnVal = file_get_contents($this->params[$componentName]);
+                
+            }
+            else { $returnVal = $this->params[$componentName]; }
         }
         else {
             
             if ($this->components[$componentName]["required"] === TRUE) {
                 
                 if ($this->fileExistsInLocalDir($componentName)) {
-            
-                    return file_get_contents($this->getFullFilePath($componentName, $this->paths["cwd"]));
+                                        
+                    if ($this->components[$componentName]["type"] === "fileRef") {
+                        $returnVal = $this->getFileRef($componentName, $this->getFileName($componentName));
+                    }
+                    elseif ($this->components[$componentName]["type"] === "file") {
+                        $fullFilePath = $this->getFullFilePath($componentName, $this->paths["cwd"]);
+
+                        $returnVal = file_get_contents($fullFilePath);
+                    }
                 }
                 else { 
                     
-                    return $this->getDefaultValue($componentName);
+                    $returnVal = $this->getDefaultValue($componentName);
                 }
             }
-        }            
+            else { $returnVal = ""; }
+        }
+        return $returnVal;
+    }
+    
+    private function getFileRef($componentName, $filePath) {
+
+        if ($this->components[$componentName]["ext"] === "js") {
+
+            $returnVal = "<script src='$filePath' type='text/javascript'></script>";
+        }
+        elseif ($this->components[$componentName]["ext"] === "css") {
+
+            $returnVal = "<link rel='stylesheet' href='$filePath'></script>";
+
+        }
+        return $returnVal;
+
     }
     
     private function fileExistsInLocalDir($componentName) {
@@ -184,25 +214,23 @@ class demo {
     
     private function getDefaultValue($componentName) {
         
-        $path = $this->getDefaultPath($componentName);
-        
-        $filePath = $this->getFullFilePath($componentName, $path);
-
-        if ($this->components[$componentName]["type"] === "file") {
-
-            $filePath = $this->paths["fsHome"] . $filePath;
-
-            $defaultVal = file_get_contents($filePath);
+        if ($componentName === "title") {             
+            $defaultVal = "<title>Janrain " . $this->params["typeOfDemo"] . " demo</title>";
         }
-        elseif ($this->components[$componentName]["type"] === "fileRef") {
-            
-            if ($this->components[$componentName]["ext"] === "js") {
+        else {
+            $path = $this->getDefaultPath($componentName);
+        
+            $filePath = $this->getFullFilePath($componentName, $path);
+        
+            if ($this->components[$componentName]["type"] === "file") {
 
-                $defaultVal = "<script src='$filePath' type='text/javascript'></script>";
+                $filePath = $this->paths["fsHome"] . $filePath;
+
+                $defaultVal = file_get_contents($filePath);
             }
-            elseif ($this->components[$componentName]["ext"] === "css") {
+            elseif ($this->components[$componentName]["type"] === "fileRef") {
 
-                $defaultVal = "<link rel='stylesheet' href='$filePath'></script>";
+                $defaultVal = $this->getFileRef($componentName, $filePath);
 
             }
         }
