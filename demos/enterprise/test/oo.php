@@ -7,7 +7,6 @@ $homeDir = "JanrainDemoSites";
 
 $fsHome = strstr(getcwd(), $homeDir, TRUE) . $homeDir;
 
-// include $fsHome . "/demoGenerator.php";
 include $fsHome . "/includes/includes.php";
 
 /***************************************/
