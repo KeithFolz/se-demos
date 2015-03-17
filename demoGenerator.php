@@ -37,7 +37,7 @@ class demo {
         $this->buildComponent("title", "file", "html", "title", TRUE);
         
         // Stylesheet
-        $this->buildComponent("stylesheet", "css", "css", "head", TRUE);
+        $this->buildComponent("screen", "fileRef", "css", "head", TRUE);
 
         // Navigation (the js file that controls left nav)
         $this->buildComponent("navigation", "fileRef", "js", "head", TRUE);
@@ -188,19 +188,22 @@ class demo {
         
         $filePath = $this->getFullFilePath($componentName, $path);
 
-        if ($componentName === "stylesheet") {
-            $defaultVal = "<link rel='stylesheet' href='" . $filePath . "'/>";
+        if ($this->components[$componentName]["type"] === "file") {
+
+            $filePath = $this->paths["fsHome"] . $filePath;
+
+            $defaultVal = file_get_contents($filePath);
         }
-        else {
+        elseif ($this->components[$componentName]["type"] === "fileRef") {
+            
+            if ($this->components[$componentName]["ext"] === "js") {
 
-            if ($this->components[$componentName]["type"] === "file") {
-                
-                $filePath = $this->paths["fsHome"] . $filePath;
-
-                $defaultVal = file_get_contents($filePath);
-            }
-            elseif ($this->components[$componentName]["type"] === "fileRef") {
                 $defaultVal = "<script src='$filePath' type='text/javascript'></script>";
+            }
+            elseif ($this->components[$componentName]["ext"] === "css") {
+
+                $defaultVal = "<link rel='stylesheet' href='$filePath'></script>";
+
             }
         }
         
@@ -209,7 +212,7 @@ class demo {
     
     private function getDefaultPath($componentName) {
         
-        if ($componentName === "stylesheet") {
+        if ($this->components[$componentName]["ext"] === "css") {
             $path = $this->paths["default"] . "/styles";
         }
         elseif ($componentName === "navigation") {
