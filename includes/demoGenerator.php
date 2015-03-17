@@ -406,13 +406,9 @@ function showDemo($params, $fsHome) {
     // 3. Set the default value.
     $demo->setFinalValues();
     
-    if (empty($_GET["mode"])) {
-        $demo->show();
-    }
-    else { 
-        if ($_GET["mode"] === "debug") {
-            $demo->showAllValues();   
-        }
+    if (empty($_GET["mode"])) { $demo->show(); }
+    elseif ($_GET["mode"] === "debug") {
+        $demo->showAllValues();   
     }
 }
 /*
