@@ -310,7 +310,8 @@ class demo {
     }
     
     private function getNavLinks() {
-        include $this->paths["includes"] . "/navigation.php";
+        
+        global $links, $displayNames; // from includes/navigation.php
 
         // This gets the current directory name for nav purposes
         // It parses $paths["cwd"], which is a path
