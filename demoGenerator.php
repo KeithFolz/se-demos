@@ -18,85 +18,83 @@ class demo {
     // some may be optional
     public function setComponents() {
         
+        /* 
+         * Each type of demo has its own set of required components.
+         * The buildComponent method sets the values for each of the components.
+         * The elements of a component are:
+         * name = "title", "stylesheet", for example. Note: this value will 
+         *      also be used in the file name.
+         * type = file || css || fileRef
+         * ext = file extension
+         * parent = HTML container
+         * required
+         */
+        
         // HEAD elements
 
-        // <title>Janrain Demo Sites</title>
-        $this->components["title"]["type"] = "file";
-        $this->components["title"]["ext"] = "html";
-        $this->components["title"]["parent"] = "head";
-        $this->components["title"]["required"] = TRUE;
+        // Title
+        // <title>Janrain Demo Sites</title>      
+        $this->buildComponent("title", "file", "html", "title", TRUE);
         
-        $this->components["stylesheet"]["type"] = "css";
-        $this->components["stylesheet"]["ext"] = "css";
-        $this->components["stylesheet"]["parent"] = "head";
-        $this->components["stylesheet"]["required"] = TRUE;
-        
-        $this->components["navigation"]["type"] = "fileRef";
-        $this->components["navigation"]["ext"] = "js";
-        $this->components["navigation"]["parent"] = "head";
-        $this->components["navigation"]["required"] = TRUE;
-        
+        // Stylesheet
+        $this->buildComponent("stylesheet", "css", "css", "head", TRUE);
+
+        // Navigation (the js file that controls left nav)
+        $this->buildComponent("navigation", "fileRef", "js", "head", TRUE);
+
+        // Janrain js settings
         // <script>
         //      janrain.settings.width = '330';
         // </script>
-        $this->components["janrainSettings"]["type"] = "file";
-        $this->components["janrainSettings"]["ext"] = "html";
-        $this->components["janrainSettings"]["parent"] = "head";
-        $this->components["janrainSettings"]["required"] = FALSE;
+        $this->buildComponent("janrainSettings", "file", "html", "head", FALSE);
         
         // <script>some random code</script>
         // <script>another script</script>
-        $this->components["otherScripts"]["type"] = "file";
-        $this->components["otherScripts"]["ext"] = "html";
-        $this->components["otherScripts"]["parent"] = "head";
-        $this->components["otherScripts"]["required"] = FALSE;
-        
-        // BODY elements
-                
-        // <h1>Janrain Social Login Demos</h1>
-        $this->components["heading"]["type"] = "file";
-        $this->components["heading"]["ext"] = "html";
-        $this->components["heading"]["parent"] = "body";
-        $this->components["heading"]["required"] = TRUE;
+        $this->buildComponent("otherScripts", "file", "html", "head", FALSE);
 
-        // main content of page
-        $this->components["content"]["type"] = "file";
-        $this->components["content"]["ext"] = "html";
-        $this->components["content"]["parent"] = "body";
-        $this->components["content"]["required"] = TRUE;
+        // BODY elements
         
-        // Demo-specific settings
+        // Heading
+        // <h1>Janrain Social Login Demos</h1>
+        $this->buildComponent("heading", "file", "html", "header", TRUE);
+
+        // Content
+        // main content of page
+        $this->buildComponent("content", "file", "html", "body", TRUE);
+        
+        // Navigation
+        $this->buildComponent("global_nav", "file", "html", "navigation", TRUE);
+        $this->buildComponent("home", "file", "html", "navigation", TRUE);
+        $this->buildComponent("sidebar_col", "file", "html", "navigation", TRUE);
+        
+        // htmlTemplate
+        $this->buildComponent("htmlTemplate", "file", "html", "htmlTemplate", TRUE);
+        
+        // DemoType-specific settings
         if ($this->params["typeOfDemo"] === "enterprise") {
         
             // <script src = 'janrain-init.js'></script>
-            $this->components["janrain-init"]["type"] = "fileRef";
-            $this->components["janrain-init"]["ext"] = "js";
-            $this->components["janrain-init"]["parent"] = "head";
-            $this->components["janrain-init"]["required"] = TRUE;
+            $this->buildComponent("janrain-init", "fileRef", "js", "head", TRUE);
             
             // <script src = 'janrain-utils.js'></script>
-            $this->components["janrain-utils"]["type"] = "fileRef";
-            $this->components["janrain-utils"]["ext"] = "js";
-            $this->components["janrain-utils"]["parent"] = "head";
-            $this->components["janrain-utils"]["required"] = TRUE;
+            $this->buildComponent("janrain-utils", "fileRef", "js", "head", TRUE);
             
             // <a href="#" id="captureSignInLink" 
             // onclick="janrain.capture.ui.renderScreen('signIn')">
             // Sign In / Sign Up</a>
-            $this->components["signinLinks"]["type"] = "file";
-            $this->components["signinLinks"]["ext"] = "html";
-            $this->components["signinLinks"]["parent"] = "body";
-            $this->components["signinLinks"]["required"] = TRUE;
+            $this->buildComponent("signinLinks", "file", "html", "body", TRUE);
             
             // Janrain JTL + HTML
-            $this->components["widgetScreens"]["type"] = "file";
-            $this->components["widgetScreens"]["ext"] = "html";
-            $this->components["widgetScreens"]["parent"] = "body";
-            $this->components["widgetScreens"]["required"] = TRUE;
+            $this->buildComponent("widgetScreens", "file", "html", "body", TRUE);
 
-        }
-        
-        echo "<p>The type of demo is " . $this->params["typeOfDemo"];
+        }        
+    }
+    
+    private function buildComponent($name, $type, $ext, $parent, $required) {
+        $this->components[$name]["type"] = $type;
+        $this->components[$name]["ext"] = $ext;
+        $this->components[$name]["parent"] = $parent;
+        $this->components[$name]["required"] = $required;
     }
     
     // sets values for various needed paths in the filesystem and web
@@ -106,63 +104,92 @@ class demo {
         $this->paths["default"] = $this->paths["home"] . "/default";
         $this->paths["templates"] = $this->paths["default"] . "/templates";
         $this->paths["typeOfDemo"] = $this->paths["templates"] . "/" . $this->params["typeOfDemo"];
+        $this->paths["navigation"] = $this->paths["templates"] . "/navigation";
         
         $this->paths["fsHome"] = strstr($home, $this->paths["home"], TRUE);
-         
+        $this->paths["includes"] = $this->paths["fsHome"] . $this->paths["default"] . "/includes";
+
         $this->paths["cwd"] = getcwd(); // current working directory
+    }
+    
+    public function setFinalValues() {
         
-        echo "<p>Here are the paths: ";
+        $componentNames = array_keys($this->components);
         
-        foreach ($this->paths as $key => $path) {
-            echo "<p>" . $key . " is " . $path;
+        foreach ($componentNames as $componentName) {
+            
+            $this->components[$componentName]["finalValue"] = 
+                    $this->findValue($componentName);
         }
     }
     
-    public function setValues() {
-        
-        foreach ($this->components as $componentName => $properties) {
-            echo "<p>The component is " . $componentName;
+    private function findValue($componentName) {
+                
+        if (!empty($this->params[$componentName])) {
+            return $this->params[$componentName];
+        }
+        else {
             
-            if (empty($this->params[$componentName])) {
-                echo "<p>The user did not explicitly supply a value for this component.";
+            if ($this->components[$componentName]["required"] === TRUE) {
                 
-                if ($this->components[$componentName]["required"] === TRUE) {
+                if ($this->fileExistsInLocalDir($componentName)) {
+            
+                    return file_get_contents($this->getFullFilePath($componentName, $this->paths["cwd"]));
+                }
+                else { 
                     
-                    $filePath = $this->getFullFilePath($componentName, $this->paths["cwd"]);
+                    return $this->getDefaultValue($componentName);
+                }
+            }
+        }            
+    }
+    
+    private function fileExistsInLocalDir($componentName) {
+        
+        return (file_exists($this->getFullFilePath($componentName, $this->paths["cwd"])));
+    
+    }
+    
+    private function setAllPossibleValues() {
+        $componentNames = array_keys($this->components);
+        
+        foreach ($componentNames as $componentName) {
+            
+            if (array_key_exists($componentName, $this->params)) {
                 
-                    if (file_exists($filePath)) {
-                        echo "<p>A local file exists.";
-
-                        $this->components[$componentName]["finalValue"] = file_get_contents($filePath);
-
-                    }
-                    else {
-                        echo "<p>A local file does not exist.";
-                        $this->assignDefaultValue($componentName);
-                    }
+                if (!empty($this->params[$componentName])) {
+                    $this->components[$componentName]["usv"] = $this->params[$componentName];
                 }
-                else {
-                    $this->components[$componentName]["finalValue"] = "<p>Optional</p>";
-                }
+                else { $this->components[$componentName]["usv"] = ""; }
+            }
+            else { $this->components[$componentName]["usv"] = ""; }
+
+            if ($this->fileExistsInLocalDir($componentName)) {
+                $this->components[$componentName]["localDir"] = 
+                        $this->getFullFilePath($componentName, $this->paths["cwd"]);    
             }
             else {
-                echo "<p>The user supplied the following value: <xmp>" . $this->params[$componentName] . "</xmp>";
-                $this->components[$componentName]["finalValue"] = $this->params[$componentName];
-
+                $this->components[$componentName]["localDir"] = "no";
             }
-            echo "<hr>";
+            
+            if ($this->components[$componentName]["required"] === TRUE) {
+                $this->components[$componentName]["defaultValue"] = 
+                        $this->getDefaultValue($componentName);
+            }
+            else {
+                $this->components[$componentName]["defaultValue"] = "optional";
+            }
         }
     }
     
-    private function assignDefaultValue($componentName) {
+    private function getDefaultValue($componentName) {
         
         $path = $this->getDefaultPath($componentName);
         
         $filePath = $this->getFullFilePath($componentName, $path);
 
         if ($componentName === "stylesheet") {
-            $this->components[$componentName]["finalValue"] = 
-               "<link rel='stylesheet' href='" . $filePath . "'/>";
+            $defaultVal = "<link rel='stylesheet' href='" . $filePath . "'/>";
         }
         else {
 
@@ -170,19 +197,29 @@ class demo {
                 
                 $filePath = $this->paths["fsHome"] . $filePath;
 
-                $this->components[$componentName]["finalValue"] = file_get_contents($filePath);
+                $defaultVal = file_get_contents($filePath);
             }
             elseif ($this->components[$componentName]["type"] === "fileRef") {
-                $this->components[$componentName]["finalValue"] = 
-                     "<script src='$filePath' type='text/javascript'></script>";
+                $defaultVal = "<script src='$filePath' type='text/javascript'></script>";
             }
         }
+        
+        return $defaultVal;
     }
     
     private function getDefaultPath($componentName) {
         
-        if ($componentName === "stylesheet" || $componentName === "navigation") {
-            $path = $this->paths["default"];
+        if ($componentName === "stylesheet") {
+            $path = $this->paths["default"] . "/styles";
+        }
+        elseif ($componentName === "navigation") {
+            $path = $this->paths["default"] . "/scripts";
+        }
+        elseif ($this->components[$componentName]["parent"] === "navigation") {
+            $path = $this->paths["templates"] . "/navigation";
+        }
+        elseif ($componentName === "htmlTemplate") {
+            $path = $this->paths["templates"];
         }
         else {
             $path = $this->paths["typeOfDemo"];
@@ -191,7 +228,6 @@ class demo {
         return $path;
     }
 
-    
     private function getFileName($componentName) {
         return $componentName . "." . $this->components[$componentName]["ext"];
     }
@@ -201,42 +237,128 @@ class demo {
         
         return $filePath . "/" . $fileName;
     }
-    
-    public function showFinalValues() {
+
+    // This is a debug function. It shows all of the paths and component
+    // settings in a plain table. Fire this fucntion by adding
+    // ?mode=debug to the url of your demo
+    public function showAllValues() {
         
-        echo "<hr>";
+        echo "<p>The type of demo is " . $this->params["typeOfDemo"] . "</p>";
         
-        foreach ($this->components as $componentName => $values) {
-            
-            echo "<p>The component name is: " . $componentName;
-            
-            echo "<p>The final value is: <xmp>" . $values["finalValue"] . "</xmp>";
+        $this->setAllPossibleValues();
+        
+        $pathsString = "<p><b>Paths</b></p>";
+        
+        $pathsString .= "<table border = '1'>";
+        
+        foreach ($this->paths as $key => $path) {
+            $pathsString .= "<tr>";
+            $pathsString .= "<td>" . $key . "</td><td>" . $path . "</td>";
+            $pathsString .= "</tr>";
         }
+        
+        $pathsString .= "</table>";
+        
+        echo $pathsString;
+        
+        echo "<p><b>Values</b></p>";
+        
+        $componentNames = array_keys($this->components);
+        
+        $thisString = "<table border = '1'>";
+        $thisString .= "<tr><td>Component</td><td>user-supplied value</td><td>File in local dir?</td><td>Default</td><td>Final</td></tr>";
+        
+        $valueTypes = array("usv", "localDir", "defaultValue", "finalValue");
+        
+        foreach ($componentNames as $componentName) {
+            
+            $thisString .= "<tr>";
+            $thisString .= "<td>" . $componentName . "</td>";
+            
+            foreach ($valueTypes as $valueType) {
+                $thisString .= $this->getTableCell($componentName, $valueType);
+            }
+
+            $thisString .= "</tr>"; 
+            
+        }
+        $thisString .= "</table>";
+        
+        echo $thisString;
     }
+    
+    private function getTableCell($componentName, $value) {
+        
+        // max number of chars to display from each component finalVal
+        $outputMax = 250;
+        
+        $returnString = "<td><xmp>";
+        
+        $returnString .= substr($this->components[$componentName][$value], 0, $outputMax);
+        
+        $returnString .= "</xmp></td>";
+        
+        return $returnString;
+    }
+
+    private function replaceHolder($target, $arrow, $barnside) {
+        $target = "<!--" . $target . " placeholder-->";
+        return str_replace($target, $arrow, $barnside);
+    }
+    
+    private function getNavLinks() {
+        include $this->paths["includes"] . "/navigation.php";
+
+        // This gets the current directory name for nav purposes
+        // It parses $paths["cwd"], which is a path
+        $navFolder = basename(dirname($this->paths["cwd"]));
+
+        // This is a hack to accommodate the token URL
+        if ($navFolder === "templates") {
+            $navFolder = "socialLogin";
+        }
+
+        $returnString = "";
+        
+        foreach($links as $listName => $linkList) {
+
+            if ($listName === $navFolder) { $liClass = "dropdown expanded"; }
+            else { $liClass = "dropdown"; }
+
+            $returnString .= "<li class='$liClass'>\n";
+            $returnString .= "\t<a><span class='icon-navigation quilt-icon-folder'></span>\n";
+            $returnString .= " $displayNames[$listName]</a>\n";
+            $returnString .= "\t<ul class='children'>\n";
+
+            foreach($linkList as $link => $linkName) {
+                $thisLink = $this->paths["home"] . "/demos/" . $listName . "/" . $link;
+                $returnString .= "<li><a href = '$thisLink'>$linkName</a></li>\n";
+            }
+
+            $returnString .= "</ul></li>";
+        }
+
+        return $returnString;
+
+    }   
     
     public function show() {
         
-        $output = "<html>\n";
+        $output = $this->replaceHolder("title", $this->components["title"]["finalValue"], $this->components["htmlTemplate"]["finalValue"]);
         
-        $output .= "<head>\n";
+        $output = $this->replaceHolder("head", $this->getElements("head"), $output);
         
-        $output .= $this->getElements("head");
+        $this->components["sidebar_col"]["finalValue"] = $this->replaceHolder("links", $this->getNavLinks(), $this->components["sidebar_col"]["finalValue"]);
+
+        $output = $this->replaceHolder("navigation", $this->getElements("navigation"), $output);
+
+        $output = $this->replaceHolder("header", $this->components["heading"]["finalValue"], $output);
         
-        // echo "<p>The return value is: <xmp>" . $this->getElements("head");
-        
-        $output .= "</head>\n";
-        
-        $output .= "<body>\n";
-        
-        $output .= $this->getElements("body");
-        
-        $output .= "</body>\n";
-        
-        $output .= "</html>";
+        $output = $this->replaceHolder("body", $this->getElements("body"), $output);
         
         echo $output;
     }
-    
+   
     private function getElements($type) {
         
         $returnVal = "";
@@ -245,13 +367,12 @@ class demo {
             
             if ($component["parent"] === $type) {
                 
-                $finalVal = $component["finalValue"];
-                
-                if ($finalVal != "<p>Optional</p>") {
+                if (!empty($component["finalValue"])) {
                     $returnVal .= $component["finalValue"] . "\n\n";
                 }
             }
         }
+
         return $returnVal;    
     }
 }
@@ -279,12 +400,16 @@ function showDemo($params, $fsHome) {
     // 1. Check for a user-passed parameter. else:
     // 2. Check for a file in the local directory. else:
     // 3. Set the default value.
-    $demo->setValues();
-        
-    $demo->showFinalValues();
+    $demo->setFinalValues();
     
-    $demo->show();
-
+    if (empty($_GET["mode"])) {
+        $demo->show();
+    }
+    else { 
+        if ($_GET["mode"] === "debug") {
+            $demo->showAllValues();   
+        }
+    }
 }
 /*
 $configItems = array(); // initializing just to avoid warnings
@@ -569,3 +694,5 @@ function getNavLinks() {
     return $returnString;
 
 }
+
+ */
