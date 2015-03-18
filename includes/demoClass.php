@@ -42,16 +42,6 @@ class demo {
         // Navigation (the js file that controls left nav)
         $this->buildComponent("navigation", "fileRef", "js", "head", TRUE);
 
-        // Janrain js settings
-        // <script>
-        //      janrain.settings.width = '330';
-        // </script>
-        $this->buildComponent("janrainSettings", "file", "html", "head", FALSE);
-        
-        // <script>some random code</script>
-        // <script>another script</script>
-        $this->buildComponent("otherScripts", "file", "html", "head", FALSE);
-
         // BODY elements
         
         // Heading
@@ -87,7 +77,17 @@ class demo {
             // Janrain JTL + HTML
             $this->buildComponent("widgetScreens", "file", "html", "body", TRUE);
 
-        }        
+        }
+        
+        // Janrain js settings
+        // <script>
+        //      janrain.settings.width = '330';
+        // </script>
+        $this->buildComponent("janrainSettings", "file", "html", "head", FALSE);
+        
+        // <script>some random code</script>
+        // <script>another script</script>
+        $this->buildComponent("otherScripts", "file", "html", "head", FALSE);
     }
     
     private function buildComponent($name, $type, $ext, $parent, $required) {
