@@ -1,17 +1,19 @@
 <?php
 
 class demo {
-    public $params;
-    public $fsHome;
-    public $homeDir;
+    public $params; // user-supplied parameters
+    public $fsHome; // filesystem home (full path)
+    public $homeDir; // homedir for demos (default = JanrainDemoSites)
+    public $typeOfDemo; // enterprise || engagement || socialRedirect || socialAjax
         
     private $paths;
     private $components;
     
     public function setDemoType() {
         if (empty($this->params["typeOfDemo"])) {
-            $this->params["typeOfDemo"] = "enterprise";
+            $this->typeOfDemo = "enterprise";
         }
+        else { $this->typeOfDemo = $this->params["typeOfDemo"]; }
     }
 
     // sets the list of fields that are needed for this demo type
@@ -61,7 +63,7 @@ class demo {
         $this->buildComponent("htmlTemplate", "file", "html", "htmlTemplate", TRUE);
         
         // DemoType-specific settings
-        if ($this->params["typeOfDemo"] === "enterprise") {
+        if ($this->typeOfDemo === "enterprise") {
         
             // <script src = 'janrain-init.js'></script>
             $this->buildComponent("janrain-init", "fileRef", "js", "head", TRUE);
@@ -103,13 +105,14 @@ class demo {
         $this->paths["home"] = "/" . basename($home);
         $this->paths["default"] = $this->paths["home"] . "/default";
         $this->paths["templates"] = $this->paths["default"] . "/templates";
-        $this->paths["typeOfDemo"] = $this->paths["templates"] . "/" . $this->params["typeOfDemo"];
+        $this->paths["typeOfDemo"] = $this->paths["templates"] . "/" . $this->typeOfDemo;
         $this->paths["navigation"] = $this->paths["templates"] . "/navigation";
         
         $this->paths["fsHome"] = strstr($home, $this->paths["home"], TRUE);
         // $this->paths["includes"] = $this->paths["fsHome"] . $this->paths["default"] . "/includes";
 
         $this->paths["cwd"] = getcwd(); // current working directory
+        $this->paths["thisFolder"] = basename($this->paths["cwd"]);
     }
     
     public function setFinalValues() {
@@ -124,7 +127,7 @@ class demo {
     }
     
     private function findValue($componentName) {
-                
+        // First, check for a user-supplied value        
         if (!empty($this->params[$componentName])) {
             
             if ($this->components[$componentName]["type"] === "file") {
@@ -134,6 +137,7 @@ class demo {
             }
             else { $returnVal = $this->params[$componentName]; }
         }
+        // If no user-supplied value, check for a file in the local directory
         elseif ($this->fileExistsInLocalDir($componentName)) {
                             
             if ($this->components[$componentName]["type"] === "fileRef") {
@@ -145,6 +149,7 @@ class demo {
                 $returnVal = file_get_contents($fullFilePath);
             }
         }
+        // If no file in the local directory, assign the default value
         elseif ($this->components[$componentName]["required"] === TRUE)  { 
 
             $returnVal = $this->getDefaultValue($componentName);
@@ -207,10 +212,22 @@ class demo {
         }
     }
     
+    private function getDisplayValue($folderName) {
+        
+        global $links; // from includes/navigation.php
+        
+        return $links[$this->typeOfDemo][$folderName];
+        
+    }
     private function getDefaultValue($componentName) {
         
-        if ($componentName === "title") {             
-            $defaultVal = "<title>Janrain " . $this->params["typeOfDemo"] . " demo</title>";
+        if ($componentName === "title" || $componentName === "heading") { 
+            $baseString = "Janrain " . $this->typeOfDemo . " demos: " . $this->getDisplayValue($this->paths["thisFolder"]);
+            
+            if ($componentName === "title") {
+                $defaultVal = "<title>" . $baseString . "</title>\n";
+            }
+            else { $defaultVal = "<h1>" . $baseString . "</h1>\n"; }
         }
         else {
             $path = $this->getDefaultPath($componentName);
@@ -269,7 +286,7 @@ class demo {
     // ?mode=debug to the url of your demo
     public function showAllValues() {
         
-        echo "<p>The type of demo is " . $this->params["typeOfDemo"] . "</p>";
+        echo "<p>The type of demo is " . $this->typeOfDemo . "</p>";
         
         $this->setAllPossibleValues();
         
@@ -336,20 +353,18 @@ class demo {
         
         global $links, $displayNames; // from includes/navigation.php
 
-        // This gets the current directory name for nav purposes
-        // It parses $paths["cwd"], which is a path
-        $navFolder = basename(dirname($this->paths["cwd"]));
-
         // This is a hack to accommodate the token URL
+        /*
         if ($navFolder === "templates") {
             $navFolder = "socialLogin";
         }
-
+        */
+        
         $returnString = "";
         
         foreach($links as $listName => $linkList) {
 
-            if ($listName === $navFolder) { $liClass = "dropdown expanded"; }
+            if ($listName === basename(dirname($this->paths["cwd"]))) { $liClass = "dropdown expanded"; }
             else { $liClass = "dropdown"; }
 
             $returnString .= "<li class='$liClass'>\n";
