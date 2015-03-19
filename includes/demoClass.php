@@ -134,28 +134,23 @@ class demo {
             }
             else { $returnVal = $this->params[$componentName]; }
         }
-        else {
-            
-            if ($this->components[$componentName]["required"] === TRUE) {
-                
-                if ($this->fileExistsInLocalDir($componentName)) {
-                                        
-                    if ($this->components[$componentName]["type"] === "fileRef") {
-                        $returnVal = $this->getFileRef($componentName, $this->getFileName($componentName));
-                    }
-                    elseif ($this->components[$componentName]["type"] === "file") {
-                        $fullFilePath = $this->getFullFilePath($componentName, $this->paths["cwd"]);
-
-                        $returnVal = file_get_contents($fullFilePath);
-                    }
-                }
-                else { 
-                    
-                    $returnVal = $this->getDefaultValue($componentName);
-                }
+        elseif ($this->fileExistsInLocalDir($componentName)) {
+                            
+            if ($this->components[$componentName]["type"] === "fileRef") {
+                $returnVal = $this->getFileRef($componentName, $this->getFileName($componentName));
             }
-            else { $returnVal = ""; }
+            elseif ($this->components[$componentName]["type"] === "file") {
+                $fullFilePath = $this->getFullFilePath($componentName, $this->paths["cwd"]);
+
+                $returnVal = file_get_contents($fullFilePath);
+            }
         }
+        elseif ($this->components[$componentName]["required"] === TRUE)  { 
+
+            $returnVal = $this->getDefaultValue($componentName);
+        }
+        else { $returnVal = ""; }
+        
         return $returnVal;
     }
     

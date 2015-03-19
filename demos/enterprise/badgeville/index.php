@@ -27,8 +27,6 @@ include $fsHome . "/includes/includes.php";
 // $params["title"] = "<title>Janrain Demo Site</title>";
 
 $params["title"] = "<title>Janrain Enterprise with Badgeville</title>";
-$params["otherScripts"] = "scripts.html";
-
 
 // End of section where you set parameters
 
