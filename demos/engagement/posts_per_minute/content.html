@@ -1,6 +1,3 @@
-
-
-
 <!-- This is a demo of <b>Posts Per Minute</b>. -->
 
 <h2> Posts Per Minute </h2>
@@ -44,16 +41,18 @@ Note that this demo is based on the Backplane 1.2 specification. For more detail
 <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
 <script src="http://cdn.arktan.com/ark-woj-min.js"></script>
 
-
 <script>
+
 var ArktanSocialStreamsConfig = {
 	"source":{
 		"name": "Arktan.com",
 		"uri": "http://www.arktan.com"
 		},
-		"janrainAppName": "arktan-ext-poc",
-		"busName": "arktan-ext-poc",
+		"janrainAppName": "janrain-se-demo",
+		"busName": "se-demo",
 		"appkey": "dev.janrain",
+		"identityUrl": "https://janrain-se-demo.rpxnow.com/openid/embed?flags=stay_in_window,no_immediate&token_url=http%3A%2F%2Fsandbox.arktan.com%2Farkjs%2Fwaiting.html&bp_channel=",		
+
     		"visualization":{
         	"vizname":"grid4",
         	"columnWidth":240
@@ -65,79 +64,22 @@ var ArktanSocialStreamsConfig = {
   		 	 "type":"stream",
     		 "id": "streams",
    			 "streamTarget":"default_stream",
-  			 "streamID": "http://www.janrain.com/id_ThreeTwitterHashtags",
+  			 "streamID": "http://www.janrain.com/solutions/id_demo_PPM_chart",
    			 "maxItems":15
-  },
-		
-		
+  		},
+
 		{	
 		"type":"postsPerMinute", 
 		"id": "ppm1", 
 		"targetDOM": "ppm-all", 
-		"trendID" : "http://www.janrain.com/id_PPMFemVocs",
+		"trendID" : "http://www.janrain.com/solutions/id_demo_trend_PPM_counter",
 		"filter":"all"
 		},
 			{	
 		"type":"postsPerMinuteChart", 
 		"id": "ppm-chart1", 
 		"targetDOM": "ppm-chart1", 
-		"streamID": "http://www.janrain.com/id_ThreeTwitterHashtags", 
-		"metric": "minutes",
-		"interval": 10 //indicates how many bars to show.
-		},	
-	
-	]
-	}; //end of ArktanSocialStreamsConfig 
-
-	$(document).ready(function(){  //When the document is ready, load the configuration
-		Arktan.SocialApps.install(ArktanSocialStreamsConfig);	
-	});  //Document ready handler
-
-	</script>
-
-<!-- End Commenting HTML -->
-
-<!-- Begin script required for counter module -->
-<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
-<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
-
-<script>
-var ArktanSocialStreamsConfig = {
-	"source":{
-		"name": "Arktan.com",
-		"uri": "http://www.arktan.com"
-		},
-		"janrainAppName": "arktan-ext-poc",
-		"busName": "arktan-ext-poc",
-		"appkey": "dev.janrain",
-    		"visualization":{
-        	"vizname":"grid4",
-        	"columnWidth":240
-    		},
-		"reply": false,
-		"autoload": false,
-		"apps": [
-		  {
-  		 	 "type":"stream",
-    		 "id": "streams",
-   			 "streamTarget":"default_stream",
-  			 "streamID": "http://www.janrain.com/id_ThreeTwitterHashtags",
-   			 "maxItems":15
-  },
-		
-		
-		{	
-		"type":"postsPerMinute", 
-		"id": "ppm1", 
-		"targetDOM": "ppm-all", 
-		"trendID" : "http://www.janrain.com/id_PPMFemVocs",
-		"filter":"all"
-		},
-			{	
-		"type":"postsPerMinuteChart", 
-		"id": "ppm-chart1", 
-		"targetDOM": "ppm-chart1", 
-		"streamID": "http://www.janrain.com/id_ThreeTwitterHashtags", 
+		"streamID": "http://www.janrain.com/solutions/id_demo_PPM_chart", 
 		"metric": "minutes",
 		"interval": 10 //indicates how many bars to show.
 		},	
