@@ -7,6 +7,11 @@ $displayNames["socialRedirect"] = "Social Login";
 $displayNames["socialAjax"] = "Social Login";
 $displayNames["engagement"] = "Engagement";
 
+$navFolder["enterprise"] = "enterprise";
+$navFolder["socialRedirect"] = "socialLogin";
+$navFolder["socialAjax"] = "socialLogin";
+$navFolder["engagement"] = "engagement";
+
 // Value on left is the folder name
 // Value on right is the name displayed in the UI
 $links["enterprise"] = array (
@@ -29,7 +34,7 @@ $links["socialLogin"] = array (
     "noPopup" => "FullScreen IDPs",
     "google_analytics" => "Google Analytics",
     "standard-ajax" => "Standard - ajax",
-    "standard-redirect" => "Standard - redirect"
+    "standard-redirect" => "Standard - redirect",
 );
 
 $links["engagement"] = array (

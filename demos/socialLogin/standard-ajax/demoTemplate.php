@@ -20,13 +20,13 @@ include $fsHome . "/includes/includes.php";
 // 
 // typeOfDemo = engagement || enterprise || socialAjax || socialRedirect
 // 
-$params["typeOfDemo"] = "socialRedirect";
+$params["typeOfDemo"] = "socialAjax";
 //
 // title = title for the demo, enclosed in <title> tags
 // 
 // $params["title"] = "<title>Janrain Demo Site</title>";
 
-$params["title"] = "<title>Janrain Demo Site: Social Login - Standard w/Redirect</title>";
+$params["title"] = "<title>Janrain Social Login: Ajax</title>";
 
 // End of section where you set parameters
 

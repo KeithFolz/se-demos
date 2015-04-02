@@ -80,7 +80,33 @@ class demo {
             $this->buildComponent("widgetScreens", "file", "html", "body", TRUE);
 
         }
-        
+        elseif ($this->typeOfDemo === "socialAjax" || $this->typeOfDemo === "socialRedirect") {
+            
+            // $this->buildComponent("widgetScreens", "file", "html", "body", TRUE);
+            
+            // Janrain widget onload()
+            $this->buildComponent("jwol", "file", "html", "head", FALSE);
+            
+            // Main social login script (includes token URL)
+            $this->buildComponent("socialLogin", "file", "html", "head", TRUE);
+
+            if ($this->typeOfDemo === "socialAjax") {
+                
+                // Path to the Ajax script
+                $this->buildComponent("ajaxScript", "fileRef", "php", "head", TRUE);
+                
+                // Error-checking
+                // Can't remember exactly what this does at the moment
+                $this->buildComponent("errorChecking", "fileRef", "html", "head", FALSE);
+           
+            }
+            else {
+                // Token URL
+                $this->buildComponent("tokenURL", "fileRef", "php", "n/a", TRUE);
+
+            }
+        }
+      
         // Janrain js settings
         // <script>
         //      janrain.settings.width = '330';
@@ -124,6 +150,12 @@ class demo {
             $this->components[$componentName]["finalValue"] = 
                     $this->findValue($componentName);
         }
+       
+        $this->components["sidebar_col"]["finalValue"] = $this->replaceHolder("links", $this->getNavLinks(), $this->components["sidebar_col"]["finalValue"]);
+
+        if ($this->typeOfDemo === "socialRedirect") {
+            $this->components["socialLogin"]["finalValue"] = $this->replaceHolder("tokenURL", $this->components["tokenURL"]["finalValue"], $this->components["socialLogin"]["finalValue"]);        
+        }
     }
     
     private function findValue($componentName) {
@@ -132,8 +164,8 @@ class demo {
             
             if ($this->components[$componentName]["type"] === "file") {
                 
-                $returnVal = file_get_contents($this->params[$componentName]);
-                
+                // $returnVal = file_get_contents($this->params[$componentName]);
+                $returnVal = $this->params[$componentName];
             }
             else { $returnVal = $this->params[$componentName]; }
         }
@@ -169,6 +201,10 @@ class demo {
 
             $returnVal = "<link rel='stylesheet' href='$filePath'></script>";
 
+        }
+        elseif ($componentName === "tokenURL") {
+
+            $returnVal = "http://" . $_SERVER["SERVER_NAME"] . $filePath;
         }
         return $returnVal;
 
@@ -214,15 +250,21 @@ class demo {
     
     private function getDisplayValue($folderName) {
         
-        global $links; // from includes/navigation.php
+        global $links, $navFolder; // from includes/navigation.php
         
-        return $links[$this->typeOfDemo][$folderName];
+        $listName = $navFolder[$this->typeOfDemo];
+
+        return $links[$listName][$folderName];
         
     }
+    
     private function getDefaultValue($componentName) {
         
+        global $displayNames;
+        
         if ($componentName === "title" || $componentName === "heading") { 
-            $baseString = "Janrain " . $this->typeOfDemo . " demos: " . $this->getDisplayValue($this->paths["thisFolder"]);
+            
+            $baseString = "Janrain " . $displayNames[$this->typeOfDemo] . " demos: " . $this->getDisplayValue($this->paths["thisFolder"]);
             
             if ($componentName === "title") {
                 $defaultVal = "<title>" . $baseString . "</title>\n";
@@ -233,7 +275,7 @@ class demo {
             $path = $this->getDefaultPath($componentName);
         
             $filePath = $this->getFullFilePath($componentName, $path);
-        
+                    
             if ($this->components[$componentName]["type"] === "file") {
 
                 $filePath = $this->paths["fsHome"] . $filePath;
@@ -304,9 +346,41 @@ class demo {
         
         echo $pathsString;
         
-        echo "<p><b>Values</b></p>";
-        
         $componentNames = array_keys($this->components);
+        
+        echo "<p><b>Components</b></p>";
+        
+        $thisString = "<table border = '1'>";
+        $thisString .= "<tr><td>Component</td><td>Type</td><td>ext</td><td>parent</td><td>required?</td></tr>";
+/*
+ *     
+    private function buildComponent($name, $type, $ext, $parent, $required) {
+        $this->components[$name]["type"] = $type;
+        $this->components[$name]["ext"] = $ext;
+        $this->components[$name]["parent"] = $parent;
+        $this->components[$name]["required"] = $required;
+    }
+ */
+        $dataTypes = array("type", "ext", "parent", "required");
+        
+        foreach ($componentNames as $componentName) {
+            
+            $thisString .= "<tr>";
+            
+            $thisString .= "<td>" . $componentName . "</td>";
+            
+            foreach ($dataTypes as $dataType) {
+                $thisString .= "<td>" . $this->components[$componentName][$dataType] . "</td>";
+            }
+            
+            $thisString .= "</tr>";
+        }
+        
+        $thisString .= "</table>";
+        
+        echo $thisString;
+        
+        echo "<p><b>Values</b></p>";
         
         $thisString = "<table border = '1'>";
         $thisString .= "<tr><td>Component</td><td>user-supplied value</td><td>File in local dir?</td><td>Default</td><td>Final</td></tr>";
@@ -346,25 +420,19 @@ class demo {
 
     private function replaceHolder($target, $arrow, $barnside) {
         $target = "<!--" . $target . " placeholder-->";
+        
         return str_replace($target, $arrow, $barnside);
     }
     
     private function getNavLinks() {
         
-        global $links, $displayNames; // from includes/navigation.php
-
-        // This is a hack to accommodate the token URL
-        /*
-        if ($navFolder === "templates") {
-            $navFolder = "socialLogin";
-        }
-        */
+        global $links, $displayNames, $navFolder; // from includes/navigation.php
         
         $returnString = "";
         
         foreach($links as $listName => $linkList) {
-
-            if ($listName === basename(dirname($this->paths["cwd"]))) { $liClass = "dropdown expanded"; }
+                        
+            if ($listName === $navFolder[$this->typeOfDemo]) { $liClass = "dropdown expanded"; }
             else { $liClass = "dropdown"; }
 
             $returnString .= "<li class='$liClass'>\n";
@@ -385,12 +453,11 @@ class demo {
     }   
     
     public function show() {
-        
+
         $output = $this->replaceHolder("title", $this->components["title"]["finalValue"], $this->components["htmlTemplate"]["finalValue"]);
         
         $output = $this->replaceHolder("head", $this->getElements("head"), $output);
         
-        $this->components["sidebar_col"]["finalValue"] = $this->replaceHolder("links", $this->getNavLinks(), $this->components["sidebar_col"]["finalValue"]);
 
         $output = $this->replaceHolder("navigation", $this->getElements("navigation"), $output);
 

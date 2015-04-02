@@ -73,7 +73,7 @@ if(strlen($token) == 40) { //test the length of the token; it should be 40 chara
 }
 
 /***************************************/
-$homeDirName = "JanrainDemoSites";
+/* $homeDirName = "JanrainDemoSites";
 
 // Finds out where we are in the filesystem and fixes path to home
 $paths["home"] = strstr(getcwd(), $homeDirName, TRUE) . $homeDirName;
@@ -81,10 +81,22 @@ $paths["home"] = strstr(getcwd(), $homeDirName, TRUE) . $homeDirName;
 include $paths["home"] . "/demoGenerator.php";
 /***************************************/
 
-$configItems["content"] = "<p><b>Authentication was successful!</b></p>";
-$configItems["content"] .= "<p>Here is the user's profile:</p>";
-$configItems["content"] .= "<pre>" . $output . "</pre>";
+$homeDir = "JanrainDemoSites";
 
-$typeOfDemo = "socialRedirect";
+// Finds out where we are in the filesystem and fixes path to fsHome
 
-showPage($configItems, $typeOfDemo);
+$fsHome = strstr(getcwd(), $homeDir, TRUE) . $homeDir;
+
+include $fsHome . "/includes/includes.php";
+
+/***************************************/
+
+$params["content"] = "<p><b>Authentication was successful!</b></p>";
+$params["content"] .= "<p>Here is the user's profile:</p>";
+$params["content"] .= "<pre>" . $output . "</pre>";
+
+$params["typeOfDemo"] = "socialRedirect";
+
+// showPage($configItems, $typeOfDemo);
+
+showDemo($params, $fsHome);
