@@ -4,47 +4,39 @@
 <p>
 Engage your visitors with the opportunity to cast their votes on a topic or question from within your site and see the results immediately. </p>
 <p>Try viewing the source to see what's going on.</p>
-<!-- Begin code required for hashtag battle module -->
-
-
 <br><br>
 
-<div align="center">
-<h4>Astrophysics Question of the Day:</h4>
+<!-- Begin code required for polling module -->
 
-<!-- TIP: when adding polling options to your on-site voting trend, prefix the option text
-with '&nbsp;' to give some space between the radio button and the option text. -->
-
-<div id="poll"></div>  
-</div>
-
-<br><hr>
-<div id="default_stream"><div>
-
-
-
-<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
-<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
-<script>
-
-
-var ArktanSocialStreamsConfig = {
+<script type="text/javascript">
+var Arktan = {};
+Arktan.settings = {
   "source":{
-  "name": "Janrain",
-  "uri": "http://www.janrain.com"
-	},
+    "name": "Janrain",
+    "uri": "http://www.janrain.com"
+  },
   "janrainAppName": "janrain-se-demo",
   "busName": "se-demo",
+  
   "appkey": "dev.janrain",
-    "visualization":{
-        "vizname":"grid1",
-        "columnWidth":240
+  "visualization":{
+        	"vizname":"grid1",
+        	"columnWidth":240
     		},
-    "reply": true,
-  	"autoload": true,
+		"reply": false,
+		"autoload": false,
   
   
-"apps": [
+  
+  "flagging": "default",
+  "deleteOption":true,
+  "sortOrder": {
+    "enabled": false,
+    "defaultOption": "sortByRecentFirst",
+    "options": ["sortByRecentFirst", "sortByLikes", "sortByReplies"]
+  },
+  "enableCapture":true,
+  "apps": [
 
 {
 "type":"stream",
@@ -53,7 +45,7 @@ var ArktanSocialStreamsConfig = {
 "streamID": "http://www.janrain.com/solutions/id_demo_hashtag_battle_stream"
 },
 
-  
+
  {
 	"type":"poll",
 	"id": "poll1",
@@ -68,30 +60,34 @@ var ArktanSocialStreamsConfig = {
 	"showResultsOnly":false,
 	"dynamicOptions":false,
 	"theme":"radio",
-	"sharingMode":"twitter",
+	"sharingMode":"twitter",  //If not twitter, than 'showInstantResults' must be set to true to see voting results after voting.
 	"auth":false,
 	"cookie":false
 }
-      ]
+
+
+	]
 };
 
-	$(document).ready(function(){
- 		 Arktan.SocialApps.install(ArktanSocialStreamsConfig);
-	});
 </script>
 
-<script type="text/javascript">
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
 
-    // after the main Janrain Enterprise javascript has loaded, we can make some additional settings tweaks.
-    // see: http://developers.janrain.com/documentation/widgets/social-sign-in-widget/social-sign-in-widget-api/settings/
-    (function () {
-        janrain.settings.capture.backplane = false;
-        janrain.settings.capture.backplaneBusName = 'se-demo';
-        janrain.settings.capture.backplaneVersion = 1.2;
-        janrain.settings.capture.backplaneBlock = 20;
-    })();
+<!-- Start the HTML used by the polling demo -->
+<div align="center">
+<h4>Astrophysics Question of the Day:</h4>
 
-</script>
+<!-- TIP: when adding polling options to your on-site voting trend, prefix the option text
+with '&nbsp;' to give some space between the radio button and the option text. -->
+
+<div id="poll"></div>  
+</div>
+
+<br><hr>
+<div id="default_stream"><div>  <!-- The stream is optional, but is displayed here. -->
+
+<!-- End the HTML used by the poll demo. -->
 
 
-<!-- End Curated Tweets code -->
+<!-- End polling code -->
