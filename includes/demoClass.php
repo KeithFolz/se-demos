@@ -115,6 +115,9 @@ class demo {
                 // Token URL
                 $this->buildComponent("tokenURL", "fileRef", "php", "none", TRUE);
                 
+                $this->buildComponent("janrainSettings", "file", "html", "head", FALSE);
+
+                
             }
         }
 
