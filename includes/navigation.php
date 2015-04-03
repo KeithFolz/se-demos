@@ -30,7 +30,6 @@ $links["enterprise"] = array (
 $links["socialLogin"] = array (
     "backplane" => "Backplane",
     "badgeville" => "Badgeville",
-    "client_side_validation" => "Client Side Validation",
     "noPopup" => "FullScreen IDPs",
     "google_analytics" => "Google Analytics",
     "standard-ajax" => "Standard - ajax",
