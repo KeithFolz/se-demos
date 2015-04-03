@@ -71,6 +71,12 @@ class demo {
             // <script src = 'janrain-utils.js'></script>
             $this->buildComponent("janrain-utils", "fileRef", "js", "head", TRUE);
             
+            // Janrain js settings
+            // <script>
+            //      janrain.settings.width = '330';
+            // </script>
+            $this->buildComponent("janrainSettings", "file", "html", "head", FALSE);
+            
             // <a href="#" id="captureSignInLink" 
             // onclick="janrain.capture.ui.renderScreen('signIn')">
             // Sign In / Sign Up</a>
@@ -81,37 +87,37 @@ class demo {
 
         }
         elseif ($this->typeOfDemo === "socialAjax" || $this->typeOfDemo === "socialRedirect") {
-            
-            // $this->buildComponent("widgetScreens", "file", "html", "body", TRUE);
-            
-            // Janrain widget onload()
-            $this->buildComponent("jwol", "file", "html", "head", FALSE);
-            
-            // Main social login script (includes token URL)
+       
+            // Main social login script
+            // For Social Redirect, this file include reference to Token URL
             $this->buildComponent("socialLogin", "file", "html", "head", TRUE);
 
+            // Error-checking
+            $this->buildComponent("errorChecking", "fileRef", "html", "head", FALSE);
+            
+            // Janrain widget onload()
+            $this->buildComponent("jwol", "file", "html", "head", FALSE);      
+            
             if ($this->typeOfDemo === "socialAjax") {
-                
+
                 // Path to the Ajax script
-                $this->buildComponent("ajaxScript", "fileRef", "php", "head", TRUE);
+                $this->buildComponent("ajaxScript", "fileRef", "php", "none", TRUE);
                 
-                // Error-checking
-                // Can't remember exactly what this does at the moment
-                $this->buildComponent("errorChecking", "fileRef", "html", "head", FALSE);
-           
-            }
-            else {
-                // Token URL
-                $this->buildComponent("tokenURL", "fileRef", "php", "n/a", TRUE);
+                // For Ajax, JWOL is required.
+                $this->buildComponent("jwol", "file", "html", "head", TRUE);
+                
+                $this->buildComponent("janrainSettings", "file", "html", "head", TRUE);
 
             }
+            
+            else {
+
+                // Token URL
+                $this->buildComponent("tokenURL", "fileRef", "php", "none", TRUE);
+                
+            }
         }
-      
-        // Janrain js settings
-        // <script>
-        //      janrain.settings.width = '330';
-        // </script>
-        $this->buildComponent("janrainSettings", "file", "html", "head", FALSE);
+
         
         // <script>some random code</script>
         // <script>another script</script>
@@ -155,6 +161,10 @@ class demo {
 
         if ($this->typeOfDemo === "socialRedirect") {
             $this->components["socialLogin"]["finalValue"] = $this->replaceHolder("tokenURL", $this->components["tokenURL"]["finalValue"], $this->components["socialLogin"]["finalValue"]);        
+        }
+        elseif ($this->typeOfDemo === "socialAjax") {
+            $this->components["jwol"]["finalValue"] = $this->replaceHolder("ajaxScript", $this->components["ajaxScript"]["finalValue"], $this->components["jwol"]["finalValue"]);
+        
         }
     }
     
@@ -206,6 +216,19 @@ class demo {
 
             $returnVal = "http://" . $_SERVER["SERVER_NAME"] . $filePath;
         }
+        elseif ($componentName === "ajaxScript") {
+            
+            $returnVal = $filePath;
+        }
+/*
+        if ($typeOfDemo === "socialAjax") {
+            $target = "__PATH_TO_CLIENT_VALIDATION_SCRIPT__";
+            $arrow = $thesePaths["ajaxScript"];
+            $finalHTML["jwol"] = str_replace($target, $arrow, $finalHTML["jwol"]); 
+        }
+ * 
+ */
+
         return $returnVal;
 
     }
@@ -257,6 +280,13 @@ class demo {
         return $links[$listName][$folderName];
         
     }
+
+    private function getDemoFolderName() {
+        if ($this->paths["thisFolder"] == "socialRedirect") {
+            return "standard-redirect";
+        }
+        else { return $this->paths["thisFolder"]; }
+    }
     
     private function getDefaultValue($componentName) {
         
@@ -264,11 +294,9 @@ class demo {
         
         if ($componentName === "title" || $componentName === "heading") { 
             
-            $baseString = "Janrain " . $displayNames[$this->typeOfDemo] . " demos: " . $this->getDisplayValue($this->paths["thisFolder"]);
+            $baseString = "Janrain " . $displayNames[$this->typeOfDemo] . ": " . $this->getDisplayValue($this->getDemoFolderName());
             
-            if ($componentName === "title") {
-                $defaultVal = "<title>" . $baseString . "</title>\n";
-            }
+            if ($componentName === "title") { $defaultVal = "<title>" . $baseString . "</title>\n"; }
             else { $defaultVal = "<h1>" . $baseString . "</h1>\n"; }
         }
         else {

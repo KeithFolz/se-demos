@@ -72,15 +72,6 @@ if(strlen($token) == 40) { //test the length of the token; it should be 40 chara
   $output .= "<p>Something wrong with the token.</p>";
 }
 
-/***************************************/
-/* $homeDirName = "JanrainDemoSites";
-
-// Finds out where we are in the filesystem and fixes path to home
-$paths["home"] = strstr(getcwd(), $homeDirName, TRUE) . $homeDirName;
-
-include $paths["home"] . "/demoGenerator.php";
-/***************************************/
-
 $homeDir = "JanrainDemoSites";
 
 // Finds out where we are in the filesystem and fixes path to fsHome
@@ -96,7 +87,5 @@ $params["content"] .= "<p>Here is the user's profile:</p>";
 $params["content"] .= "<pre>" . $output . "</pre>";
 
 $params["typeOfDemo"] = "socialRedirect";
-
-// showPage($configItems, $typeOfDemo);
 
 showDemo($params, $fsHome);
