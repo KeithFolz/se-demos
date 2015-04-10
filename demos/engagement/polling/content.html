@@ -45,28 +45,24 @@ Arktan.settings = {
 "streamID": "http://www.janrain.com/solutions/id_demo_hashtag_battle_stream"
 },
 
-
-
  {
+ 	//Note: the style of the automatically displayed results is tied to the 'sharingMode'
+ 	//attribute. Try changing 'sharingMode' between voting tests to see the difference.
 	"type":"poll",
 	"id": "poll1",
 	"targetDOM":"poll",
-	//"poll_id":"http://www.janrain.com/solutions/id_demo_onsite_voting",
 	"poll_id":"http://www.janrain.com/solutions/id_demo_onsite_polling",
 	"question":"Do you think Pluto should be a planet?",
 	"multipleSelection": false,
 	"numberOfSelections": 3,
-	"showResultsLink":true,
-	"showInstantResults":false, //If true, the vote options are replaced by the results after a minute, even if no voting occurred.
-	"showResultsOnly":true,
+	"showResultsLink":true, //This displays a 'show results' link below voting button.
+	"showInstantResults":true,  //Safe to leave this on true. 
 	"dynamicOptions":false,
 	"theme":"radio",
-	"sharingMode":"twitter",  //If not twitter, than 'showInstantResults' must be set to true to see voting results after voting.
+	"sharingMode":"twitter",  //If not twitter, than 'showInstantResults' must be set to true to see voting results automatically after voting.
 	"auth":false,
 	"cookie":false
 }
-
-
 	]
 };
 
