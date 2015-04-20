@@ -48,10 +48,12 @@ var ArktanSocialStreamsConfig = {
     "name": "Janrain",
     "uri": "http://www.janrain.com"
   },
+
   "janrainAppName": "janrain-se-demo",
   "busName": "se-demo",
   "appkey": "dev.janrain",
-		"identityUrl": "https://janrain-se-demo.rpxnow.com/openid/embed?flags=stay_in_window,no_immediate&token_url=http%3A%2F%2Fsandbox.arktan.com%2Farkjs%2Fwaiting.html&bp_channel=",		
+		"identityUrl": "https://janrain-se-demo.rpxnow.com/openid/embed?flags=stay_in_window,no_immediate&token_url=http%3A%2F%2Fsandbox.arktan.com%2Farkjs%2Fwaiting.html&bp_channel=",
+
 
     		"visualization":{
         	"vizname":"grid4",
@@ -68,32 +70,29 @@ var ArktanSocialStreamsConfig = {
    			 "maxItems":15
   		},
 
-		{	
-		"type":"postsPerMinute", 
-		"id": "ppm1", 
-		"targetDOM": "ppm-all", 
+		{
+		"type":"postsPerMinute",
+		"id": "ppm1",
+		"targetDOM": "ppm-all",
 		"trendID" : "http://www.janrain.com/solutions/id_demo_trend_PPM_counter",
 		"filter":"all"
 		},
-			{	
-		"type":"postsPerMinuteChart", 
-		"id": "ppm-chart1", 
-		"targetDOM": "ppm-chart1", 
-		"streamID": "http://www.janrain.com/solutions/id_demo_PPM_chart", 
+			{
+		"type":"postsPerMinuteChart",
+		"id": "ppm-chart1",
+		"targetDOM": "ppm-chart1",
+		"streamID": "http://www.janrain.com/solutions/id_demo_PPM_chart",
 		"metric": "minutes",
 		"interval": 10 //indicates how many bars to show.
-		},	
-	
+		},
+
 	]
-	}; //end of ArktanSocialStreamsConfig 
+	}; //end of ArktanSocialStreamsConfig
 
 	$(document).ready(function(){  //When the document is ready, load the configuration
-		Arktan.SocialApps.install(ArktanSocialStreamsConfig);	
+		Arktan.SocialApps.install(ArktanSocialStreamsConfig);
 	});  //Document ready handler
 
 	</script>
 
 <!-- End script needed by ppm module -->
-
-
-

@@ -46,6 +46,7 @@ $links["engagement"] = array (
   	"word_cloud" => "Word Cloud",
   	"tabs" =>"Tabbed Streams",
   	"posts_per_minute" =>"Posts Per Minute",
+  	"polling" => "Polling",
   	"hashtag_battle" => "Hashtag Battle"
 
 );
