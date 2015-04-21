@@ -35,16 +35,20 @@ $links["socialLogin"] = array (
 );
 
 $links["engagement"] = array (
-    "socialSharing" => "Social Sharing",
-    "commenting" => "Commenting",
-    "live_event_chat" => "Live Event Chat",
-    "site_activity" => "Site Activity",
-    //"curated_social" => "Curated Posts",
-    "fancy_curated_posts" => "Curated Posts",
-    "ratings_and_reviews" => "Ratings and Reviews",
-  	"leader_board" => "Leader Board",
-  	"word_cloud" => "Word Cloud",
-  	"tabs" =>"Tabbed Streams",
-  	"posts_per_minute" =>"Posts Per Minute"
+
+    "commenting" => "<b>Streams:</b> Commenting",
+    "curated_posts" => "<b>Streams:</b> Curated Feed",
+    "tabs" =>"<b>Streams:</b> Curated Tabbed Feed",
+    "live_event_chat" => "<b>Streams:</b> Live Chat",
+    "site_activity" => "<b>Streams:</b> Site Activity Feed",
+
+  	"leader_board" => "<b>Trends:</b> Leader Board",
+    "hashtag_battle" => "<b>Trends:</b> Hashtag Battle",
+  	"word_cloud" => "<b>Trends:</b> Word Cloud",
+    "polling" => "<b>Trends:</b> Polls",
+  	"posts_per_minute" =>"<b>Trends:</b> Posts per Minute",
+
+    "ratings_and_reviews" => "<b>Ratings and Reviews</b>",
+    "socialSharing" => "<b>Social Sharing</b>",
 
 );
