@@ -14,4 +14,4 @@ else { $mode = "w+"; }
 
 $filehandle = fopen($logfileName, $mode);
 
-$fwrite($filehandle, $postString);
+fwrite($filehandle, $postString);
