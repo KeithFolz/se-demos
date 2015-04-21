@@ -111,16 +111,15 @@ var ArktanSocialStreamsConfig = {
 };
  
  
-/* Because the grid3 visualization is already set up for */ 
+/* Because the grid3 visualization is already set up for a fancybox,
+*  we can't apply the fancybox function below without serious conflicts.
+*  Therefore, we must make sure we aren't selecting posts from the grid3. */
  
 
 $(document).on('click',".echo-item-content",function(){  //This handler calls the fancybox function when a post is clicked.
-			var k=0;
-			k=$(this).closest("#default_stream");	//This leaves the grid3 behavior untouched.		
-			console.log("K: " + k.size());
-			if(k.size()===1){
-			console.log("K2: " + k.size());
-	
+		var k=0;
+		k=$(this).closest("#default_instagram");	//This leaves the grid3 behavior untouched.		
+		if(k.size()===0){					//will be zero if 'default_instagram' is not a parent element.
 			var objectId = this.getAttribute('data-original-permalink');	//The permalink contains the url of the post.	
 			var imageRule = '';
 
@@ -136,8 +135,8 @@ $(document).on('click',".echo-item-content",function(){  //This handler calls th
 			"onComplete": function() {
 				$("#ark-container").arkPost();
 			}
-			});   //  end of fancy box ready handler		
-						}
+			});   //  end of fancy box ready function		
+		}
 	});  //end of on click handler  
 
 
