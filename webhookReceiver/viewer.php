@@ -8,8 +8,6 @@ $logfileName = "webhook.txt";
 
 $content = "";
 
-// $content = "<p>" . file_get_contents($logfileName);
-
 $lines = file($logfileName);
 
 for ($i = 1; $i <= 10; $i++) {

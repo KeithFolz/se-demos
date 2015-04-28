@@ -18,11 +18,12 @@ else { $mode = "w+"; }
 
 $filehandle = fopen($logfileName, $mode);
 
-// $dateString = date(DATE_RFC822);
-
-// fwrite($filehandle, "this page was loaded on " . $dateString . "\n");
-
-fwrite($filehandle, $postString);
-fwrite($filehandle, "\n");
-
-// echo "<p>the date is: " . $dateString;
+// If the filehandle is valid, then echo a message and 
+// write the input
+// to the logfile. If the filehandle is not valid, echo a message.
+if ($filehandle) {
+    echo "<p>The log file is writeable.</p>";
+    fwrite($filehandle, $postString);
+    fwrite($filehandle, "\n");
+}
+else { echo "<p>the log file is not writeable.</p>"; }
