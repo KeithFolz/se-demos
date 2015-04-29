@@ -26,9 +26,17 @@ include $fsHome . "/includes/includes.php";
 // 
 // $params["title"] = "<title>Janrain Demo Site</title>";
 
-$params["title"] = "<title>Janrain Enterprise - standard</title>";
+$params["title"] = "<title>Janrain Enterprise - Webhooks</title>";
+
+$params["signinLinks"] = " ";
+
+$params["content"] = getWebhookLog();
 
 // End of section where you set parameters
 
 // This command builds the demo and sends the html page to the browser
 showDemo($params, $fsHome);
+
+function getWebhookLog() {
+    
+}
