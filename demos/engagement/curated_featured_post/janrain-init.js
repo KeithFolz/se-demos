@@ -80,7 +80,7 @@ For more information about these settings, see the following documents:
 
     // --- Capture Widget Settings ---------------------------------------------
     janrain.settings.capture.redirectUri = 'http://localhost/';
-    janrain.settings.capture.flowName = 'standard_publicprofile';
+    janrain.settings.capture.flowName = 'standard_newer';
     janrain.settings.capture.flowVersion = 'HEAD';
     janrain.settings.capture.registerFlow = 'socialRegistration';
     janrain.settings.capture.setProfileCookie = true;
@@ -111,9 +111,6 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.backplaneBusName = 'se-demo';
     janrain.settings.capture.backplaneVersion = 1.2;
     janrain.settings.capture.backplaneBlock = 20;
-
-    //keep a user logged into commenting after refresh
-    janrain.settings.capture.backplaneReplayOnPageLoad = true;
 
     // --- BEGIN WIDGET INJECTION CODE -----------------------------------------
     /********* WARNING: *******************************************************\
@@ -197,7 +194,7 @@ function janrainCaptureWidgetOnLoad() {
         Uncomment this line to show events in your browser's console. You must
         include janrain-utils.js to run this function.
                                                                             --*/
-     janrainUtilityFunctions().showEvents();
+    // janrainUtilityFunctions().showEvents();
 
     // helper function for displaying backplane events
     function writeTo(theId, content, overwrite) {
@@ -212,9 +209,10 @@ function janrainCaptureWidgetOnLoad() {
 
         janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
 
-            // Required call for Commenting module and the optional counter.
-            jQuery("#article-comments").arktanArticleComments();
-			jQuery("#article-comments-counter").arktanSocialCounter();
+            // Required call for Live Event Chat module
+            Arktan.SocialApps.install();
+            Arktan.SocialApps.install(ArktanSocialStreamsConfig);
+
         });
 
     /*                                                                        *\
@@ -229,10 +227,6 @@ function janrainCaptureWidgetOnLoad() {
 function janrainExampleImplementationFunctions() {
     function setNavigationForLoggedInUser(result) {
         janrain.capture.ui.modal.close();
-        var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
-        var entityType = "user";
-        var appkey = "dev.janrain";
-        Arktan.initializeEngagementUser(uuid, entityType, appkey, "janrain-se-demo");
         document.getElementById("captureSignInLink").style.display  = 'none';
         document.getElementById("captureSignOutLink").style.display = '';
         document.getElementById("captureProfileLink").style.display = '';

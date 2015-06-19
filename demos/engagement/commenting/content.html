@@ -34,10 +34,10 @@ http://demos.janrain.com/JanrainDemoSites/demos/enterprise
 -->
 <div id="title-counter" style="float:left;">Total Comments: </div>
 <div id="article-comments-counter" style="float:left;"
-	data-url="janrain-solutions.appspot.com/enterprise/commenting" 
-	data-domain="http://www.janrain.com/solutions" 
+	data-url="janrain-solutions.appspot.com/enterprise/commenting"
+	data-domain="http://www.janrain.com/solutions"
 	data-appkey="dev.janrain">
-	</div> 	
+	</div>
 
 <br><hr>
 
@@ -53,7 +53,8 @@ http://demos.janrain.com/JanrainDemoSites/demos/enterprise
   data-sort-order-default="sortByRecentFirst"
   data-sort-order-options="sortByRecentFirst,sortByLikes,sortByReplies"
   data-flagging-type="default"
-  data-delete-comments="true">
+  data-delete-comments="true"
+  data-entity-type="user" data-user-activity="true" data-user-profile="basic">
 </div>
 
 <!-- End Commenting HTML -->
@@ -66,29 +67,5 @@ Arktan.settings = {
 
 <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script> <script src="http://cdn.arktan.com/ark-woj-min.js"></script>
 
-<!-- the following script is simply for showing or hiding the optional counter. This script should 
-  -- be in a file, and not located in the body of the page.
- <!-- The counter can be set to show on any event, including document ready or onload. -->
- <!--
-<script type="text/javascript">
-	$('#showCounter').toggle(
-	function(){
-		jQuery("#article-comments-counter").arktanSocialCounter();
-		$('#commentCounter').show();
-		$('#counterViewHide').html("hide");
-		},
-	function(){
-		$('#commentCounter').hide();
-		$('#counterViewHide').html("show");
-		}
-	);
-</script>
 
 -->
-
-
-
-
-
-
-
