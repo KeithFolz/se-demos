@@ -41,6 +41,7 @@ $links["engagement"] = array (
     "tabs" =>"<b>Streams:</b> Curated Tabbed Feed",
     "live_event_chat" => "<b>Streams:</b> Live Chat",
     "site_activity" => "<b>Streams:</b> Site Activity Feed",
+    "maps" => "<b>Streams:</b> Maps",
 
   	"leader_board" => "<b>Trends:</b> Leader Board",
     "hashtag_battle" => "<b>Trends:</b> Hashtag Battle",
