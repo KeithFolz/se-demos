@@ -21,7 +21,7 @@
 var streamId = "http://www.janrain.com/solutions/id_demo_curated_posts";
 
 //These values are used in multiple locations, include the Fancybox function.
-var appId =  "janrain-se-demo"; 
+var appId =  "janrain-se-demo";
 var appkey = "dev.janrain";
 
 var visHeight=350;
@@ -37,13 +37,13 @@ Arktan.settings = {
   "janrainAppName": "janrain-se-demo",
   "busName": "se-demo",
   "appkey": "dev.janrain",
-  
+
   "visualization":{
         "vizname":"grid1",
         "columnWidth":240
     		},
-  
-  
+
+
   "flagging": "default",
   "deleteOption":false,
   "sortOrder": {
@@ -53,25 +53,26 @@ Arktan.settings = {
   },
   "enableCapture":true,
   "apps" : [
-  	
+
 	{
 	"type":"counter", //totally optional.
-	"id": "counter1", 
-	"targetDOM": "counter1", 
-	"streamID": "http://www.janrain.com/solutions/id_demo_curated_posts"
+	"id": "counter1",
+	"targetDOM": "counter1",
+	"streamID": "http://www.janrain.com/solutions/id_nerdville"
 	},
-	
+
 	{
  	 "type":"stream",
   	 "streamTarget":"default_stream",
  	 "id": "all",
- 	 "streamID": "http://www.janrain.com/solutions/id_demo_curated_posts",
- 	 "targetURL":"http://www.janrain.com/solutions/id_demo_curated_posts"
+  "useTwitterIntents": false,
+ 	 "streamID": "http://www.janrain.com/solutions/id_nerdville",
+ 	 "targetURL":"http://www.janrain.com/solutions/id_nerdville"
 	},
 
   ]};
-  
-  
+
+
 var ArktanSocialStreamsConfig = {
     "source":{
     "name": "Janrain",
@@ -80,15 +81,15 @@ var ArktanSocialStreamsConfig = {
   "janrainAppName": "janrain-se-demo",
   "busName": "se-demo",
   "appkey": "dev.janrain",
-  
+
   "visualization":{
         "vizname":"grid3",
         "columnWidth":240,
         "rowHeight":240,
         "customScroll":true,
     		},
-  
-  
+
+
   "flagging": "default",
   "deleteOption":false,
   "sortOrder": {
@@ -103,24 +104,24 @@ var ArktanSocialStreamsConfig = {
   "type":"stream",
   "streamTarget":"default_instagram",
   "id": "demo_instagram",
-  "streamID": "http://www.janrain.com/id_demo_Instagram_stream",
-  "targetURL":"http://www.janrain.com/id_demo_Instagram_stream"
+  "streamID": "http://www.janrain.com/solutions/id_InstaNerds",
+  "targetURL":"http://www.janrain.com/solutions/id_InstaNerds"
 },
 
 ]
 };
- 
- 
+
+
 /* Because the grid3 visualization is already set up for a fancybox,
 *  we can't apply the fancybox function below without serious conflicts.
 *  Therefore, we must make sure we aren't selecting posts from the grid3. */
- 
+
 
 $(document).on('click',".echo-item-content",function(){  //This handler calls the fancybox function when a post is clicked.
 		var k=0;
-		k=$(this).closest("#default_instagram");	//This leaves the grid3 behavior untouched.		
+		k=$(this).closest("#default_instagram");	//This leaves the grid3 behavior untouched.
 		if(k.size()===0){					//will be zero if 'default_instagram' is not a parent element.
-			var objectId = this.getAttribute('data-original-permalink');	//The permalink contains the url of the post.	
+			var objectId = this.getAttribute('data-original-permalink');	//The permalink contains the url of the post.
 			var imageRule = '';
 
 			$.fancybox("<div id='ark-container' data-streamid='"+streamId+"' data-objectid='"+objectId+"' data-appid='"+appId+"' data-appkey='"+appkey+"'></div>",
@@ -135,18 +136,18 @@ $(document).on('click',".echo-item-content",function(){  //This handler calls th
 			"onComplete": function() {
 				$("#ark-container").arkPost();
 			}
-			});   //  end of fancy box ready function		
+			});   //  end of fancy box ready function
 		}
-	});  //end of on click handler  
+	});  //end of on click handler
 
 
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
   </script>
 
 
@@ -170,7 +171,7 @@ $(document).on('click',".echo-item-content",function(){  //This handler calls th
 <div id="counter1" style="float:left;"></div>
 </div>
 <br>
-<hr> 
+<hr>
 <div class="title-horiz" >Instagram Only: </div>
 <div  id="default_instagram"></div>
 <br>
