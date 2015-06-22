@@ -7,6 +7,22 @@ Engage your visitors with the opportunity to cast their votes on a topic or ques
 <br><br>
 
 <!-- Begin code required for polling module -->
+<!--
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+-->
+<div align="center">
+<h4>Astrophysics Question of the Day:</h4>
+
+<div id="poll"></div>
+</div>
+
+<br><hr>
+<div id="default_stream"></div>  <!-- The stream is optional, but is displayed here. -->
+
+<!-- End the HTML used by the poll demo. -->
+
+
 
 <script type="text/javascript">
 var Arktan = {};
@@ -17,7 +33,7 @@ Arktan.settings = {
   },
   "janrainAppName": "janrain-se-demo",
   "busName": "se-demo",
-  
+
   "appkey": "dev.janrain",
   "visualization":{
         	"vizname":"grid1",
@@ -25,9 +41,9 @@ Arktan.settings = {
     		},
 		"reply": false,
 		"autoload": false,
-  
-  
-  
+
+
+
   "flagging": "default",
   "deleteOption":true,
   "sortOrder": {
@@ -51,37 +67,41 @@ Arktan.settings = {
 	"type":"poll",
 	"id": "poll1",
 	"targetDOM":"poll",
-	"poll_id":"http://www.janrain.com/solutions/id_demo_vote_onsite",
-	"question":"Do you think Pluto should be a planet?",
+	"poll_id":"http://www.janrain.com/solutions/id_voteearlyvoteoften",
+	"question":"Do you think Pluto is a real planet?",
 	"multipleSelection": false,
-	"numberOfSelections": 3,
+	"numberOfSelections": 1,
 	"showResultsLink":true, //This displays a 'show results' link below voting button.
-	"showInstantResults":true,  //Safe to leave this on true. 
+	"showInstantResults":false,  //Safe to leave this on true.
 	"dynamicOptions":false,
 	"theme":"radio",
 	"sharingMode":"twitter",  //If not twitter, than 'showInstantResults' must be set to true to see voting results automatically after voting.
-	"auth":false,
-	"cookie":false
+	//"auth":false,
+	//"cookie":false
 }
 	]
 };
 
 </script>
 
-<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
-<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
 
 <!-- Start the HTML used by the polling demo -->
+<!--
 <div align="center">
 <h4>Astrophysics Question of the Day:</h4>
 
-<div id="poll"></div>  
+<div id="poll"></div>
 </div>
 
 <br><hr>
-<div id="default_stream"></div>  <!-- The stream is optional, but is displayed here. -->
+<div id="default_stream"></div> -->
+
+  <!-- The stream is optional, but is displayed here. -->
 
 <!-- End the HTML used by the poll demo. -->
 
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
 
 <!-- End polling code -->
