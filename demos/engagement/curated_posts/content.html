@@ -13,25 +13,36 @@
 
 <hr>
 
-<!-- Begin script required for Live Event Chat module -->
+<!-- Begin script required curated posts modules -->
 
 <script>
+
+//These values are used in multiple locations, include the Fancybox function.
+var appId =  "janrain-se-demo";
+var appkey = "dev.janrain";
+var visHeight=350;
+var visWidth=500;
+var streamId = "http://www.janrain.com/solutions/id_nerdville";
+
+
+
+
 var Arktan = {};
 Arktan.settings = {
   "source":{
     "name": "Janrain",
     "uri": "http://www.janrain.com"
   },
-  "janrainAppName": "janrain-se-demo",
+  "janrainAppName": appId,
   "busName": "se-demo",
-  "appkey": "dev.janrain",
-  
+  "appkey": appkey,
+
   "visualization":{
         "vizname":"grid1",
         "columnWidth":240
     		},
-  
-  
+
+
   "flagging": "default",
   "deleteOption":false,
   "sortOrder": {
@@ -41,25 +52,25 @@ Arktan.settings = {
   },
   "enableCapture":true,
   "apps" : [
-  	
+
 	{
 	"type":"counter", //totally optional.
-	"id": "counter1", 
-	"targetDOM": "counter1", 
-	"streamID": "http://www.janrain.com/solutions/id_demo_curated_posts"
+	"id": "counter1",
+	"targetDOM": "counter1",
+	"streamID": "http://www.janrain.com/solutions/id_nerdville"
 	},
-	
+
 	{
  	 "type":"stream",
   	 "streamTarget":"default_stream",
  	 "id": "all",
- 	 "streamID": "http://www.janrain.com/solutions/id_demo_curated_posts",
- 	 "targetURL":"http://www.janrain.com/solutions/id_demo_curated_posts"
+ 	 "streamID": "http://www.janrain.com/solutions/id_nerdville",
+ 	 "targetURL":"http://www.janrain.com/solutions/id_nerdville"
 	},
 
   ]};
-  
-  
+
+
 var ArktanSocialStreamsConfig = {
     "source":{
     "name": "Janrain",
@@ -68,15 +79,15 @@ var ArktanSocialStreamsConfig = {
   "janrainAppName": "janrain-se-demo",
   "busName": "se-demo",
   "appkey": "dev.janrain",
-  
+
   "visualization":{
         "vizname":"grid3",
         "columnWidth":240,
         "rowHeight":240,
         "customScroll":true,
     		},
-  
-  
+
+
   "flagging": "default",
   "deleteOption":false,
   "sortOrder": {
@@ -91,38 +102,57 @@ var ArktanSocialStreamsConfig = {
   "type":"stream",
   "streamTarget":"default_instagram",
   "id": "demo_instagram",
-  "streamID": "http://www.janrain.com/id_demo_Instagram_stream",
-  "targetURL":"http://www.janrain.com/id_demo_Instagram_stream"
+  "streamID": "http://www.janrain.com/solutions/id_InstaNerds",  //"http://www.janrain.com/id_demo_Instagram_stream",
+  "targetURL":"http://www.janrain.com/solutions/id_InstaNerds", //"http://www.janrain.com/id_demo_Instagram_stream"
 },
 
 ]
 };
-  
+
+
+/* Because the grid3 visualization is already set up for a fancybox,
+*  we can't apply the fancybox function below without serious conflicts.
+*  Therefore, we must make sure we aren't selecting posts from the grid3. */
+
+
+$(document).on('click',".echo-item-content",function(){  //This handler calls the fancybox function when a post is clicked.
+   var k=0;
+   console.log("clicked");
+   k=$(this).closest("#default_instagram");	//This leaves the grid3 behavior untouched.
+   if(k.size()===0){					//will be zero if 'default_instagram' is not a parent element.
+     var objectId = this.getAttribute('data-original-permalink');	//The permalink contains the url of the post.
+     var imageRule = '';
+
+     $.fancybox("<div id='ark-container' data-streamid='"+streamId+"' data-objectid='"+objectId+"' data-appid='"+appId+"' data-appkey='"+appkey+"'></div>",
+     {
+     'orig'			: $(this),
+     "transitionIn"		: "elastic",
+     "transitionOut"		: "elastic",
+     'autoDimensions'    	: false,
+     'width'             	: visWidth,
+     'height'            	: visHeight,
+
+     "onComplete": function() {
+       $("#ark-container").arkPost();
+     }
+     });   //  end of fancy box ready function
+   }
+ });  //end of on click handler
+
+
   </script>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
 <script src="http://cdn.arktan.com/ark-woj-min.js"></script>
 
-<!-- End HTML to hold optional counter. -->
+<!-- Start HTML to hold Curated Post objects -->
 
 <div align="left">
 <div id="title-counter" style="float:left;">Total Posts: </div>
 <div id="counter1" style="float:left;"></div>
 </div>
 <br>
-<hr> 
+<hr>
 <div class="title-horiz" >Instagram Only: </div>
 <div class="horizontal_view" id="default_instagram"></div>
 <br>
@@ -136,4 +166,4 @@ var ArktanSocialStreamsConfig = {
 </div>
 
 
-<!-- End Live Event Chat HTML -->
+<!-- End Curated Post HTML -->
