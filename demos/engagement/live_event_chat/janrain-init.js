@@ -182,9 +182,14 @@ function janrainCaptureWidgetOnLoad() {
         required for your implementation, but can be modified to suit your
         needs. These event handlers are provided as an example.
                                                                             --*/
-    janrain.events.onCaptureLoginSuccess.addHandler(implFuncs.setNavigationForLoggedInUser);
+  janrain.events.onCaptureLoginSuccess.addHandler(implFuncs.setNavigationForLoggedInUser);
+  
+
+
     janrain.events.onCaptureSessionFound.addHandler(implFuncs.setNavigationForLoggedInUser);
-    janrain.events.onCaptureRegistrationSuccess.addHandler(implFuncs.setNavigationForLoggedInUser);
+  janrain.events.onCaptureRegistrationSuccess.addHandler(implFuncs.setNavigationForLoggedInUser);
+
+
     janrain.events.onCaptureSessionEnded.addHandler(implFuncs.setNavigationForLoggedOutUser);
     janrain.events.onCaptureLoginFailed.addHandler(implFuncs.handleDeactivatedAccountLogin);
     janrain.events.onCaptureAccountDeactivateSuccess.addHandler(implFuncs.handleAccountDeactivation);
@@ -226,6 +231,10 @@ function janrainCaptureWidgetOnLoad() {
 function janrainExampleImplementationFunctions() {
     function setNavigationForLoggedInUser(result) {
         janrain.capture.ui.modal.close();
+        var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
+        var entityType = "user";
+        var appkey = "dev.janrain";
+        Arktan.initializeEngagementUser(uuid, entityType, appkey, "janrain-se-demo");
         document.getElementById("captureSignInLink").style.display  = 'none';
         document.getElementById("captureSignOutLink").style.display = '';
         document.getElementById("captureProfileLink").style.display = '';
