@@ -52,6 +52,7 @@ Arktan.settings = {
     "options": ["sortByRecentFirst", "sortByLikes", "sortByReplies"]
   },
   "enableCapture":true,
+  "entityType":"user",//new
   "apps" : [
   	{
     "type":"stream",
@@ -61,11 +62,18 @@ Arktan.settings = {
     "maxItems": 5,
     "submitTarget":"chat-form",
     "submitURL": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1",
-  	},
+    //new
+    "userActivityLink": {
+                        "enabled": true,
+                        "showProfile": "basic"
+                    },  
+	},
+
+
 	{
 	"type":"counter", //totally optional.
-	"id": "counter1", 
-	"targetDOM": "counter1", 
+	"id": "counter1",
+	"targetDOM": "counter1",
 	"streamID": "http://www.janrain.com/solutions/id_Janrain_SE_Demo_Test_1"
 	}
   ]};
