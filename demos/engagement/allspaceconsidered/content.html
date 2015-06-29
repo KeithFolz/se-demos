@@ -1,0 +1,89 @@
+<img id = "topimage" src="https://www.nasa.gov/sites/default/files/styles/ubernode_alt_horiz/public/14-151-hubble_1.jpg?itok=TNYevWbO"/>
+<div id="maintitle">All Space Considered</div>
+<p>Welcome to All Space Considered! This is a page dedicated to space and demonstrating how to take advantage of just some of the social capabilities of Janrain and Arktan.</p>
+<p>Here you will find a number of modules to improve the engagement of your visitors.</p>
+<br><hr>
+
+<!--
+<div id="default_stream"></div>
+-->
+
+<div id="outer-box-container">
+ <div id="default_stream" style="float:left; width:30%;"></div>
+ <div id="hashtag" style="float:left; width: 65%;"></div>
+ </div>
+
+
+
+<!-- Begin HTML required for Live Event Chat module -->
+
+<div class="river">
+  <div id="chat-form"></div>
+  <div id="chat-stream"></div>
+</div>
+
+
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+
+
+<script>
+
+
+var ArktanSocialStreamsConfig = {
+    "source":{
+    "name": "Janrain",
+    "uri": "http://www.janrain.com"
+  },
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+"identityUrl": "https://janrain-se-demo.rpxnow.com/openid/embed?flags=stay_in_window,no_immediate&token_url=http%3A%2F%2Fsandbox.arktan.com%2Farkjs%2Fwaiting.html&bp_channel=",
+    "visualization":{
+        "vizname":"grid1",
+        "columnWidth":240
+    		},
+    "reply": true,
+  	"autoload": true,
+
+
+"apps": [
+
+		{
+			"type":"stream",
+			"streamTarget":"default_stream",
+			"id": "all",
+			//"streamID": "http://www.janrain.com/solutions/id_NASA_Pic_o_the_Day"
+			"streamID": "http://www.janrain.com/solutions/id_SpaceStationRSS",
+			//"http://www.janrain.com/solutions/id_demo_hashtag_battle_stream"
+		},
+    {
+    			"type": "hashtagBattle",
+    			"id": "hashtag",
+    			"targetDOM": "hashtag",
+    			"trendID": "http://www.janrain.com/solutions/id_demo_hashtag_battle",
+    			"title": "Do you think Pluto is a planet?",
+    			"leftSide" : "#plutoisaplanet",
+    			"rightSide" : "#plutoisnotaplanet",
+    			"totalText" : "Total Tweets",
+    			"drawBar":true,
+    			"colorLeft" : "#0ECF00",
+    			"colorRight": "#E00000",
+    			"needleColor": "#000",
+    			"needleLength": 0.7,
+    			"needleWidth": 0.055,
+    			"barWidth" : 0.20,      //The starting value was 0.15.
+    			"needleSpeed" : 32,
+    			"countersDisplay" : "percentage",   //"number" may not fit in the area or may wrap if too many tweets.
+
+    		},
+
+      ]
+};
+
+	$(document).ready(function(){
+ 		 Arktan.SocialApps.install(ArktanSocialStreamsConfig);
+	});
+
+</script>
