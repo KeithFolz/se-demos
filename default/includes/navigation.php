@@ -51,6 +51,7 @@ $links["engagement"] = array (
 
     "ratings_and_reviews" => "<b>Ratings and Reviews</b>",
     "socialSharing" => "<b>Social Sharing</b>",
-    "allspaceconsidered" => "<b>All Space Considered</b>",
+    //Social hub example created by Tony Bateman, commenting out nav so we can leave in actual code and URL
+    //"allspaceconsidered" => "<b>All Space Considered</b>",
 
 );
