@@ -276,11 +276,16 @@ class demo {
     
     private function getDisplayValue($folderName) {
         
-        global $links, $navFolder; // from includes/navigation.php
-        
-        $listName = $navFolder[$this->typeOfDemo];
+	if ("/" . $folderName === $this->paths["home"]) {
+	    $returnval = "";
+	}
+	else {
+	    global $links, $navFolder; // from includes/navigation.php
+	    $listName = $navFolder[$this->typeOfDemo];
+	    $returnval = $links[$listName][$folderName];
+	}
 
-        return $links[$listName][$folderName];
+        return $returnval;
         
     }
 
@@ -297,8 +302,16 @@ class demo {
         
         if ($componentName === "title" || $componentName === "heading") { 
             
+	    $baseString = "Janrain " . $displayNames[$this->typeOfDemo];
+	    
+	    $displayName = $this->getDisplayValue($this->getDemoFolderName());
+	    
+	    if ($displayName != "") { $baseString .= ": " . $displayName; }
+
+	    /*
             $baseString = "Janrain " . $displayNames[$this->typeOfDemo] . ": " . $this->getDisplayValue($this->getDemoFolderName());
-            
+            */
+	    
             if ($componentName === "title") { $defaultVal = "<title>" . $baseString . "</title>\n"; }
             else { $defaultVal = "<h1>" . $baseString . "</h1>\n"; }
         }
