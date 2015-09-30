@@ -24,18 +24,18 @@ class demo {
          * Each type of demo has its own set of required components.
          * The buildComponent method sets the values for each of the components.
          * The elements of a component are:
-         * name = "title", "stylesheet", for example. Note: this value will 
-         *      also be used in the file name.
-         * type = file || css || fileRef
-         * ext = file extension
-         * parent = HTML container
-         * required
+	    * name = "title", "stylesheet", for example. Note: this value will 
+	    *      also be used in the file name.
+	    * type = file || css || fileRef
+	    * ext = file extension
+	    * parent = HTML container
+	    * required
          */
         
         // HEAD elements
 
         // Title
-        // <title>Janrain Demo Sites</title>      
+        // <title>Janrain Demo Sites</title>
         $this->buildComponent("title", "string", "html", "title", TRUE);
         
         // Stylesheet
@@ -494,7 +494,7 @@ class demo {
 
         return $returnString;
 
-    }   
+    }
     
     public function show() {
 
@@ -526,7 +526,7 @@ class demo {
             }
         }
 
-        return $returnVal;    
+        return $returnVal;
     }
 }
 
