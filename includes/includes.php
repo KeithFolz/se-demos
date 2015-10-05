@@ -3,3 +3,4 @@
 include "demoClass.php";
 include "demoGenerator.php";
 include "navigation.php";
+include "htmlPageClass.php";

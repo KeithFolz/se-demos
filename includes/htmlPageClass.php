@@ -2,50 +2,89 @@
 
 class htmlPage {
 
-    public function setDoctype($doctype) {
-	if (empty($doctype)) {
-	    $this->doctype = "<!DOCTYPE html>";
-	}
+    public function htmlPage() {
+	$this->page = $this->getPage();
     }
 
-    public function setPage() {
-	$this->page = $this->getDoctype() . $this->getHTML();
+    private function getBody() {
+	if (empty($this->body)) { $this->body = "<body></body>\n"; }
+	return $this->body;
+    }
+    
+    public function getDocType() {
+	if (empty($this->docType)) { $this->docType = "<!DOCTYPE html>"; }
+	return $this->docType;
+    }
+
+    public function setDoctype($doctype) {
+	$this->doctype = $doctype;
     }
 
     public function getPage() {
+	$this->page = $this->getDocType() . "\n" . $this->getHTML();
 	return $this->page;
     }
 
-    public function setHTML() {
-	$this->html = $this->head . $this->body;
+    public function getHTML() {
+	$this->html = "<html>\n" . $this->getHead() . "\n\n" . $this->getBody() . "\n</html>";
+	return $this->html;
     }
 
     public function setMeta($meta) {
-	if (empty($meta)) {
-	    // $this->meta = "<meta name='viewport' content='width=device-width, initial-scale=1'>";
-	}
-	else { $this->meta = $meta; }
+	$this->meta = $meta;
+    }
+    
+    public function setTitle($title) {
+	$this->title = $title;
     }
 
-    public function setHead() {
-	
-	$this->head .= "<head>\n";
+    private function getCSSblock() {
+	if (empty($this->css)) { $this->css = "<css></css>"; }
+	return $this->css;
+    }
 
-	// meta
-	if (empty($this->meta)) {}
-	else { $this->head .= $this->meta; }
+    private function getScriptBlock() {
+	if (empty($this->scripts)) { $this->scripts = "<script></script>"; }
+	return $this->scripts;
+    }
 
-	// title
-	$this->head .= $this->title;
+    private function getMeta() {
+	if (empty($this->meta)) {
+	    $this->meta = "<meta name='viewport' content='width=device-width, initial-scale=1'>";
+	}
+	return $this->meta;
+    }
+    
+    private function getTitle() {
+	if (empty($this->title)) { $this->title = "<title></title>"; }
 
-	// CSS
-	$this->head .= $this->cssBlock;
+	return $this->title;
+    }
+
+    private function getHead() {
 	
-	// <script>
 	
-	$this->head .= $this->scriptBlock;
-	
-	$this->head .= "</head>";
+	if (empty($this->head)) {
+	    $this->head = "<head>\n";
+
+	    $this->head .= "\t<!--placeholder: head-->\n";
+	}
+	else {
+	    $this->head = "<head>\n";
+
+	    // meta
+	    $this->head .= $this->getMeta();
+	    
+	    $this->head .= "\n" . $this->getTitle();
+	    
+	    $this->head .= "\n" . $this->getCSSblock();
+	    
+	    $this->head .= "\n" . $this->getScriptBlock();
+	}
+
+	$this->head .= "\n</head>\n";
+
+	return $this->head;
     }
 
     public function setBody($body) {
@@ -53,7 +92,7 @@ class htmlPage {
 	$this->body .= $body;
 	$this->body .= "</body>";
     }
-    
+
     // <link rel="stylesheet" href="/JanrainDemoSites/default/styles/screen.css" />
     public function addCSS($stylesheet, $type) {
 	if ($type === "fileRef") {

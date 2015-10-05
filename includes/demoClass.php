@@ -163,7 +163,7 @@ class demo {
         $this->components["sidebar_col"]["finalValue"] = $this->replaceHolder("links", $this->getNavLinks(), $this->components["sidebar_col"]["finalValue"]);
 
         if ($this->typeOfDemo === "socialRedirect") {
-            $this->components["socialLogin"]["finalValue"] = $this->replaceHolder("tokenURL", $this->components["tokenURL"]["finalValue"], $this->components["socialLogin"]["finalValue"]);        
+            $this->components["socialLogin"]["finalValue"] = $this->replaceHolder("tokenURL", $this->components["tokenURL"]["finalValue"], $this->components["socialLogin"]["finalValue"]);
         }
         elseif ($this->typeOfDemo === "socialAjax") {
             $this->components["jwol"]["finalValue"] = $this->replaceHolder("ajaxScript", $this->components["ajaxScript"]["finalValue"], $this->components["jwol"]["finalValue"]);
@@ -172,7 +172,7 @@ class demo {
     }
     
     private function findValue($componentName) {
-        // First, check for a user-supplied value        
+        // First, check for a user-supplied value
         if (!empty($this->params[$componentName])) {
             
             if ($this->components[$componentName]["type"] === "file") {
@@ -497,6 +497,9 @@ class demo {
     }
     
     public function show() {
+	$thisPage = new htmlPage();
+	
+	$thisPage->setTitle($this->components["title"]["finalValue"]);
 
         $output = $this->replaceHolder("title", $this->components["title"]["finalValue"], $this->components["htmlTemplate"]["finalValue"]);
         
@@ -509,7 +512,8 @@ class demo {
         
         $output = $this->replaceHolder("body", $this->getElements("body"), $output);
         
-        echo $output;
+	$thisPage->show();
+        // echo $output;
     }
    
     private function getElements($type) {
@@ -529,4 +533,3 @@ class demo {
         return $returnVal;
     }
 }
-

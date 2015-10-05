@@ -27,7 +27,7 @@ function showDemo($params, $fsHome) {
     
     if (empty($_GET["mode"])) { $demo->show(); }
     elseif ($_GET["mode"] === "debug") {
-        $demo->showAllValues();   
+        $demo->showAllValues();
     }
 }
 /*
