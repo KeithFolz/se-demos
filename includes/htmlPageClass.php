@@ -35,7 +35,7 @@ class htmlPage {
     }
     
     public function setTitle($title) {
-	$this->title = $title;
+	$this->title = "<title>" . $title . "</title>";
     }
 
     private function getCSSblock() {
@@ -55,7 +55,7 @@ class htmlPage {
 	return $this->meta;
     }
     
-    private function getTitle() {
+    public function getTitle() {
 	if (empty($this->title)) { $this->title = "<title></title>"; }
 
 	return $this->title;

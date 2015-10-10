@@ -1,34 +1,12 @@
 <?php
 
-function showDemo($params, $fsHome) {
+function showDemo($params) {
 
-    $demo = new demo;
+    $demo = new demo($params);
 
-    // these are the params passed from the user (the demo creator)
-    // can be completely empty
-    $demo->params = $params;
+
     
-    // Sets typeOfDemo = enterprise if the user did not supply a value
-    $demo->setDemoType();
-    
-    // Sets necessary paths for web references and filesystem references
-    $demo->setPaths($fsHome);
-    
-    // sets the list of fields required for the demo
-    // different demo types (Enterprise, Engagement, etc.) need different
-    // values (capture instance, token URL, etc.)
-    $demo->setComponents();
-    
-    // set a value for each component.
-    // 1. Check for a user-passed parameter. else:
-    // 2. Check for a file in the local directory. else:
-    // 3. Set the default value.
-    $demo->setFinalValues();
-    
-    if (empty($_GET["mode"])) { $demo->show(); }
-    elseif ($_GET["mode"] === "debug") {
-        $demo->showAllValues();
-    }
+
 }
 /*
 $configItems = array(); // initializing just to avoid warnings

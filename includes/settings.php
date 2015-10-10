@@ -9,44 +9,6 @@ class demo {
     private $paths;
     private $components;
     
-
-    // $params, $fsHome
-    public function demo($params) {
-	$this->page = new htmlPage();
-	
-	// these are the params passed from the user (the demo creator)
-	// can be completely empty
-	$this->params = $params;
-	
-	// Sets typeOfDemo = enterprise if the user did not supply a value
-	$this->setDemoType();
-	
-	// Sets necessary paths for web references and filesystem references
-	$this->setPaths($this->params["fsHome"]);
-	
-	// sets the list of fields required for the demo
-	// different demo types (Enterprise, Engagement, etc.) need different
-	// values (capture instance, token URL, etc.)
-        $this->setComponents();
-	
-	// set a value for each component.
-        // 1. Check for a user-passed parameter. else:
-        // 2. Check for a file in the local directory. else:
-        // 3. Set the default value.
-        $this->setFinalValues();
-	
-	// $this->page->addCSS()
-    }
-
-        // <link rel="stylesheet" href="/JanrainDemoSites/default/styles/screen.css" />
-    public function addCSS($stylesheet, $type) {
-	if ($type === "fileRef") {
-	    $this->css .= "<link rel='stylesheet' href='" . $stylesheet . '">\n';
-	}
-	else {
-	    $this->css .= $stylesheet;
-	}
-    }
     public function setDemoType() {
         if (empty($this->params["typeOfDemo"])) {
             $this->typeOfDemo = "enterprise";
@@ -72,7 +34,6 @@ class demo {
         
         // HEAD elements
 
-	// $this->components["required"] = array("title", "navigation", "scriptBlock")
         // Title
         // <title>Janrain Demo Sites</title>
         $this->buildComponent("title", "string", "html", "title", TRUE);
@@ -133,10 +94,10 @@ class demo {
 
             // Error-checking
             $this->buildComponent("errorChecking", "fileRef", "html", "head", FALSE);
-            
+
             // Janrain widget onload()
             $this->buildComponent("jwol", "file", "html", "head", FALSE);
-            
+
             if ($this->typeOfDemo === "socialAjax") {
 
                 // Path to the Ajax script
@@ -190,14 +151,9 @@ class demo {
     }
 
     public function setFinalValues() {
-
+        
         $componentNames = array_keys($this->components);
-	
-	$title = $this->findValue("title");
-	$this->page->setTitle($title);
-
-	// $this->page->
-
+        
         foreach ($componentNames as $componentName) {
             
             $this->components[$componentName]["finalValue"] = 
@@ -541,13 +497,14 @@ class demo {
     }
     
     public function show() {
+	$this->page = new htmlPage();
+	
+	// $thisPage = new htmlPage();
+	
+	// $thisPage->setTitle($this->components["title"]["finalValue"]);
 
-	if (empty($_GET["mode"])){}
-	elseif ($_GET["mode"] === "debug") {
-	    $this->showAllValues();
-	    exit();
-	}
-    
+	$this->page->setTitle("testTitle");
+	
         $output = $this->replaceHolder("title", $this->components["title"]["finalValue"], $this->components["htmlTemplate"]["finalValue"]);
         
         $output = $this->replaceHolder("head", $this->getElements("head"), $output);
