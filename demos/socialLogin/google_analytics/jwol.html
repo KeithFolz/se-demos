@@ -16,7 +16,7 @@
             _gaq.push(['_trackEvent', 'onProviderLoginStart', 'fired']);
 
             // This is the function to pass the auth token back to our server-side code which will handle the
-            // communication with the Janrain API, to exchnage the token for the user's data payload.
+            // communication with the Janrain API, to exchange the token for the user's data payload.
             // Again, see: http://janrain-solutions.appspot.com/socialLogin/client_side_validation
             $.getJSON("<!--ajaxScript placeholder-->",
                     {token: data.token},

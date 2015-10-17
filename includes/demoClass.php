@@ -8,7 +8,6 @@ class demo {
         
     private $paths;
     private $components;
-    
 
     // $params, $fsHome
     public function demo($params) {
@@ -27,26 +26,45 @@ class demo {
 	// sets the list of fields required for the demo
 	// different demo types (Enterprise, Engagement, etc.) need different
 	// values (capture instance, token URL, etc.)
-        $this->setComponents();
 	
+	$this->page->addMeta("<meta charset='utf-8'/>");
+	$this->page->addMeta("<meta name='viewport' content='width=device-width, initial-scale=1'>");
+	
+	$stylesheet = $this->paths["default"] . "/styles/screen.css";
+	$this->page->addCSS($stylesheet, "fileRef");
+	
+	$jquery = "http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js";
+	$this->page->addScript($jquery, "fileRef");
+	
+	$navigation = $this->paths["default"] . "/scripts/navigation.js";
+	$this->page->addScript($navigation, "fileRef");
+	
+	// Add class to <body> tag
+	$this->page->addClassToTag("body", "janrain-font");
+	
+	// Add navigation <div>s to body
+	$this->page->addToBody(file_get_contents($this->paths["navFull"] . "/global_nav.html"));
+	$this->page->addToBody(file_get_contents($this->paths["navFull"] . "/home.html"));
+	$this->page->addToBody(file_get_contents($this->paths["navFull"] . "/sidebar_col.html"));
+	
+	// Add nav links
+	$navLinks = $this->getNavLinks();
+	$body = $this->replaceHolder("links", $navLinks, $this->page->getBody());
+	$this->page->setBody($body);
+
+	// Add body_col element to body
+	$this->page->addToBody(file_get_contents($this->paths["templatesFull"] . "/bodyCol.html"));
+
+	$this->setComponents();
+
 	// set a value for each component.
         // 1. Check for a user-passed parameter. else:
         // 2. Check for a file in the local directory. else:
         // 3. Set the default value.
-        $this->setFinalValues();
+        // $this->setFinalValues();
 	
-	// $this->page->addCSS()
     }
 
-        // <link rel="stylesheet" href="/JanrainDemoSites/default/styles/screen.css" />
-    public function addCSS($stylesheet, $type) {
-	if ($type === "fileRef") {
-	    $this->css .= "<link rel='stylesheet' href='" . $stylesheet . '">\n';
-	}
-	else {
-	    $this->css .= $stylesheet;
-	}
-    }
     public function setDemoType() {
         if (empty($this->params["typeOfDemo"])) {
             $this->typeOfDemo = "enterprise";
@@ -57,122 +75,152 @@ class demo {
     // sets the list of fields that are needed for this demo type
     // some may be optional
     public function setComponents() {
-        
-        /* 
-         * Each type of demo has its own set of required components.
-         * The buildComponent method sets the values for each of the components.
-         * The elements of a component are:
-	    * name = "title", "stylesheet", for example. Note: this value will 
-	    *      also be used in the file name.
-	    * type = file || css || fileRef
-	    * ext = file extension
-	    * parent = HTML container
-	    * required
-         */
-        
-        // HEAD elements
+	
+	// Title
+	if (!empty($this->params["title"])) { $title = $this->params["title"]; }
+	else { $title = $this->getDefaultValue("title"); }
+	$this->page->setTitle($title);
 
-	// $this->components["required"] = array("title", "navigation", "scriptBlock")
-        // Title
-        // <title>Janrain Demo Sites</title>
-        $this->buildComponent("title", "string", "html", "title", TRUE);
-        
-        // Stylesheet
-        $this->buildComponent("screen", "fileRef", "css", "head", TRUE);
+	// Header
+	if (!empty($this->params["header"])) { $header = $this->params["header"]; }
+	else { $header = $this->getDefaultValue("header"); }
+	
+	$body = $this->replaceHolder("header", $header, $this->page->getBody());
+	$this->page->setBody($body);
+	
+	$this->content = "";
 
-        // Navigation (the js file that controls left nav)
-        $this->buildComponent("navigation", "fileRef", "js", "head", TRUE);
-
-        // BODY elements
-        
-        // Heading
-        // <h1>Janrain Social Login Demos</h1>
-        $this->buildComponent("heading", "file", "html", "header", TRUE);
-
-        // Content
-        // main content of page
-        $this->buildComponent("content", "file", "html", "body", TRUE);
-        
-        // Navigation
-        $this->buildComponent("global_nav", "file", "html", "navigation", TRUE);
-        $this->buildComponent("home", "file", "html", "navigation", TRUE);
-        $this->buildComponent("sidebar_col", "file", "html", "navigation", TRUE);
-        
-        // htmlTemplate
-        $this->buildComponent("htmlTemplate", "file", "html", "htmlTemplate", TRUE);
-        
         // DemoType-specific settings
         if ($this->typeOfDemo === "enterprise") {
-        
-            // <script src = 'janrain-init.js'></script>
-            $this->buildComponent("janrain-init", "fileRef", "js", "head", TRUE);
-            
-            // <script src = 'janrain-utils.js'></script>
-            $this->buildComponent("janrain-utils", "fileRef", "js", "head", TRUE);
-            
+
+	    // janrain-init.js
+	    $path = $this->getPath("janrain-init.js", "webPath");
+	    $this->page->addScript($path, "fileRef");
+	    
+	    // janrain-utils.js
+	    $path = $this->getPath("janrain-utils.js", "webPath");
+	    $this->page->addScript($path, "fileRef");
+
             // Janrain js settings
             // <script>
             //      janrain.settings.width = '330';
             // </script>
-            $this->buildComponent("janrainSettings", "file", "html", "head", FALSE);
-            
+	    $fileName = "janrainSettings.js";
+	    if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
+		$this->page->addScript($fileName, "fileRef");
+	    }
+
             // <a href="#" id="captureSignInLink" 
             // onclick="janrain.capture.ui.renderScreen('signIn')">
             // Sign In / Sign Up</a>
-            $this->buildComponent("signinLinks", "file", "html", "body", TRUE);
-            
+	    $path = $this->getPath("signinLinks.html", "fileSystem");
+	    $this->content = file_get_contents($path);
+
+	    $path = $this->getPath("content.html", "fileSystem");
+	    $this->content .= file_get_contents($path);
+
             // Janrain JTL + HTML
-            $this->buildComponent("widgetScreens", "file", "html", "body", TRUE);
+	    $path = $this->getPath("widgetScreens.html", "fileSystem");
+	    $this->content .= file_get_contents($path);
 
         }
         elseif ($this->typeOfDemo === "socialAjax" || $this->typeOfDemo === "socialRedirect") {
-       
-            // Main social login script
-            // For Social Redirect, this file include reference to Token URL
-            $this->buildComponent("socialLogin", "file", "html", "head", TRUE);
 
-            // Error-checking
-            $this->buildComponent("errorChecking", "fileRef", "html", "head", FALSE);
-            
-            // Janrain widget onload()
-            $this->buildComponent("jwol", "file", "html", "head", FALSE);
-            
+	    if (empty($this->params["content"])) {
+		$path = $this->getPath("content.html", "fileSystem");
+		$this->content .= file_get_contents($path);
+	    }
+	    else { $this->content .= $this->params["content"]; }
+
+	    // The basic Social login script
+	    $socialLoginPath = $this->getPath("socialLogin.html", "fileSystem");
+	    
+	    // optional error-checking
+	    $fileName = "errorChecking.html";
+	    if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
+		$this->page->addScript($fileName, "fileRef");
+	    }
+
             if ($this->typeOfDemo === "socialAjax") {
 
-                // Path to the Ajax script
-                $this->buildComponent("ajaxScript", "fileRef", "php", "none", TRUE);
-                
-                // For Ajax, JWOL is required.
-                $this->buildComponent("jwol", "file", "html", "head", TRUE);
-                
-                $this->buildComponent("janrainSettings", "file", "html", "head", TRUE);
+		$this->page->addScript($socialLoginPath, "inline");
+
+		// Path to the Ajax script
+		$ajaxPath = $this->getPath("ajaxScript.php", "webRoot");
+		
+		// Janrain widget onload() is required for Social Ajax
+		$jwolPath = $this->getPath("jwol.html", "fileSystem");
+		
+		$jwol = file_get_contents($jwolPath);
+		
+		// insert the path to the ajax script into the Janrain Widget
+		// onLoad function
+		$jwol = $this->replaceHolder("ajaxScript", $ajaxPath, $jwol);
+		
+		$this->page->scriptBlock .= $jwol . "\n";
+
+		// must set janrain.settings.tokenAction='event';
+		$settings = $this->getPath("janrainSettings.html", "fileSystem");
+		$this->page->addScript($settings, "inline");
 
             }
             
-            else {
+            else { // Social Login - Redirect (token URL)
 
-                // Token URL
-                $this->buildComponent("tokenURL", "fileRef", "php", "none", TRUE);
-                
-                $this->buildComponent("janrainSettings", "file", "html", "head", FALSE);
+		// optional Janrain widget onload()
+		$fileName = "jwol.html";
+		if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
+		    $this->page->addScript($fileName, "fileRef");
+		}
+		
+		$tokenURL = "http://" . $_SERVER["SERVER_NAME"] . $this->getPath("tokenURL.php", "webRoot");
+		
+		$socialLogin = file_get_contents($socialLoginPath);
+		
+		$socialLogin = $this->replaceHolder("tokenURL", $tokenURL, $socialLogin);
+		
+		$this->page->scriptBlock .= $socialLogin . "\n";
+	    }
 
-                
-            }
         }
 
-        
-        // <script>some random code</script>
-        // <script>another script</script>
-        $this->buildComponent("otherScripts", "file", "html", "head", FALSE);
+	// Check for other scripts
+	$fileName = "otherScripts.html";
+	if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
+	    $this->page->addScript($fileName, "inline");
+	}
+	
+	$body = $this->replaceHolder("content", $this->content, $this->page->getBody());
+	$this->page->setBody($body);
+
     }
     
+    // First looks in the local dir for the filename
+    // If it's not there, this returns the default path
+    // typeOfPath indicates whether the returned file path should be relative
+    // to the fileSystem root or web Root
+    private function getPath($fileName, $typeOfPath) {
+	$path = $this->paths["cwd"] . "/" . $fileName;
+	if (file_exists($path)) {
+	    if ($typeOfPath != "fileSystem") { $path = $fileName; }
+	}
+	else { 
+	    $path = $this->paths["templates"] . "/" . $this->typeOfDemo . "/" . $fileName;
+	    if ($typeOfPath === "fileSystem") {
+		$path = $this->paths["fsHome"] . $path;
+	    }
+	}
+	
+	return $path;
+    }
+
     private function buildComponent($name, $type, $ext, $parent, $required) {
         $this->components[$name]["type"] = $type;
         $this->components[$name]["ext"] = $ext;
         $this->components[$name]["parent"] = $parent;
         $this->components[$name]["required"] = $required;
     }
-    
+
     // sets values for various needed paths in the filesystem and web
     public function setPaths($home) {
         
@@ -183,27 +231,47 @@ class demo {
         $this->paths["navigation"] = $this->paths["templates"] . "/navigation";
         
         $this->paths["fsHome"] = strstr($home, $this->paths["home"], TRUE);
-        // $this->paths["includes"] = $this->paths["fsHome"] . $this->paths["default"] . "/includes";
-
+	$this->paths["navFull"] = $this->paths["fsHome"] . "/" . $this->paths["navigation"];
+	$this->paths["templatesFull"] = $this->paths["fsHome"] . "/" . $this->paths["templates"];
         $this->paths["cwd"] = getcwd(); // current working directory
         $this->paths["thisFolder"] = basename($this->paths["cwd"]);
     }
 
+    public function addScript($path, $fileRef) {
+	$this->page->addScript($path, $fileRef);
+    }
+
     public function setFinalValues() {
 
-        $componentNames = array_keys($this->components);
+        // $componentNames = array_keys($this->components);
 	
-	$title = $this->findValue("title");
-	$this->page->setTitle($title);
+	foreach($this->components["required"] as $component) {
+/*	    echo "<p>the component is: " . $component;
+	    echo "<p>the param value is: " . $this->params[$component];
+ * 
+ */
+	    // $this->components[$component]["finalValue"] = $this->findValue($component);
+	    // $finalValue = $this->findValue($component);
+	    // addToPage($this->components[$component]["finalValue"]);
+	}
+	
+	
+	//function addToPage()
+	
+	// echo "<p>the final value of title is: " . $this->components["title"]["finalValue"];
+	// $title = $this->findValue("title");
+	// $this->page->setTitle($title);
+	// $this->page->setTitle($this->components["title"]["finalValue"]);
+	// $this->page->setMeta($this->components["meta"]["finalValue"]);
 
 	// $this->page->
-
+/*
         foreach ($componentNames as $componentName) {
             
             $this->components[$componentName]["finalValue"] = 
                     $this->findValue($componentName);
         }
-       
+*/       
         $this->components["sidebar_col"]["finalValue"] = $this->replaceHolder("links", $this->getNavLinks(), $this->components["sidebar_col"]["finalValue"]);
 
         if ($this->typeOfDemo === "socialRedirect") {
@@ -344,7 +412,7 @@ class demo {
         
         global $displayNames;
         
-        if ($componentName === "title" || $componentName === "heading") { 
+        if ($componentName === "title" || $componentName === "header") { 
             
 	    $baseString = "Janrain " . $displayNames[$this->typeOfDemo];
 	    
@@ -352,11 +420,7 @@ class demo {
 	    
 	    if ($displayName != "") { $baseString .= ": " . $displayName; }
 
-	    /*
-            $baseString = "Janrain " . $displayNames[$this->typeOfDemo] . ": " . $this->getDisplayValue($this->getDemoFolderName());
-            */
-	    
-            if ($componentName === "title") { $defaultVal = "<title>" . $baseString . "</title>\n"; }
+            if ($componentName === "title") { $defaultVal = $baseString; }
             else { $defaultVal = "<h1>" . $baseString . "</h1>\n"; }
         }
         else {
@@ -548,16 +612,16 @@ class demo {
 	    exit();
 	}
     
-        $output = $this->replaceHolder("title", $this->components["title"]["finalValue"], $this->components["htmlTemplate"]["finalValue"]);
+        // $output = $this->replaceHolder("title", $this->components["title"]["finalValue"], $this->components["htmlTemplate"]["finalValue"]);
         
-        $output = $this->replaceHolder("head", $this->getElements("head"), $output);
+        // $output = $this->replaceHolder("head", $this->getElements("head"), $output);
         
 
-        $output = $this->replaceHolder("navigation", $this->getElements("navigation"), $output);
+        // $output = $this->replaceHolder("navigation", $this->getElements("navigation"), $output);
 
-        $output = $this->replaceHolder("header", $this->components["heading"]["finalValue"], $output);
+        // $output = $this->replaceHolder("header", $this->components["header"]["finalValue"], $output);
         
-        $output = $this->replaceHolder("body", $this->getElements("body"), $output);
+        // $output = $this->replaceHolder("body", $this->getElements("body"), $output);
 
 	$this->page->show();
 

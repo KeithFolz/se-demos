@@ -88,3 +88,37 @@ You should be all set now, and your demo site available at:
 
 or whatever your web server’s home path is.
 
+Elements
+DocType
+Instantiated value (htmlPageClass constructor):
+    <!DOCTYPE html> by default
+Can be assigned by:
+    setDocType() method.
+
+<HTML>, <head>, <body>
+Cannot be directly set, other than by setting member elements.
+
+meta
+Instantiated value (demoClass constructor):
+    <meta charset='utf-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+Can be assigned by:
+    addMeta() method.
+
+title
+Assigned by:
+    user input (params): non-html string
+    No local dir check.
+    if user does not supply a value, then a value will be automatically created.
+
+css
+Instantiated value (demoClass constructor):
+    <link rel='stylesheet' href='/JanrainDemoSites/default/styles/screen.css'>
+
+Can be assigned by:
+
+heading
+Assigned by:
+    user input (params): non-html string
+    No local dir check.
+    if user does not supply a value, then a value will be automatically created.

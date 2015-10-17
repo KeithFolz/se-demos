@@ -2,11 +2,32 @@
 
 class htmlPage {
 
+    public $css;
+    public $meta;
+    public $scriptBlock;
+    
+
     public function htmlPage() {
 	$this->page = $this->getPage();
     }
 
-    private function getBody() {
+    public function addClassToTag($tag, $class) {
+	if ($tag === "body") {
+	    $arrow = "<body class = '$class'>";
+	    $this->body = str_replace("<body>", $arrow, $this->body);
+	}
+	/*
+        if ($typeOfDemo === "socialAjax") {
+            $target = "__PATH_TO_CLIENT_VALIDATION_SCRIPT__";
+            $arrow = $thesePaths["ajaxScript"];
+            $finalHTML["jwol"] = str_replace($target, $arrow, $finalHTML["jwol"]); 
+        }
+ * 
+ */
+
+    }
+    
+    public function getBody() {
 	if (empty($this->body)) { $this->body = "<body></body>\n"; }
 	return $this->body;
     }
@@ -44,8 +65,8 @@ class htmlPage {
     }
 
     private function getScriptBlock() {
-	if (empty($this->scripts)) { $this->scripts = "<script></script>"; }
-	return $this->scripts;
+	if (empty($this->scriptBlock)) { $this->scriptBlock = "<script></script>"; }
+	return $this->scriptBlock;
     }
 
     private function getMeta() {
@@ -62,7 +83,6 @@ class htmlPage {
     }
 
     private function getHead() {
-	
 	
 	if (empty($this->head)) {
 	    $this->head = "<head>\n";
@@ -87,33 +107,43 @@ class htmlPage {
 	return $this->head;
     }
 
-    public function setBody($body) {
-	$this->body = "<body>";
-	$this->body .= $body;
-	$this->body .= "</body>";
+    public function addToBody($tag) {
+	$arrow = "\n" . $tag . "\n</body>";
+	$this->body = str_replace("</body>", $arrow, $this->body);
     }
 
-    // <link rel="stylesheet" href="/JanrainDemoSites/default/styles/screen.css" />
+    public function setBody($body) {
+	$this->body = $body;
+    }
+
     public function addCSS($stylesheet, $type) {
 	if ($type === "fileRef") {
-	    $this->css .= "<link rel='stylesheet' href='" . $stylesheet . '">\n';
+	    $this->css .= "<link rel='stylesheet' href='" . $stylesheet . "'>\n";
 	}
 	else {
 	    $this->css .= $stylesheet;
 	}
     }
-
-//    <script type="text/javascript" src="/JanrainDemoSites/default/scripts/navigation.js"></script>
-
-    // this function expects either a filepath (type = fileRef) or
-    // a string enclosed in <script></script> tags
-    public function addScript($script, $type) {
-	if ($type === "fileRef") {
-	    $this->scriptBlock .= "<script type='text/javascript' src='" . $script . "'></script>";
-	}
-	else { $this->scriptBlock .= $script . "\n"; }
-    }
     
+    // Expects a valid html string: "<meta ... />"
+    public function addMeta($metaString) {
+	$this->meta .= $metaString . "\n";
+    }
+
+    // this function expects a filepath.
+    // if type = "fileRef" then the script will be included as a src = parameter
+    // otherwise, the filepath will be opened and the script will be included
+    // in the <head>
+    public function addScript($path, $type) {
+	if ($type === "fileRef") {
+	    $this->scriptBlock .= "<script type='text/javascript' src='" . $path . "'></script>\n";
+	}
+	else { 
+	    $script = file_get_contents($path);
+	    $this->scriptBlock .= $script . "\n";
+	}
+    }
+
     public function show() {
 	echo $this->getPage();
     }

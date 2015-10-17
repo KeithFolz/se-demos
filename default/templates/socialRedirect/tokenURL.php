@@ -72,20 +72,22 @@ if(strlen($token) == 40) { //test the length of the token; it should be 40 chara
   $output .= "<p>Something wrong with the token.</p>";
 }
 
-$homeDir = "JanrainDemoSites";
+/***************************************/
+$params["homeDir"] = "JanrainDemoSites";
 
 // Finds out where we are in the filesystem and fixes path to fsHome
 
-$fsHome = strstr(getcwd(), $homeDir, TRUE) . $homeDir;
+$params["fsHome"] = strstr(getcwd(), $params["homeDir"], TRUE) . $params["homeDir"];
 
-include $fsHome . "/includes/includes.php";
+include $params["fsHome"] . "/includes/includes.php";
 
 /***************************************/
+$params["typeOfDemo"] = "socialRedirect";
 
 $params["content"] = "<p><b>Authentication was successful!</b></p>";
 $params["content"] .= "<p>Here is the user's profile:</p>";
 $params["content"] .= "<pre>" . $output . "</pre>";
 
-$params["typeOfDemo"] = "socialRedirect";
+$demo = new demo($params);
 
-showDemo($params, $fsHome);
+$demo->show();

@@ -11,8 +11,6 @@ include $params["fsHome"] . "/includes/includes.php";
 
 /***************************************/
 
-$params["title"] = "Janrain Enterprise - standard";
-
 $demo = new demo($params);
 
 $demo->show();
