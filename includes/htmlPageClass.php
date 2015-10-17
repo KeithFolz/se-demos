@@ -2,13 +2,18 @@
 
 class htmlPage {
 
+    public $body;
     public $css;
     public $meta;
     public $scriptBlock;
-    
 
     public function htmlPage() {
-	$this->page = $this->getPage();
+	$this->page = $this->getDocType() . "\n" . $this->getHTML();
+    }
+
+    public function initializeHTML() {
+	$this->body = "<body></body>\n";
+	$this->head = "<head></head>\n";
     }
 
     public function addClassToTag($tag, $class) {
@@ -16,17 +21,8 @@ class htmlPage {
 	    $arrow = "<body class = '$class'>";
 	    $this->body = str_replace("<body>", $arrow, $this->body);
 	}
-	/*
-        if ($typeOfDemo === "socialAjax") {
-            $target = "__PATH_TO_CLIENT_VALIDATION_SCRIPT__";
-            $arrow = $thesePaths["ajaxScript"];
-            $finalHTML["jwol"] = str_replace($target, $arrow, $finalHTML["jwol"]); 
-        }
- * 
- */
-
     }
-    
+
     public function getBody() {
 	if (empty($this->body)) { $this->body = "<body></body>\n"; }
 	return $this->body;
@@ -59,17 +55,17 @@ class htmlPage {
 	$this->title = "<title>" . $title . "</title>";
     }
 
-    private function getCSSblock() {
+    public function getCSSblock() {
 	if (empty($this->css)) { $this->css = "<css></css>"; }
 	return $this->css;
     }
 
-    private function getScriptBlock() {
+    public function getScriptBlock() {
 	if (empty($this->scriptBlock)) { $this->scriptBlock = "<script></script>"; }
 	return $this->scriptBlock;
     }
 
-    private function getMeta() {
+    public function getMeta() {
 	if (empty($this->meta)) {
 	    $this->meta = "<meta name='viewport' content='width=device-width, initial-scale=1'>";
 	}
@@ -82,26 +78,17 @@ class htmlPage {
 	return $this->title;
     }
 
-    private function getHead() {
+    public function getHead() {
+
+	$this->head = "<head>\n";
+	$this->head .= $this->getMeta();
+
+	$this->head .= "\n" . $this->getTitle();
+
+	$this->head .= "\n" . $this->getCSSblock();
+
+	$this->head .= "\n" . $this->getScriptBlock();
 	
-	if (empty($this->head)) {
-	    $this->head = "<head>\n";
-
-	    $this->head .= "\t<!--placeholder: head-->\n";
-	}
-	else {
-	    $this->head = "<head>\n";
-
-	    // meta
-	    $this->head .= $this->getMeta();
-	    
-	    $this->head .= "\n" . $this->getTitle();
-	    
-	    $this->head .= "\n" . $this->getCSSblock();
-	    
-	    $this->head .= "\n" . $this->getScriptBlock();
-	}
-
 	$this->head .= "\n</head>\n";
 
 	return $this->head;
@@ -121,7 +108,7 @@ class htmlPage {
 	    $this->css .= "<link rel='stylesheet' href='" . $stylesheet . "'>\n";
 	}
 	else {
-	    $this->css .= $stylesheet;
+	    $this->css .= $stylesheet . "\n";
 	}
     }
     
