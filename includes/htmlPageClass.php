@@ -8,12 +8,13 @@ class htmlPage {
     public $scriptBlock;
 
     public function htmlPage() {
-	$this->page = $this->getDocType() . "\n" . $this->getHTML();
+	$this->initializeHTML();
     }
 
     public function initializeHTML() {
 	$this->body = "<body></body>\n";
 	$this->head = "<head></head>\n";
+	$this->html = "<html>\n" . $this->head . $this->body . "</html>";
     }
 
     public function addClassToTag($tag, $class) {
