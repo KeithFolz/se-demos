@@ -107,10 +107,14 @@ For more information about these settings, see the following documents:
     //janrain.settings.capture.federateEnableSafari = false;
 
     // --- Backplane -----------------------------------------------------------
-    //janrain.settings.capture.backplane = true;
-    //janrain.settings.capture.backplaneBusName = '';
-    //janrain.settings.capture.backplaneVersion = 2;
-    //janrain.settings.capture.backplaneBlock = 20;
+    janrain.settings.capture.backplane = true;
+    janrain.settings.capture.backplaneBusName = 'se-demo';
+    janrain.settings.capture.backplaneVersion = 1.2;
+    janrain.settings.capture.backplaneBlock = 20;
+
+    //keep a user logged into commenting after refresh
+    janrain.settings.capture.backplaneReplayOnPageLoad = true;
+
 
     // --- BEGIN WIDGET INJECTION CODE -----------------------------------------
     /********* WARNING: *******************************************************\
@@ -189,30 +193,222 @@ function janrainCaptureWidgetOnLoad() {
     janrain.events.onCaptureLoginFailed.addHandler(implFuncs.handleDeactivatedAccountLogin);
     janrain.events.onCaptureAccountDeactivateSuccess.addHandler(implFuncs.handleAccountDeactivation);
 
-    //Added to handle edit profile nav buttons
-    janrain.events.onCaptureRenderComplete.addHandler(implFuncs.setNavigationForEditProfileBegin);
-    //Todo: add this handler to all demos that already customized janrain-init
+    //janrain.events.onCaptureSessionNotFound.addHandler(implFuncs.handleInvalidToken);
+    janrain.events.onCaptureSaveFailed.addHandler(implFuncs.handleInvalidToken);
+
 
     /*--
         SHOW EVENTS:
         Uncomment this line to show events in your browser's console. You must
         include janrain-utils.js to run this function.
                                                                             --*/
-     //janrainUtilityFunctions().showEvents();
+    janrainUtilityFunctions().showEvents();
 
-/********* Add event handlers here  *******************************************/
+    // helper function for displaying backplane events
+    function writeTo(theId, content, overwrite) {
+        var theElement = document.getElementById(theId);
+        if (overwrite == true) {
+            theElement.innerHTML = content;
+            return true;
+        }
+        theElement.innerHTML += content;
+        return true;
+    }
 
+        janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
+
+
+
+            /*
+            * An important thing to note in this demo: while the Enterprise solution makes *some* of the Backplane calls
+            * for you, it in no way prevents you from doing others yourself.
+            *
+            * For example, simply by including the Backplane settings in the overall Enterprise settings:
+            *
+            * janrain.settings.capture.backplane = true;
+            * janrain.settings.capture.backplaneBusName = 'se-demo';
+            * janrain.settings.capture.backplaneVersion = 1.2;
+            * janrain.settings.capture.backplaneBlock = 20;
+            *
+            * , Enterprise does the work of initializing Backplane, including getting the correct Backplane javascript
+            * file loaded in. So for example, you won't see calls to "Backplane.init()" or "Backplane.resetCookieChannel()"
+            * in this page.
+            *
+            * On the other hand, you do see calls to "Backplane.getChannelID()", "Backplane.expectMessages()"
+            * and "Backplane.subscribe()" here; again, you are in no way prevented from doing direct calls like this
+            * by the Enterprise solution.
+            *
+            * What's important to remember is that if you are simply instructing Janrain Enterprise to load Backplane and
+            * feed authentication events into the bus for other BP-enabled widgets to consume, all you have to do is
+            * enter the settings as above, which your Janrain Technical Lead will give you during deployment. No need for
+            * custom coding.
+            *
+            * Note that adding the BP settings can be done in our central settings file (see scripts/janrain-init.js),
+            * but you can also manage these settings directly on the page - see bottom of this page where we do this.
+            * */
+
+            // Resetting the backplan channel
+            console.log(Backplane.getChannelID());
+            Backplane.resetCookieChannel();
+            setTimeout(function(){
+              console.log(Backplane.getChannelID());
+
+              var bpChannel = Backplane.getChannelID();
+
+              // start testing this... who knows when/where to call it?
+              $.post('bp_identity.php', {'bp_channel_id': bpChannel, 'access_token': localStorage.getItem("janrainCaptureToken")}, function(ajaxResponse) {
+                console.log("Test");
+                  console.log(ajaxResponse);
+                  console.log("Test");
+              });
+
+              writeTo('event-list', '<li>Channel created: <a target="_blank" href="'
+                      + bpChannel + '">' + bpChannel + '</a>.<br>(Try viewing; will contain ' +
+                      'channel data after you authenticate.)</li>');
+
+              Backplane.expectMessages('identity/login');
+              writeTo('event-list', '<li>Expecting messages.</li>');
+
+              window.bpSubscription = Backplane.subscribe(function(backplaneMessage) {
+
+                  writeTo('event-list', '<li>New '+backplaneMessage.type+' message received. (Try viewing in the JS console.)</li>');
+                  console.log ("RAW BACKPLANE MESSAGE; TYPE == '"+backplaneMessage.type + "':");
+                  console.log (backplaneMessage);
+
+                  if (backplaneMessage.type == 'identity/login') {
+
+                      var avatarUrl = '';
+                      try {
+                          avatarUrl = backplaneMessage.payload.identities.entry.accounts[0].photos[0].value;
+                      } catch(err) {
+                          console.log ("error retrieving avatarUrl: ");
+                          console.log (err);
+                      }
+                      var avatar = '';
+                      if ( avatarUrl != '' ) {
+                          avatar = '<img src="'+avatarUrl+'" style="float:left; width:50px; padding:2px;">';
+                      }
+                      writeTo('welcome-msg', avatar+'Welcome, '+backplaneMessage.payload.identities.entry.displayName + '!', true);
+
+                  }
+
+                  //If we had no further interest in backplane events we could stop listening.
+                  //Backplane.unsubscribe(window.bpSubscription);
+
+              });
+
+              // Required call for Commenting module
+              jQuery("#article-comments").arktanArticleComments();
+
+            }, 150);
+
+        });
 
     /*                                                                        *\
     || *** CUSTOM ONLOAD CODE END ***                                         ||
     \*========================================================================*/
 
     // This should be the last line in janrainCaptureWidgetOnLoad()
-    janrain.capture.ui.start();
+    //janrain.capture.ui.start();
+
+    // When the end-user logs in, send the access token to the server-side PHP
+    // script to start the server-side session.
+    janrain.events.onCaptureLoginSuccess.addHandler(function(result) {
+        $.post("start_session.php", {'access_token': result.accessToken});
+        /**
+        , function(result2) {
+            alert( "success" );
+          })
+          .done(function(result2) {
+            console.log(result2);
+            alert( "second success" );
+          })
+          .fail(function(result2) {
+            console.log(result2.error_description);
+            alert( "error" );
+          })
+          .always(function() {
+            alert( "finished" );
+        });**/
+    });
+
+    // When the end-user ends the client-side session, send a request to the
+    // server-side PHP script to end the server-side session.
+    janrain.events.onCaptureSessionEnded.addHandler(function(result) {
+        $.post("end_session.php");
+    });
+
+    // If the access token stored in local storage expires (or is deleted), get
+    // a new access token from the server-side PHP script and start a new
+    // client-side session.
+    if (localStorage.getItem("janrainCaptureToken") && Date.parse(localStorage.getItem("janrainCaptureToken_Expires")) > Date.parse(Date())  ) {
+        janrain.capture.ui.start();
+    } else {
+        alert("No token detected or token expired on page refresh");
+
+/**
+        //Backplane.resetCookieChannel();
+        var channelId = Backplane.getChannelID();
+
+        if(channelId) {
+          console.log("Channel ID Defined");
+        }
+        else {
+          console.log("Channel ID Undefined");
+        }
+**/
+var channelId = "";
+
+        //$.getJSON('new_token.php', function(result) {
+        $.post('new_token.php', {'newChannelId': channelId}, function(result) {
+            if (result.stat == "ok") {
+                janrain.capture.ui.createCaptureSession(result.accessToken);
+                console.log("new_token finished");
+            } else {
+                console.log(result.error_description);
+            }
+            janrain.capture.ui.start();
+        });
+    }
 }
 
 // Reference implementation navigation.
 function janrainExampleImplementationFunctions() {
+
+    function handleInvalidToken(result) {
+        //janrain.capture.ui.modal.close();
+        //console.log(result);
+        alert("handleInvalidToken");
+
+        //Backplane.resetCookieChannel();
+        var channelId = Backplane.getChannelID();
+
+        if(channelId) {
+          console.log("Channel ID Defined");
+        }
+        else {
+          console.log("Channel ID Undefined");
+        }
+
+        //$.getJSON('new_token.php', {'newChannelId': channelId}, function(result) {
+        $.post('new_token.php', {'newChannelId': channelId}, function(result) {
+            if (result.stat == "ok") {
+                console.log(result);
+                janrain.capture.ui.createCaptureSession(result.accessToken);
+
+            } else {
+                console.log(result.error_description);
+            }
+        });
+        janrain.settings.capture.screenToRender = result.screen;
+        janrain.capture.ui.renderScreen(result.screen);
+        janrain.capture.ui.modal.open();
+
+        if (localStorage.getItem("janrainCaptureToken")) {
+          setNavigationForLoggedInUser;
+        }
+    }
+
     function setNavigationForLoggedInUser(result) {
         janrain.capture.ui.modal.close();
         document.getElementById("captureSignInLink").style.display  = 'none';
@@ -224,13 +420,6 @@ function janrainExampleImplementationFunctions() {
         document.getElementById("captureSignOutLink").style.display = 'none';
         document.getElementById("captureProfileLink").style.display = 'none';
         document.getElementById("editProfile").style.display = 'none';
-    }
-
-    function setNavigationForEditProfileBegin(result) {
-        if (result.screen == "editProfile") {
-          document.getElementById("captureProfileLink").style.display = 'none';
-          document.getElementById("hideProfileLink").style.display = '';
-        }
     }
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -277,6 +466,6 @@ function janrainExampleImplementationFunctions() {
         hideResendLink: hideResendLink,
         handleDeactivatedAccountLogin: handleDeactivatedAccountLogin,
         handleAccountDeactivation: handleAccountDeactivation,
-        setNavigationForEditProfileBegin: setNavigationForEditProfileBegin
+        handleInvalidToken: handleInvalidToken
     };
 }

@@ -53,6 +53,7 @@ For more information about these settings, see the following documents:
             janrain.settings.capture.clientId      = <PROD CAPTURE CLIENT ID>;
             var httpLoadUrl                        = "https://rpxnow.com/load/login.yourcompany.com";
             var httpsLoadUrl                       = "http://widgets-cdn.rpxnow.com/load/login.yourcompany.com";
+            testing
     \*------------------------------------------------------------------------*/
 
     janrain.settings.appUrl = 'https://janrain-se-demo.rpxnow.com';
@@ -80,7 +81,7 @@ For more information about these settings, see the following documents:
 
     // --- Capture Widget Settings ---------------------------------------------
     janrain.settings.capture.redirectUri = 'http://localhost/';
-    janrain.settings.capture.flowName = 'standard_newer';
+    janrain.settings.capture.flowName = 'standard_publicprofile';
     janrain.settings.capture.flowVersion = 'HEAD';
     janrain.settings.capture.registerFlow = 'socialRegistration';
     janrain.settings.capture.setProfileCookie = true;
@@ -191,14 +192,13 @@ function janrainCaptureWidgetOnLoad() {
 
     //Added to handle edit profile nav buttons
     janrain.events.onCaptureRenderComplete.addHandler(implFuncs.setNavigationForEditProfileBegin);
-    //Todo: add this handler to all demos that already customized janrain-init
 
     /*--
         SHOW EVENTS:
         Uncomment this line to show events in your browser's console. You must
         include janrain-utils.js to run this function.
                                                                             --*/
-     //janrainUtilityFunctions().showEvents();
+    // janrainUtilityFunctions().showEvents();
 
 /********* Add event handlers here  *******************************************/
 

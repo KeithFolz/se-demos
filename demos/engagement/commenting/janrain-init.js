@@ -80,7 +80,7 @@ For more information about these settings, see the following documents:
 
     // --- Capture Widget Settings ---------------------------------------------
     janrain.settings.capture.redirectUri = 'http://localhost/';
-    janrain.settings.capture.flowName = 'standard_newer';
+    janrain.settings.capture.flowName = 'standard_publicprofile';
     janrain.settings.capture.flowVersion = 'HEAD';
     janrain.settings.capture.registerFlow = 'socialRegistration';
     janrain.settings.capture.setProfileCookie = true;
@@ -107,10 +107,13 @@ For more information about these settings, see the following documents:
     //janrain.settings.capture.federateEnableSafari = false;
 
     // --- Backplane -----------------------------------------------------------
-    //janrain.settings.capture.backplane = true;
-    //janrain.settings.capture.backplaneBusName = '';
-    //janrain.settings.capture.backplaneVersion = 2;
-    //janrain.settings.capture.backplaneBlock = 20;
+    janrain.settings.capture.backplane = true;
+    janrain.settings.capture.backplaneBusName = 'se-demo';
+    janrain.settings.capture.backplaneVersion = 1.2;
+    janrain.settings.capture.backplaneBlock = 20;
+
+    //keep a user logged into commenting after refresh
+    janrain.settings.capture.backplaneReplayOnPageLoad = true;
 
     // --- BEGIN WIDGET INJECTION CODE -----------------------------------------
     /********* WARNING: *******************************************************\
@@ -189,19 +192,30 @@ function janrainCaptureWidgetOnLoad() {
     janrain.events.onCaptureLoginFailed.addHandler(implFuncs.handleDeactivatedAccountLogin);
     janrain.events.onCaptureAccountDeactivateSuccess.addHandler(implFuncs.handleAccountDeactivation);
 
-    //Added to handle edit profile nav buttons
-    janrain.events.onCaptureRenderComplete.addHandler(implFuncs.setNavigationForEditProfileBegin);
-    //Todo: add this handler to all demos that already customized janrain-init
-
     /*--
         SHOW EVENTS:
         Uncomment this line to show events in your browser's console. You must
         include janrain-utils.js to run this function.
                                                                             --*/
-     //janrainUtilityFunctions().showEvents();
+     janrainUtilityFunctions().showEvents();
 
-/********* Add event handlers here  *******************************************/
+    // helper function for displaying backplane events
+    function writeTo(theId, content, overwrite) {
+        var theElement = document.getElementById(theId);
+        if (overwrite == true) {
+            theElement.innerHTML = content;
+            return true;
+        }
+        theElement.innerHTML += content;
+        return true;
+    }
 
+        janrain.events.onCaptureBackplaneReady.addHandler(function(result) {
+
+            // Required call for Commenting module and the optional counter.
+            jQuery("#article-comments").arktanArticleComments();
+			jQuery("#article-comments-counter").arktanSocialCounter();
+        });
 
     /*                                                                        *\
     || *** CUSTOM ONLOAD CODE END ***                                         ||
@@ -215,6 +229,10 @@ function janrainCaptureWidgetOnLoad() {
 function janrainExampleImplementationFunctions() {
     function setNavigationForLoggedInUser(result) {
         janrain.capture.ui.modal.close();
+        var uuid = eval("(" + localStorage["janrainCaptureProfileData"] + ")").uuid;
+        var entityType = "user";
+        var appkey = "dev.janrain";
+        Arktan.initializeEngagementUser(uuid, entityType, appkey, "janrain-se-demo");
         document.getElementById("captureSignInLink").style.display  = 'none';
         document.getElementById("captureSignOutLink").style.display = '';
         document.getElementById("captureProfileLink").style.display = '';
@@ -224,13 +242,6 @@ function janrainExampleImplementationFunctions() {
         document.getElementById("captureSignOutLink").style.display = 'none';
         document.getElementById("captureProfileLink").style.display = 'none';
         document.getElementById("editProfile").style.display = 'none';
-    }
-
-    function setNavigationForEditProfileBegin(result) {
-        if (result.screen == "editProfile") {
-          document.getElementById("captureProfileLink").style.display = 'none';
-          document.getElementById("hideProfileLink").style.display = '';
-        }
     }
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -276,7 +287,6 @@ function janrainExampleImplementationFunctions() {
         enhanceReturnExperience: enhanceReturnExperience,
         hideResendLink: hideResendLink,
         handleDeactivatedAccountLogin: handleDeactivatedAccountLogin,
-        handleAccountDeactivation: handleAccountDeactivation,
-        setNavigationForEditProfileBegin: setNavigationForEditProfileBegin
+        handleAccountDeactivation: handleAccountDeactivation
     };
 }

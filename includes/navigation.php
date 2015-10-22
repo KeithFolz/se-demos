@@ -24,7 +24,9 @@ $links["enterprise"] = array (
     "noPopup" => "FullScreen IDPs",
     "google_analytics" => "Google Analytics",
     "standard" => "Standard",
-    "widget_visible_immediately" => "Widget Visible Immediately"
+    "publicprofile" => "Public Profile",
+    "widget_visible_immediately" => "Widget Visible Immediately",
+    "extendedsession" => "Extended Session"
 );
 
 $links["socialLogin"] = array (
@@ -37,9 +39,23 @@ $links["socialLogin"] = array (
 );
 
 $links["engagement"] = array (
-    "socialSharing" => "Social Sharing",
-    "commenting" => "Commenting",
-    "live_event_chat" => "Live Event Chat",
-    "site_activity" => "Site Activity",
-    "curated_social" => "Curated Tweets"
+
+    "commenting" => "<b>Streams:</b> Commenting",
+    "curated_posts" => "<b>Streams:</b> Curated Feed",
+    "tabs" =>"<b>Streams:</b> Curated Tabbed Feed",
+    "live_event_chat" => "<b>Streams:</b> Live Chat",
+    "site_activity" => "<b>Streams:</b> Site Activity Feed",
+    "maps" => "<b>Streams:</b> Maps",
+
+  	"leader_board" => "<b>Trends:</b> Leader Board",
+    "hashtag_battle" => "<b>Trends:</b> Hashtag Battle",
+  	"word_cloud" => "<b>Trends:</b> Word Cloud",
+    "polling" => "<b>Trends:</b> Polls",
+  	"posts_per_minute" =>"<b>Trends:</b> Posts per Minute",
+
+    "ratings_and_reviews" => "<b>Ratings and Reviews</b>",
+    "socialSharing" => "<b>Social Sharing</b>",
+    //Social hub example created by Tony Bateman, commenting out nav so we can leave in actual code and URL
+    //"allspaceconsidered" => "<b>All Space Considered</b>",
+
 );

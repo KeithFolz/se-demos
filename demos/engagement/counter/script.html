@@ -1,0 +1,21 @@
+<!-- Begin script to allow swap of streams -->
+<!-- Normally this would be in its own file -->
+
+<script type="text/javascript">
+  /* This next toggles the display of two counter modules. */
+  
+  $('#toggle_view').toggle( function(){
+	$('#module2, #demo2').show(1000);
+	$('#module1,#demo1').hide(1000);
+	$('#demo_name').html("<strong>Curated Tweets</strong>");
+
+ }, function(){   
+
+ 	$('#module1, #demo1').show(1000);
+	$('#module2,#demo2').hide(1000);
+ 	$('#demo_name').html("<strong>Live Event Chat</strong>");
+  });
+  
+</script> 
+
+<!-- end of javascript to swap counter displays.-->
