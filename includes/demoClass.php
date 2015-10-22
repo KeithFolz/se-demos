@@ -92,52 +92,15 @@ class demo extends htmlPage {
 	$this->content = "";
 
         // DemoType-specific settings
-        if ($this->typeOfDemo === "enterprise") {
-
-	    // janrain-init.js
-	    $this->addScript($this->getPath("janrain-init.js", "webPath"), "fileRef");
-
-	    // janrain-utils.js
-	    $this->addScript($this->getPath("janrain-utils.js", "webPath"), "fileRef");
-
-            // Janrain js settings, for example:
-            // <script>janrain.settings.width = '330';</script>
-	    $fileName = "janrainSettings.js";
-	    if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
-		$this->addScript($fileName, "fileRef");
-	    }
-
-            // <a href="#" id="captureSignInLink" 
-            // onclick="janrain.capture.ui.renderScreen('signIn')">
-            // Sign In / Sign Up</a>
-	    $contentFiles = array("signinLinks.html", "content.html", "widgetScreens.html");
-	    
-	    foreach($contentFiles as $file) {
-		$this->content .= file_get_contents($this->getPath($file, "fileSystem"));
-	    }
-	    
-	    /*
-	    $path = $this->getPath("signinLinks.html", "fileSystem");
-	    $this->content = file_get_contents($path);
-
-	    $path = $this->getPath("content.html", "fileSystem");
-	    $this->content .= file_get_contents($path);
-
-            // Janrain JTL + HTML
-	    $path = $this->getPath("widgetScreens.html", "fileSystem");
-	    $this->content .= file_get_contents($path);
-	     * 
-	     */
-
-        }
-        elseif ($this->typeOfDemo === "socialAjax" || $this->typeOfDemo === "socialRedirect") {
-
+	if ($this->typeOfDemo === "enterprise") { $this->setEnterprise(); }
+	
+	if ($this->typeOfDemo === "socialAjax" || $this->typeOfDemo === "socialRedirect") {
 	    if (empty($this->params["content"])) {
 		$path = $this->getPath("content.html", "fileSystem");
 		$this->content .= file_get_contents($path);
 	    }
 	    else { $this->content .= $this->params["content"]; }
-
+	
 	    // The basic Social login script
 	    // just getting the path for now, bc the content will need to
 	    // change based on redirect vs. ajax (below)
@@ -149,47 +112,8 @@ class demo extends htmlPage {
 		$this->addScript($fileName, "fileRef");
 	    }
 
-            if ($this->typeOfDemo === "socialAjax") {
-
-		$this->addScript($socialLoginPath, "inline");
-
-		// Path to the Ajax script
-		$ajaxPath = $this->getPath("ajaxScript.php", "webRoot");
-		
-		// Janrain widget onload() is required for Social Ajax
-		$jwolPath = $this->getPath("jwol.html", "fileSystem");
-		
-		$jwol = file_get_contents($jwolPath);
-		
-		// insert the path to the ajax script into the Janrain Widget
-		// onLoad function
-		// $jwol = $this->replaceHolder("ajaxScript", $ajaxPath, $jwol);
-		
-		$this->scriptBlock .= $this->replaceHolder("ajaxScript", $ajaxPath, $jwol) . "\n";
-
-		// must set janrain.settings.tokenAction='event';
-		$settings = $this->getPath("janrainSettings.html", "fileSystem");
-		$this->addScript($settings, "inline");
-
-            }
-            
-            else { // Social Login - Redirect (token URL)
-
-		// optional Janrain widget onload()
-		$fileName = "jwol.html";
-		if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
-		    $this->addScript($fileName, "fileRef");
-		}
-		
-		$tokenURL = "http://" . $_SERVER["SERVER_NAME"] . $this->getPath("tokenURL.php", "webRoot");
-		
-		$socialLogin = file_get_contents($socialLoginPath);
-		
-		$socialLogin = $this->replaceHolder("tokenURL", $tokenURL, $socialLogin);
-		
-		$this->scriptBlock .= $socialLogin . "\n";
-	    }
-
+            if ($this->typeOfDemo === "socialAjax") { $this->setSocialAjax($socialLoginPath); }
+	    else { $this->setSocialRedirect($socialLoginPath); }
         }
 
 	// Check for other scripts
@@ -203,20 +127,80 @@ class demo extends htmlPage {
 
     }
 
-    // First looks in the local dir for the filename
-    // If it's not there, this returns the default path
-    // typeOfPath indicates whether the returned file path should be relative
-    // to the fileSystem root or web Root
+    private function setEnterprise() {
+	// janrain-init.js
+	$this->addScript($this->getPath("janrain-init.js", "webPath"), "fileRef");
+
+	// janrain-utils.js
+	$this->addScript($this->getPath("janrain-utils.js", "webPath"), "fileRef");
+
+	// Janrain js settings, for example:
+	// <script>janrain.settings.width = '330';</script>
+	$fileName = "janrainSettings.js";
+	if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
+	    $this->addScript($fileName, "fileRef");
+	}
+
+	// <a href="#" id="captureSignInLink" 
+	// onclick="janrain.capture.ui.renderScreen('signIn')">
+	// Sign In / Sign Up</a>
+	$contentFiles = array("signinLinks.html", "content.html", "widgetScreens.html");
+
+	foreach($contentFiles as $file) {
+	    $this->content .= file_get_contents($this->getPath($file, "fileSystem"));
+	}
+    }
+
+    private function setSocialAjax($socialLoginPath) {
+	$this->addScript($socialLoginPath, "inline");
+
+	// Path to the Ajax script
+	$ajaxPath = $this->getPath("ajaxScript.php", "webRoot");
+
+	// Janrain widget onload() is required for Social Ajax
+	$jwolPath = $this->getPath("jwol.html", "fileSystem");
+
+	$jwol = file_get_contents($jwolPath);
+
+	// insert the path to the ajax script into the Janrain Widget
+	// onLoad function
+	// $jwol = $this->replaceHolder("ajaxScript", $ajaxPath, $jwol);
+
+	$this->scriptBlock .= $this->replaceHolder("ajaxScript", $ajaxPath, $jwol) . "\n";
+
+	// must set janrain.settings.tokenAction='event';
+	$settings = $this->getPath("janrainSettings.html", "fileSystem");
+	$this->addScript($settings, "inline");
+    }
+
+    private function setSocialRedirect($socialLoginPath) {
+	// optional Janrain widget onload()
+	$fileName = "jwol.html";
+	if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
+	    $this->addScript($fileName, "fileRef");
+	}
+
+	$tokenURL = "http://" . $_SERVER["SERVER_NAME"] . $this->getPath("tokenURL.php", "webRoot");
+
+	$socialLogin = file_get_contents($socialLoginPath);
+
+	$socialLogin = $this->replaceHolder("tokenURL", $tokenURL, $socialLogin);
+
+	$this->scriptBlock .= $socialLogin . "\n";
+    }
+
     private function getPath($fileName, $typeOfPath) {
+	// First looks in the local dir for the filename
+	// If it's not there, this returns the default path
+	// typeOfPath indicates whether the returned file path should be relative
+	// to the fileSystem root or web Root
 	$path = $this->paths["cwd"] . "/" . $fileName;
 	if (file_exists($path)) {
 	    if ($typeOfPath != "fileSystem") { $path = $fileName; }
 	}
 	else { 
 	    $path = $this->paths["templates"] . "/" . $this->typeOfDemo . "/" . $fileName;
-	    if ($typeOfPath === "fileSystem") {
-		$path = $this->paths["fsHome"] . $path;
-	    }
+	    if ($typeOfPath === "fileSystem") { $path = $this->paths["fsHome"] . $path; }
 	}
 	
 	return $path;
