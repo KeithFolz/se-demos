@@ -1,0 +1,75 @@
+#outer-box-container {width:100%;}
+
+				
+#default_instagram{
+				width:95%,
+				height:275px;
+				background-color:rgb(247,245,243);
+				padding-left:5px solid black; 
+				padding-right:10px;
+				border:2px solid #0ABFBC; 
+				border-radius:5px;
+				margin:5px;
+				} 
+	
+				
+#default_stream {
+				align:center;
+				width:95%,
+				height:1000px;
+				background-color:rgb(247,245,243);
+				padding-left:15px solid black; 
+				padding-right:10px;
+				border:2px solid #0ABFBC; 
+				border-radius:5px;
+				margin:10px;
+				overflow-x:scroll;
+				overflow-y:scroll;
+				} 
+				
+.title-default, .title-horiz , #title-counter  {
+				align:left; 
+				color:#0ABFBC; 
+				font-weight:bold; 
+				font-size:18px; 
+				padding-left:35px;
+				padding-right:10px;
+				padding-top:3px;
+				}
+     
+.google-map, #map{ 
+        		width: 700px !important; 
+        		height: 500px !important;
+        		 }
+      		
+
+        		
+#blue{
+				background-color:blue;
+				border:2px solid #0ABFBC; 
+
+			}    		
+#green{
+				background-color:green;
+				border:2px solid #0ABFBC;				
+			}
+#pink{
+				background-color:pink;
+				border:2px solid #0ABFBC;				
+			}  
+#purple{
+				background-color:purple;
+				border:2px solid #0ABFBC;				
+			}  
+#yellow{
+				background-color:yellow;
+				border:2px solid #0ABFBC;				
+			}  
+#orange{
+				background-color:orange;
+				border:2px solid #0ABFBC;				
+			}  
+#red{
+				background-color:red;
+				border:2px solid #0ABFBC;				
+			}

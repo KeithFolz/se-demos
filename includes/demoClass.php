@@ -1,8 +1,10 @@
 <?php
 
 // to-do
+// kill edit Profile html page
 // is cwd needed?
 // clean up setPaths
+// two copies of signinlinks necessary for enterprise vs. engagement?
 
 include_once "htmlPageClass.php";
 
@@ -80,9 +82,15 @@ class demo extends htmlPage {
 	if (!empty($this->params["title"])) { $title = $this->params["title"]; }
 	else { $title = $this->getDefaultValue("title"); }
 	$this->setTitle($title);
-
+	
+	// Looks for additional CSS in local dir
+	$cssFileName = "thisDemoStyle.css";
+	if (file_exists($this->paths["cwd"] . "/" . $cssFileName)) {
+	    $this->addCSS(file_get_contents($cssFileName), "inline");
+	}
 	// Header
-	if (!empty($this->params["header"])) { $header = $this->params["header"]; }
+	if (!empty($this->params["header"])) {
+	    $header = "<h1>" . $this->params["header"] . "</h1>"; }
 	else { $header = $this->getDefaultValue("header"); }
 	
 	// Inserts the Header <h1>$header</h1> into the body element
@@ -92,29 +100,11 @@ class demo extends htmlPage {
 	$this->content = "";
 
         // DemoType-specific settings
-	if ($this->typeOfDemo === "enterprise") { $this->setEnterprise(); }
+	if ($this->typeOfDemo === "enterprise" || $this->typeOfDemo === "engagement") { $this->setEnterprise(); }
 	
 	if ($this->typeOfDemo === "socialAjax" || $this->typeOfDemo === "socialRedirect") {
-	    if (empty($this->params["content"])) {
-		$path = $this->getPath("content.html", "fileSystem");
-		$this->content .= file_get_contents($path);
-	    }
-	    else { $this->content .= $this->params["content"]; }
-	
-	    // The basic Social login script
-	    // just getting the path for now, bc the content will need to
-	    // change based on redirect vs. ajax (below)
-	    $socialLoginPath = $this->getPath("socialLogin.html", "fileSystem");
-	    
-	    // optional error-checking
-	    $fileName = "errorChecking.html";
-	    if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
-		$this->addScript($fileName, "fileRef");
-	    }
-
-            if ($this->typeOfDemo === "socialAjax") { $this->setSocialAjax($socialLoginPath); }
-	    else { $this->setSocialRedirect($socialLoginPath); }
-        }
+	    $this->setSocial();
+	}
 
 	// Check for other scripts
 	$fileName = "otherScripts.html";
@@ -124,6 +114,13 @@ class demo extends htmlPage {
 	
 	$body = $this->replaceHolder("content", $this->content, $this->getBody());
 	$this->setBody($body);
+
+    }
+
+    private function setEngagement() {
+	
+	// $stylesheet = file_get_contents($this->getPath("engagement.css", "fileSystem"));
+	// $this->addCSS($stylesheet, "inline");
 
     }
 
@@ -149,6 +146,30 @@ class demo extends htmlPage {
 	foreach($contentFiles as $file) {
 	    $this->content .= file_get_contents($this->getPath($file, "fileSystem"));
 	}
+	
+	if ($this->typeOfDemo === "engagement") { $this->setEngagement(); }
+    }
+
+    private function setSocial() {
+	if (empty($this->params["content"])) {
+	    $path = $this->getPath("content.html", "fileSystem");
+	    $this->content .= file_get_contents($path); }
+	else { $this->content .= $this->params["content"]; }
+
+	// The basic Social login script
+	// just getting the path for now, bc the content will need to
+	// change based on redirect vs. ajax (below)
+	$socialLoginPath = $this->getPath("socialLogin.html", "fileSystem");
+
+	// optional error-checking
+	$fileName = "errorChecking.html";
+	if (file_exists($this->paths["cwd"] . "/" . $fileName)) {
+	    $this->addScript($fileName, "fileRef");
+	}
+
+	if ($this->typeOfDemo === "socialAjax") { $this->setSocialAjax($socialLoginPath); }
+	else { $this->setSocialRedirect($socialLoginPath); }
+
     }
 
     private function setSocialAjax($socialLoginPath) {

@@ -1,4 +1,3 @@
-<style type="text/css">
 #outer-box-container {width:100%;}
 
 /* To avoid a style conflict, used the !important directive to get percentage values to fit
@@ -45,8 +44,4 @@
 				margin:10px;
 				overflow-x:scroll;
 				overflow-y:scroll;
-				} 
-	
-	
-</style
-
+				}

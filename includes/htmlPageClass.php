@@ -108,11 +108,13 @@ class htmlPage {
 	if ($type === "fileRef") {
 	    $this->css .= "<link rel='stylesheet' href='" . $stylesheet . "'>\n";
 	}
-	else {
+	elseif ($type === "inline") {
+	    $this->css .= "<style type = 'text/css'>\n";
 	    $this->css .= $stylesheet . "\n";
+	    $this->css .= "</style>\n";
 	}
     }
-    
+
     // Expects a valid html string: "<meta ... />"
     public function addMeta($metaString) {
 	$this->meta .= $metaString . "\n";

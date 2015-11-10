@@ -10,7 +10,7 @@ $params["fsHome"] = strstr(getcwd(), $params["homeDir"], TRUE) . $params["homeDi
 include $params["fsHome"] . "/includes/includes.php";
 
 /***************************************/
-$params["typeOfDemo"] = "socialAjax";
+$params["typeOfDemo"] = "socialRedirect";
 $params["title"] = "Janrain Demo Site: Social Login - Standard w/Redirect";
 
 $demo = new demo($params);

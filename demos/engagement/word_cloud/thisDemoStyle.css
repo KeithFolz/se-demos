@@ -1,4 +1,3 @@
-<style type="text/css">
 #outer-box-container {width:100%;}
 
 #wordbox1
@@ -94,9 +93,4 @@
 .tag11 a, .tag11 a:visited{color:blue;} .tag11 a:hover{color:olive;} 
 .tag13 a, .tag13 a:visited{color:green;} .tag13 a:hover{color:olive;} 
 .tag15 a, .tag15 a:visited{color:orange;} .tag14 a:hover{color:olive;} 
-.tag12 a:hover{color:olive;} /*uses default color and default visited color*/				
-					
-					
-					
-					
-</style
+.tag12 a:hover{color:olive;} /*uses default color and default visited color*/
