@@ -89,7 +89,9 @@ input {width:100%;}
 IDS Test Rig
 
 <!--<form action="testrig_submit.php" method="POST" name="idsform">-->
-<form action="ids_submit.php" method="POST" name="idsform">
+
+<form action="verify.php" method="POST" name="idsform">
+
 
 <fieldset>
 <legend>Form Elements:</legend>
