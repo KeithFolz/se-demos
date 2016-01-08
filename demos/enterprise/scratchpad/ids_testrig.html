@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>IDS Test Rig Start Page</title>
+<script type="text/javascript">
+
+(function() {
+    if (typeof window.janrain !== 'object') window.janrain = {};
+    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+    
+    /* _______________ can edit below this line _______________ */
+    janrain.settings.enforceSecureCloudfront = true;
+    // janrain.settings.tokenUrl = 'http://pse.janrain.com/customer_dev/7053fb63bdf4/test_token.php';
+    janrain.settings.tokenUrl = 'http://demos.janrain.com/JanrainDemoSites/default/templates/socialRedirect/tokenURL.php';
+    ////janrain.settings.tokenAction = 'url';
+    //janrain.settings.tokenUrl = 'http://localhost/';
+       
+    janrain.settings.popup = false;
+    janrain.settings.tokenAction = 'url';
+    janrain.settings.type = 'embed';
+    // janrain.settings.appId = 'eafhcpchjlbjfgcfmjkp';
+    janrain.settings.appId = 'jfhdhnphmnoonffnahjn';
+
+    janrain.settings.appUrl = 'https://janrain-se-demo.rpxnow.com/';
+    janrain.settings.providers = ['customopenid'];
+    janrain.settings.providersPerPage = '4';
+    janrain.settings.format = 'two column';
+    janrain.settings.actionText = 'Sign in using your account with';
+    janrain.settings.showAttribution = true;
+    janrain.settings.fontColor = '#333333';
+    janrain.settings.fontFamily = 'arial';
+    janrain.settings.backgroundColor = '#FFFFFF';
+    janrain.settings.width = '380';
+    janrain.settings.borderColor = '#CCCCCC';
+    janrain.settings.borderRadius = '10';
+    janrain.settings.buttonBorderColor = '#CCCCCC';
+    janrain.settings.buttonBorderRadius = '5';
+    janrain.settings.buttonBackgroundStyle = 'gradient';
+    janrain.settings.language = '';
+    janrain.settings.linkClass = 'janrainEngage';
+    janrain.settings.customOpenidIdentifier = 'https://demos.janrainfederate.com';
+	janrain.settings.customOpenid = true;
+	janrain.settings.customOpenidFlow = 'openid';
+	janrain.settings.customOpenIdProviderName = 'SE Demo ID test';
+	janrain.settings.customOpenIDProviderColor = '#ffffff';
+	janrain.settings.customOpenidLargeIcon = '';
+	//janrain.settings.customOpenidModalWidth = '';
+	janrain.settings.customOpenidModalHeight = '640';
+
+	
+	janrain.settings.customOpenidOpxblob = JSON.stringify(ids_settings);
+
+    /* _______________ can edit above this line _______________ */
+
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+      window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
+
+    if (document.location.protocol === 'https:') {
+      e.src = 'https://ssl-widget-cdn.rpxnow.com/load/pbjanrain';//'https://rpxnow.com/js/lib/pbjanrain/engage.js';
+    } else {
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/pbjanrain/engage.js';
+    }
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+    
+    
+})();
+
+function launchTestRig(){
+	janrain.apps.engage.signin.triggerFlow('customopenid');
+}
+
+var ids_settings = {
+	auto_login:false, 
+	login_username:"Test Username",
+	login_fullname:"Test Fullname",
+	login_nickname: "Test Nickname",
+	login_email: "testrig@test.com",
+	login_gender: "M", // M or F
+	login_dob: "1970-01-01", //should be in (\d\d\d\d)-(\d\d)-(\d\d) format
+	login_country: "US", //ISO_3166-1
+	login_postcode: "12345",
+	login_language: "en",  //ISO-639
+	login_timezone: "America/Los_Angeles"}; //ISO-8601  Uses Joda library
+
+</script>
+<script src="json2.js"></script>
+
+
+</head>
+<body>
+    <h2>Engage Example</h2>
+    <div id="janrainEngageEmbed"></div> 
+    <div >
+    <a id="launchLink" href="#" onclick="launchTestRig();">Launch Test Rig</a>
+    </div>
+</body>
+</html>
