@@ -1,2 +1,5 @@
 .DS_Store
 webhook.txt
+/nbproject/
+/nbproject/private/
+localdeploy.sh
