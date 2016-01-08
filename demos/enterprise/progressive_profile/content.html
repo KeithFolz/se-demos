@@ -1,0 +1,56 @@
+<p>This page represents the standard Janrain Enterprise solution, with no
+special configurations.
+</p>
+
+<p>Try viewing the source to see what's going on.</p>
+
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="implementationSelector"
+        data-toggle="dropdown" aria-haspop="true" aria-expanded="true">
+                Select implementation
+                <span class="caret"></span>
+                <ul class="dropdown-menu" aria-labelledby="implementationSelector">
+                    <li><a href="#">Post login</a></li>
+                    <li><a href="#">User action</a></li>
+                    <li><a href="#">Random login</a></li>
+                </ul>
+    </button>
+</div>
+
+<!-- Button trigger modal -->
+<button id="progressiveProfileBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Get more data
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tell us more!</h4>
+      </div>
+      <div class="modal-body">
+          What's your favorite season?
+          <form id="updateProfile" action="updateProfile.php">
+            <div class="radio">
+                <label><input type="radio" name="favoriteSeason" value="spring">Spring</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="favoriteSeason" value="summer">Summer</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="favoriteSeason" value="fall">Fall</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="favoriteSeason" value="winter">Winter</label>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateProfile();" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
