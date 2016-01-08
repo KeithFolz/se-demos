@@ -21,8 +21,7 @@ $links["enterprise"] = array (
     "standard" => "Standard",
     "publicprofile" => "Public Profile",
     "widget_visible_immediately" => "Widget Visible Immediately",
-    "extendedsession" => "Extended Session",
-    "progressive_profile" => "Progressive Profiling"
+    "extendedsession" => "Extended Session"
 );
 
 $links["socialLogin"] = array (
