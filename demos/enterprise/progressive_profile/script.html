@@ -33,7 +33,7 @@
         };
         
         $.post("updateProfile.php", params, function(data) {
-            alert('result: ' + data);
+            console.log('result: ' + data);
         });
                 
         $('#progressiveProfileBtn').toggle(false);
