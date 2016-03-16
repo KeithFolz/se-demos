@@ -1,0 +1,121 @@
+    
+    <!-- <p>This is a demo of Janrain Enterprise with <b>Live Event Chat</b>.</p> -->
+<h2> Talent QnA </h2>
+
+<p>
+  Drive customer engagement during high-traffic events by enabling real-time
+  talent QnA. Consumers can interact with the talent and voice
+  opinions during high-profile events, TV programs, webcasts, and more.
+</p>
+
+Try out these features on this example implementation:
+<ul>
+  <li>After signing into site, you are also signed into Talent QnA</li>
+  <li>Like a question</li>
+  <li>Share your question to Facebook and Twitter (if logged in with that IDP)</li>
+  <li>Dirty word filter prevents offensive posts</li>
+  <li>Questions added on this page also show in Site Activity Feed</li>
+  <li>Users can delete their own questions</li>
+</ul>
+
+<p>
+  Note that this demo is based on the Backplane 1.2 specification. For more details, see:<br>
+  <a href="http://backplanex.com/specification-documents/backplane-specification-1-2/">http://backplanex.com/specification-documents/backplane-specification-1-2/</a>
+</p>
+
+<p><i>Try viewing the source to see what's going on.</i></p>
+
+<hr>
+
+<h2>
+
+    We're scientists on the NASA New Horizons team, which is at Pluto. Ask us anything about the mission & Pluto!
+
+</h2>
+
+<div id="messageDiv"></div>
+
+<!-- Begin script required for Live Event Chat module -->
+
+<script>
+var Arktan = {};
+Arktan.settings = {
+  "source":{
+    "name": "Janrain",
+    "uri": "http://www.janrain.com"
+  },
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+  "flagging": "default",
+  "deleteOption":true,
+  "localization": {
+        "youMustBeLoggedIn": "You must be logged in to post a question",
+        "hintText": "Type your question here..."
+    },
+  "enableCapture":true,
+  "entityType":"user",//new
+  "apps" : [
+  	{
+    "type":"stream",
+    "id": "streams",
+    "streamTarget":"chat-stream",
+    "streamID": "http://www.janrain.com/solutions/id_Talent_QnA_Demo",
+    "maxItems": 5,
+    "submitTarget":"chat-form",
+    "submitURL": "http://www.janrain.com/solutions/id_Talent_QnA_Demo",
+    "disableReplyOnly": true,
+
+    //new
+    "userActivityLink": {
+                        "enabled": true,
+                        "showProfile": "basic"
+                    },  
+	},
+
+
+	{
+	"type":"counter", //totally optional.
+	"id": "counter1",
+	"targetDOM": "counter1",
+	"streamID": "http://www.janrain.com/solutions/id_Talent_QnA_Demo"
+	}
+  ]};
+
+ 
+  </script>
+
+
+
+<!-- <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script> -->
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+
+<script>
+    Arktan.Broadcast.subscribe("Submit.onPostComplete", function(topic, data, contextId) {          
+        $("#messageDiv").show().html("Thank you for posting a question. It will be answered in a few moments.").delay(3000).fadeOut();   
+    });
+</script>
+
+<!-- End Live Event Chat script -->
+
+<!-- Begin HTML to hold the optional counter.  -->
+<div id="title-counter" style="float:left;">Total Posts: </div>
+<div id="counter1" style="float:left;"></div>
+<br><hr>
+
+<!-- End HTML to hold optional counter. -->
+
+<!-- Begin HTML required for Live Event Chat module -->
+
+<div class="river">
+  <div id="chat-form"></div>
+  <div id="chat-stream"></div>
+</div>
+
+
+<div class="river">
+  <div id="chat-form"></div>
+  <div id="chat-stream"></div>
+</div>
+
+<!-- End Live Event Chat HTML -->
