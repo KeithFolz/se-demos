@@ -1,0 +1,44 @@
+
+<div id="container"> 
+  <h1>Questions to be answered</h1> 
+  <div id="auth" ></div>
+  <div class="river"> 
+  <div id="qna-submit"></div>
+  <div id="rivers-stream"></div>
+  <script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+     <script type="text/javascript" src="http://cdn.arktan.com/ark-woj-min.js"></script>
+  <script>
+    var QnASessionId = 'http://www.janrain.com/solutions/id_Talent_QnA_Demo';
+    var ArktanSocialAppsConfig = {
+      "source":{
+          "name": "Janrain",
+          "uri": "http://www.janrain.com"
+      },
+      "janrainAppName": "arktanlogin05",
+      "busName": "arktanlogin05",
+      "appkey": "dev.janrain",
+      "moderation": true,
+      "likes": true,
+      "identityUrl": "https://arktanlogin05.rpxnow.com/openid/embed?flags=stay_in_window,no_immediate&token_url=http%3A%2F%2Fsandbox.arktan.com%2Farkjs%2Fwaiting.html&bp_channel=",
+      "apps": [
+        {
+          "type":"stream", 
+          "id": "official", 
+          "streamTarget": "rivers-stream", 
+          "submitTarget": "qna-submit", 
+          "replyAndApprove":true, 
+          "streamType": "pending" ,
+          "streamID": QnASessionId,
+          "submitURL": QnASessionId
+        }
+      ]
+    };
+
+    $(document).ready(function(){
+        Arktan.SocialApps.install(ArktanSocialAppsConfig);
+    });
+  </script>
+  
+  </div> 
+  
+</div> 
