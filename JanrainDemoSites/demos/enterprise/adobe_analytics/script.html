@@ -1,0 +1,73 @@
+<!-- SiteCatalyst code version: H.26.1.
+Copyright 1996-2013 Adobe, Inc. All Rights Reserved
+More info available at http://www.omniture.com -->
+
+<script language="JavaScript" type="text/javascript" src="s_code.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+/* You may give each page an identifying name, server, and channel on
+ the next lines. */
+    s.pageName="Janrain Enterprise with Adobe Analytics";
+    s.server="se-jump-demo.appspot.com";
+    s.channel="Demo Pages";
+    s.pageType="demo: Janrain Enterprise with Adobe Analytics";
+    s.prop1="";
+    s.prop2="";
+    s.prop3="";
+    s.prop4="";
+    s.prop5="";
+    /* Conversion Variables */
+    s.campaign="";
+    s.state="";
+    s.zip="";
+    s.events="prodViewJUMP";
+    s.products="";
+    s.purchaseID="";
+    s.eVar1="";
+    s.eVar2="";
+    s.eVar3="";
+    s.eVar4="";
+    s.eVar5="";
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code);
+
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+    if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-');
+
+</script>
+
+<!-- End SiteCatalyst code version: H.26.1. -->
+
+<!-- Add your own Capture event handlers. To see the full list, run the following in the browser console: janrain.events  -->
+<script type="text/javascript">
+
+    /*
+     This demo is meant to show a simple integration with Adobe Analytics. Your implementation might get more detailed,
+     for example you might work with your Janrain Deployment Engineer to make certain user attributes available
+     either in the JS data or in localStorage; from there you could add them as eVars, sProps, etc. For this demo,
+     we are just including the name of the Janrain event hook and the name of the social provider (where available)
+     and pushing those values up into Adobe Analytics.
+     */
+
+    var submitOmnitureEvent = function(event, provider, gender, janrainEventHookName){
+        var s = s_gi(s_account);
+
+        // prop19 is socialProvider
+        // eVar19 is also socialProvider
+        // (similar mapping for gender)
+        // the 3 events below are tracked as events 1, 2, and 3,
+        // respectively: onCaptureLoginSuccess, onCaptureRegistrationSuccess, onCaptureSessionEnded
+        s.linkTrackVars = 'prop1,events,eVar13';
+
+        s.linkTrackEvents = event;
+        s.events = event;
+        s.prop19 = provider;
+        s.eVar19 = provider;
+        s.prop20 = gender;
+        s.eVar20 = gender;
+        s.tl(true, 'o', janrainEventHookName);
+    };
+</script>

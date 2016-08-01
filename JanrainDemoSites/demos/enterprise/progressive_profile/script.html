@@ -1,0 +1,42 @@
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#progressiveProfileBtn').toggle();
+
+        console.log('script loaded');        
+    });
+    
+    function updateProfile() {
+        var favoriteSeason = $('input[name=favoriteSeason]:checked', '#updateProfile').val();
+        var accessToken = localStorage.getItem('janrainCaptureToken');
+        var profileData = JSON.parse(localStorage.getItem('janrainCaptureProfileData'));
+        
+        console.log(profileData);
+        
+        if(profileData === null || profileData === '') {
+            console.log('nothing in profile data');
+            profileData = {};
+        }
+        
+        console.log('favoriteSeason: ' + favoriteSeason);
+        console.log('uuid: ' + profileData.uuid);
+        console.log('accessToken: ' + accessToken);
+        
+        var uuid = profileData.uuid;
+        var attribute = 'favoriteSeason';
+        var value = favoriteSeason;
+        
+        var params = {
+            uuid: uuid,
+            attribute: attribute,
+            value: value
+        };
+        
+        $.post("updateProfile.php", params, function(data) {
+            console.log('result: ' + data);
+        });
+                
+        $('#progressiveProfileBtn').toggle(false);
+    }
+    
+</script>

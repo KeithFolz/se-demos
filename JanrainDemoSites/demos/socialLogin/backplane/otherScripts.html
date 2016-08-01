@@ -1,0 +1,98 @@
+
+<!-- Backplane javascript library -->
+<script type="text/javascript" src="https://d134l0cdryxgwa.cloudfront.net/backplane.js"></script>
+
+
+<script>
+
+    /*
+     This demo shows the use of Backplane with Janrain Social Login. The parallel demo for Janrain Enterprise
+     is here:  http://janrain-solutions.appspot.com/enterprise/backplane
+
+     One of the main differences between these platforms in terms of Backplane is that with Enterprise, the only
+     hard requirement for pushing auth events into the Backplane queue is to add JS settings similar to this
+     (see your Janrain Tech Lead for the exact values to use):
+
+     janrain.settings.capture.backplane = true;
+     janrain.settings.capture.backplaneBusName = 'se-demo';
+     janrain.settings.capture.backplaneVersion = 1.2;
+     janrain.settings.capture.backplaneBlock = 20;
+
+     However, with Social Login, there are no equivalent settings to use; you will work directly with the
+     Backplane javascript library to initialize it. (Note that we also had to specifically include the Backplane
+     Javascript library above; Enterprise will load this for you automatically.)
+
+     Here are some sample functions that you could use to initialize Backplane and handle messages:
+     */
+
+    // Callback function to be executed on BP ready:
+    function bp_ready_callback() {
+
+        bpChannel = Backplane.getChannelID();
+        janrain.engage.signin.setBackplaneChannel(bpChannel);
+
+        writeTo('event-list', '<li>Channel created: <a target="_blank" href="'
+                + bpChannel + '">' + bpChannel + '</a>.<br>(Try viewing; will contain ' +
+                'channel data after you authenticate.)</li>');
+
+        Backplane.expectMessages('identity/login');
+        writeTo('event-list', '<li>Expecting messages.</li>');
+
+        window.bpSubscription = Backplane.subscribe(function(backplaneMessage){
+
+            writeTo('event-list', '<li>New '+backplaneMessage.type+' message received. (Try viewing in the JS console.)</li>');
+            console.log ("RAW BACKPLANE MESSAGE; TYPE == '"+backplaneMessage.type + "':");
+            console.log (backplaneMessage);
+
+            if (backplaneMessage.type == 'identity/login') {
+
+                var avatarUrl = '';
+                try {
+                    avatarUrl = backplaneMessage.payload.identities.entry.accounts[0].photos[0].value;
+                } catch(err) {
+                    console.log ("error retrieving avatarUrl: ");
+                    console.log (err);
+                }
+                var avatar = '';
+                if ( avatarUrl != '' ) {
+                    avatar = '<img src="'+avatarUrl+'" style="float:left; width:50px; padding:2px;">';
+                }
+                writeTo('welcome-msg', avatar+'Welcome, '+backplaneMessage.payload.identities.entry.displayName + '!', true);
+
+            }
+
+            //If we had no further interest in backplane events we could stop listening.
+            //Backplane.unsubscribe(window.bpSubscription);
+
+        });
+
+    }
+
+    // general Backplane initialization:
+    var setupBP = function setupBP() {
+
+        /*
+         * Initialize Backplane:
+         * This creates a channel and adds a cookie for the channel.
+         * It also sets the function to call when this is complete.
+         */
+        Backplane(bp_ready_callback);
+        Backplane.init(
+                {
+                    serverBaseURL: "https://backplane1.janrainbackplane.com/v1.2",
+                    busName: "se-demo"
+                });
+    }
+
+    // helper function for displaying Backplane events
+    function writeTo(theId, content, overwrite) {
+        var theElement = document.getElementById(theId);
+        if (overwrite == true) {
+            theElement.innerHTML = content;
+            return true;
+        }
+        theElement.innerHTML += content;
+        return true;
+    }
+
+</script>

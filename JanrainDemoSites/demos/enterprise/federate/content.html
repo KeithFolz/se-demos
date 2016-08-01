@@ -1,0 +1,21 @@
+<p>Simple demo of Enterprise with Janrain SSO.</p>
+
+<p>Setting up Janrain SSO requires a few core steps:</p>
+
+<ol>
+    <li>Add SSO settings.</li>
+    <li>Include a Cross Domain Receiver page.</li>
+    <li>Implement additional SSO event hooks (see janrain-init.js)</li>
+    <li>Implement a logout page (see: <a target="_blank" href="logged-out.html">this page</a>).</li>
+</ol>
+
+<p>
+Settings and examples for all of these will be provided to you by your Janrain Tech Lead during deployment.
+</p>
+
+<p>
+In order to test SSO here, you can try <a target="_blank" href="http://ec2-54-210-170-95.compute-1.amazonaws.com/">this page</a>, 
+which sits on a different domain but points to the same Janrain Enterprise instance and has the same SSO configuration. 
+You'll see that signing in or signing out from either page on either domain will have the parallel effect on the other. Be
+sure to view the Javascript console for more helpful information.
+</p>

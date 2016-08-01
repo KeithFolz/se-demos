@@ -1,0 +1,53 @@
+<script type="text/javascript">
+
+    var janrainWidgetOnload = function () {
+        
+        janrain.events.onProviderLoginToken.addHandler(function (data) {
+
+            // onProviderLoginStart is one of many events supported by the Social Login JS API.
+            // for the Janrain Social Login Events API, see:
+            // http://developers.janrain.com/documentation/widgets/social-sign-in-widget/social-sign-in-widget-api/events/
+
+            // The "data" object contains information about the event taking place. Again, take a look at the API
+            // docs to see what kinds of data you will get during each event.
+            
+            console.log ("onProviderLoginStart");
+            console.log (data);
+            _gaq.push(['_trackEvent', 'onProviderLoginStart', 'fired']);
+
+            // This is the function to pass the auth token back to our server-side code which will handle the
+            // communication with the Janrain API, to exchnage the token for the user's data payload.
+            // Again, see: http://janrain-solutions.appspot.com/socialLogin/client_side_validation
+            $.getJSON("__PATH_TO_CLIENT_VALIDATION_SCRIPT__",
+                    {token: data.token},
+                    function(profileData) {
+
+                        console.log(profileData);
+
+                        // remove the engage widget, we don't need it now
+                        $("#janrainEngageEmbed").hide();
+                        
+                        $('<span><strong>Results from server-side call to Social Login service:</strong></span>').appendTo('#responseData');
+
+                        $('<div>userID: ' + profileData.identifier + '</div>').appendTo('#responseData');
+                        $('<div>name: ' + profileData.name + '</div>').appendTo('#responseData');
+                        $('<div>email: ' + profileData.email + '</div>').appendTo('#responseData');
+
+
+                    });
+        });
+
+        // for complete google analytics info:
+        // https://developers.google.com/analytics/devguides/collection/gajs/
+
+        // here's another event you could consider tracking. It will get fired if you close a provider's
+        // authentication popup instead of signing in.
+        janrain.events.onProviderLoginCancel.addHandler(function (data) {
+            console.log ("onProviderLoginCancel");
+            console.log (data);
+            _gaq.push(['_trackEvent', 'onProviderLoginCancel', 'fired']);
+        });
+
+    };
+
+</script>

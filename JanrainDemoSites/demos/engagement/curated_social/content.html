@@ -1,0 +1,72 @@
+<!-- This is a demo of <b>Curated Tweets</b>. -->
+<h2> Curated Tweets </h2>
+
+<p>Integrate social posts and content from Twitter directly into news-feed style
+streams on your site. Determine which tweets appear in the stream based on
+keywords, length, type, content included, and much more. Let your customers
+reply to tweets directly from within your site. (Shown with an optional counter.)</p>
+
+<!-- Begin code required for Curated Tweets module -->
+
+
+<!-- A table is not required for using the counter. This is just for
+	 a simple presentation method. -->
+
+
+
+<div align="left">
+<table>
+<td style="text-align:left;vertical-align:middle;"><span><h4>Total Tweets:  </h4></span></td>
+<td style="text-align:right;vertical-align:top;"><span id="counter1"></span></td>
+
+
+</table>
+</div>
+
+
+
+<div id="default_stream"></div>
+<script src="http://cdn.arktan.com/jquery-1.7.1.min.js"></script>
+<script src="http://cdn.arktan.com/ark-woj-min.js"></script>
+<script>
+var ArktanSocialStreamsConfig = {
+  "source":{
+  "name": "Janrain",
+  "uri": "http://www.janrain.com"
+	},
+  "janrainAppName": "janrain-se-demo",
+  "busName": "se-demo",
+  "appkey": "dev.janrain",
+    "visualization":{
+        "vizname":"grid1",
+        "columnWidth":240
+    		},
+    "reply": true,
+  "autoload": true,
+
+
+"apps": [
+
+
+{
+  "type":"stream",
+  "streamTarget":"default_stream",
+  "id": "all",
+  "streamID": "http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1",
+  "targetURL":"http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
+},
+ {
+	  "type":"counter",
+	  "id": "counter1",
+      "targetDOM": "counter1",
+	  "streamID": "http://www.janrain.com/solutions/id_SE_Demo_Site_Stream_1"
+      }
+
+]
+};
+	$(document).ready(function(){
+ 		 Arktan.SocialApps.install(ArktanSocialStreamsConfig);
+	});
+</script>
+
+<!-- End Curated Tweets code -->
