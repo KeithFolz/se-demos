@@ -1,0 +1,30 @@
+// snippets
+
+// add widget to site
+
+    <div id="signinlink">
+      <a href="#" id="captureSignInLink" onclick="janrain.capture.ui.renderScreen('signIn')">Sign In / Sign Up</a>
+      <a href="edit-profile.html?screenToRender=editProfile" id="captureProfileLink" style="display:none">Edit Profile</a>
+      <a href="#" id="captureSignOutLink" style="display:none" onclick="janrain.capture.ui.endCaptureSession()">Sign Out</a>
+    </div>
+
+
+// configure w/ sso
+
+
+
+
+
+
+// Add new checkboxes to primary site edit profile
+
+  <div id="favoriteChannelSection">
+      Please select your favorite channels:<br>
+      {* preferredChannelAbcTvCheckbox *}
+      {* preferredChannelAbcKidsCheckbox *}
+      {* preferredChannelAbcNewsCheckbox *}
+      {* preferredChannelAbcThreeCheckbox *}
+      {* preferredChannelAbcTwoCheckbox *}
+      {* preferredChanneliViewCheckbox *}
+  </div>
+
