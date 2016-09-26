@@ -20,6 +20,9 @@ $links["enterprise"] = array (
     "google_analytics" => "Google Analytics",
     "standard" => "Standard",
     "publicprofile" => "Public Profile",
+    // "progressive_profile" => "Progressive Profile",
+    "smsTwoFactor" => "Two-Factor Authentication",
+    "smsPasswordless" => "Passwordless Authentication",
     "widget_visible_immediately" => "Widget Visible Immediately",
     "extendedsession" => "Extended Session"
 );
