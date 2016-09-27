@@ -1,0 +1,247 @@
+
+<!-- Capture widget screens -->
+<div style="display:none;" id="signIn">
+    <div class="capture_header">
+        <h1>Sign Up / Sign In</h1>
+    </div>
+    <div class="capture_signin">
+    <h2>With your existing account from...</h2>
+    {* loginWidget *} <br />
+  </div>
+    <div class="capture_backgroundColor">
+        <div class="capture_signin">
+            <h2>With your email address and password...</h2>
+            {* #userInformationForm *}
+            {* traditionalSignIn_emailAddress *}
+            {* traditionalSignIn_password *}
+            Once you click "Sign In" you will be sent an SMS code to confirm on the next screen.
+            <div class="capture_rightText">
+                {* traditionalSignIn_signInButton *}{* traditionalSignIn_createButton *}
+            </div>
+            {* /userInformationForm *}
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="traditionalRegistration">
+    <div class="capture_header">
+        <h1>Almost Done!</h1>
+    </div>
+    <p>Please confirm the information below before signing in. Already have an account? <a href="#" data-capturescreen="signIn">Sign In.</a></p>
+    {* #registrationForm *}
+    {* traditionalRegistration_firstName *}
+    {* traditionalRegistration_emailAddress *}
+    {* traditionalRegistration_password *}
+    {* traditionalRegistration_passwordConfirm *}
+    {* mobileNumber *}
+    {* mobileNumber_confirm *}
+    By clicking "Create Account", you confirm that you accept our <a href="#">terms of service</a> and have read and understand <a href="#">privacy policy</a>.
+    <div class="capture_footer">
+        <div class="capture_left">
+            {* backButton *}
+        </div>
+        <div class="capture_right">
+            {* createAccountButton *}
+        </div>
+    </div>
+    {* /registrationForm *}
+</div>
+<div style="display:none;" id="mergeAccounts">
+    {* mergeAccounts *}
+</div>
+<div style="display:none;" id="socialRegistration">
+        <div class="capture_header">
+            <h1>Almost Done!</h1>
+        </div>
+        <h2>Please confirm the information below before signing in.</h2>
+        {* #socialRegistrationForm *}
+            {* socialRegistration_firstName *}
+            {* socialRegistration_lastName *}
+            {* socialRegistration_emailAddress *}
+            {* mobileNumber *}
+            {* socialRegistration_displayName *}
+            By clicking "Sign in", you confirm that you accept our <a href="#">terms of service</a> and have read and understand our <a href="http://janrain.com/janrain-privacy-statement/">Privacy Statement</a>.
+            <div class="capture_footer">
+                <div class="capture_left">
+                    {* backButton *}
+                </div>
+                <div class="capture_right">
+                    <input value="Create Account" type="submit" class="capture_btn capture_primary">
+                </div>
+            </div>
+        {* /socialRegistrationForm *}
+    </div>
+<div style="display:none;" id="traditionalAuthenticateMerge">
+    <div class="capture_header">
+        <h1>Sign in to complete account merge</h1>
+    </div>
+    <div class="capture_signin">
+        {* #tradAuthenticateMergeForm *}
+        {* traditionalSignIn_emailAddress *}
+        {* mergePassword *}
+        <div class="capture_footer">
+            <div class="capture_left">
+                {* backButton *}
+            </div>
+            <div class="capture_right">
+                {* traditionalSignIn_signInButton *}
+            </div>
+        </div>
+        {* /tradAuthenticateMergeForm *}
+    </div>
+</div>
+<div style="display:none;" id="smsSend">
+    <div class="capture_header">
+        <h1>Send SMS</h1>
+    </div>
+    {* #smsSendForm *}
+    {* mobileNumber *}
+    <div class="capture_footer">
+        {* submitButton *}
+    </div>
+    {* /smsSendForm *}
+</div>
+<div style="display:none;" id="smsVerify">
+    <div class="capture_header">
+        <h1>Verify SMS Code</h1>
+    </div>
+    {* #smsVerifyForm *}
+    {* smsVerificationCode *}
+    <div class="capture_footer">
+        {* submitButton *}
+    </div>
+    {* /smsVerifyForm *}
+</div>
+<div style="display:none;" id="smsSuccess">
+    <div class="capture_header">
+        <h1>Mobile Number Verified</h1>
+    </div>
+    <p>
+        Your mobile number was successfully verified.
+    </p>
+    {* #smsHiddenForm *}
+    <input type="submit" value="Continue" />
+    {* /smsHiddenForm *}
+</div>
+<!-- returnSocial -->
+<div style="display:none;" id="returnSocial">
+     <div class="capture_header">
+         <h1>Sign In</h1>
+     </div>
+     <div class="capture_signin">
+         <h2>Welcome back, {* welcomeName *}!</h2>
+         {* loginWidget *}
+         <div class="capture_centerText switchLink"><a href="#" data-cancelcapturereturnexperience="true">Use another account</a></div>
+     </div>
+ </div>
+<!-- Capture widget screens -->
+<div style="display:none;" id="editProfile">
+    <h1>Edit Your Account</h1>
+    <div class="capture_grid_block">
+        <div class="capture_col_4">
+            <h3>Profile Photo</h3>
+            <div class="contentBoxWhiteShadow">
+                {* photoManager *}
+            </div>
+            <h3>Linked Accounts</h3>
+            <div class="contentBoxWhiteShadow">
+                {* linkedAccounts *}
+                {* linkAccountContainer *}
+                <div class="capture_header">
+                    <h1>Link your accounts</h1>
+                </div>
+                <h2>Allows you to sign in to your account using that provider in the future.</h2>
+                <div class="capture_signin">
+                    {* loginWidget *}
+                </div>
+                {* /linkAccountContainer *}
+            </div>
+            <h3>Public Profile</h3>
+            <div class="contentBoxWhiteShadow">
+                {* publicProfileLink *}
+            </div>
+            <!-- Only show this if it was from a traditional login !-->
+            <h3 class="janrain_traditional_account_only">Password</h3>
+            <div class="janrain_traditional_account_only contentBoxWhiteShadow">
+                <a href="#" data-capturescreen="changePassword">Change Password</a>
+            </div>
+
+
+        </div>
+        <div class="capture_col_8">
+            <h3>Account Info</h3>
+            <div class="contentBoxWhiteShadow">
+                <div class="capture_grid_block">
+                    <div class="capture_center_col capture_col_8">
+                        <div class="capture_editCol">
+                            {* editProfileForm *}
+                            {* displayName *}
+                            {* profileBlurb *}
+                            {* name *}
+                            {* email *}
+                            {* mobileNumber *}
+                            {* addressDrop *}
+                            {* gender *}
+                            {* birthdate *}
+                            <div class="capture_form_item">
+                                {* saveButton *}
+                                {* savedProfileMessage *}
+                            </div>
+                            {* /editProfileForm *}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="changePassword">
+    <div class="capture_header">
+        <h1>Change password</h1>
+    </div>
+    {* newPasswordFormProfile *}
+    {* oldpassword *}
+    {* newpassword *}
+    {* newpasswordConfirm *}
+    <div class="capture_footer">
+        {* saveButton *}
+    </div>
+    {* /newPasswordFormProfile *}
+</div>
+<div style="display:none;" id="changePasswordSuccess">
+    <div class="capture_header">
+        <h1>You did it!</h1>
+    </div>
+    <p>Your password has been successfully changed.</p>
+    <div class="capture_footer">
+        <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+    </div>
+</div>
+<div style="display: none;" id="publicProfileModal">
+    <div class="capture_header">
+        <h1>My profile</h1>
+    </div>
+    <div class="capture_grid_block">
+        <div class="capture_col_6">
+            <div class="capture_profile_pic">
+                <div id="profile_pic" class="capture_default">
+                    {* profilePhotoCustom *}
+                </div>
+            </div>
+        </div>
+        <div class="capture_col_6">
+            <h2>{* public_displayName *}</h2>
+            {* public_profileBlurb *}
+        </div>
+    </div>
+    {* public_name *}
+    {* public_emailAddress *}
+    {* public_phoneNumber *}
+    {* public_address *}
+    {* public_gender *}
+    {* public_birthdate *}
+    <div class="capture_footer">
+        <div class="capture_right">
+            <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
+        </div>
+    </div>
+</div>
