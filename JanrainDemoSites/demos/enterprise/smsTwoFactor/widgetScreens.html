@@ -4,6 +4,10 @@
     <div class="capture_header">
         <h1>Sign Up / Sign In</h1>
     </div>
+    <div class="capture_signin">
+    <h2>With your existing account from...</h2>
+    {* loginWidget *} <br />
+  </div>
     <div class="capture_backgroundColor">
         <div class="capture_signin">
             <h2>With your email address and password...</h2>
@@ -44,6 +48,29 @@
 <div style="display:none;" id="mergeAccounts">
     {* mergeAccounts *}
 </div>
+<div style="display:none;" id="socialRegistration">
+        <div class="capture_header">
+            <h1>Almost Done!</h1>
+        </div>
+        <h2>Please confirm the information below before signing in.</h2>
+        {* #socialRegistrationForm *}
+            {* socialRegistration_firstName *}
+            {* socialRegistration_lastName *}
+            {* socialRegistration_emailAddress *}
+            {* mobileNumber *}
+            {* mobileNumber_confirm *}
+            {* socialRegistration_displayName *}
+            By clicking "Sign in", you confirm that you accept our <a href="#">terms of service</a> and have read and understand our <a href="http://janrain.com/janrain-privacy-statement/">Privacy Statement</a>.
+            <div class="capture_footer">
+                <div class="capture_left">
+                    {* backButton *}
+                </div>
+                <div class="capture_right">
+                    <input value="Create Account" type="submit" class="capture_btn capture_primary">
+                </div>
+            </div>
+        {* /socialRegistrationForm *}
+    </div>
 <div style="display:none;" id="traditionalAuthenticateMerge">
     <div class="capture_header">
         <h1>Sign in to complete account merge</h1>
@@ -96,7 +123,17 @@
     <input type="submit" value="Continue" />
     {* /smsHiddenForm *}
 </div>
-
+<!-- returnSocial -->
+<div style="display:none;" id="returnSocial">
+     <div class="capture_header">
+         <h1>Sign In</h1>
+     </div>
+     <div class="capture_signin">
+         <h2>Welcome back, {* welcomeName *}!</h2>
+         {* loginWidget *}
+         <div class="capture_centerText switchLink"><a href="#" data-cancelcapturereturnexperience="true">Use another account</a></div>
+     </div>
+ </div>
 <!-- Capture widget screens -->
 <div style="display:none;" id="editProfile">
     <h1>Edit Your Account</h1>
