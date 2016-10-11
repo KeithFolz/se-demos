@@ -4,7 +4,7 @@
     janrain.settings.capture.stylesheets = ['styles/janrain.css'];
     //janrain.settings.capture.mobileFlowName = 'mobile';
     janrain.settings.capture.mobileStylesheets = ['styles/janrain-mobile.css'];
-    janrain.settings.capture.plAuthComplete = false;
+    janrain.settings.capture.smsVerified = false;
 
     // --- define event handlers and start the janrain ui ------------------
     function janrainCaptureWidgetOnLoad() {
@@ -49,33 +49,41 @@
         });
 
         janrain.events.onCapturePostLoginScreen.addHandler(function(result){
-            if (result.accessToken){
-                janrain.capture.ui.createCaptureSession(result.accessToken);
-
+                if (result.screen=='smsSuccess' && result.accessToken) {
+                    janrain.capture.ui.createCaptureSession(result.accessToken);
                 if (window.console && window.console.log) console.log(result) ;
-                document.getElementById("captureSignInLink").style.display = 'none';
-                document.getElementById("captureSignOutLink").style.display = '';
-                document.getElementById("captureProfileLink").style.display = '';
-            }else{
-                console.log("Error creating Capture Session", result);
-            }
-        });
-
-        janrain.events.onCaptureSessionCreated.addHandler(function(result) {
-            //document.location = "edit-profile.html";
-            janrain.settings.capture.plAuthComplete = true;
-        });
-
-        janrain.events.onCaptureSessionEnded.addHandler(function(result) {
-            //document.location = "edit-profile.html";
-            janrain.settings.capture.plAuthComplete = false;
-        });
-
-        janrain.events.onCaptureRenderComplete.addHandler(function(result) {
-            if (result.screen == "smsSend"){
-                if(janrain.settings.capture.plAuthComplete){
-                    janrain.capture.ui.modal.close();
+                    document.getElementById("captureSignInLink").style.display = 'none';
+                    document.getElementById("captureSignOutLink").style.display = '';
+                    document.getElementById("captureProfileLink").style.display = '';
                 }else{
+                    console.log("Error creating Capture Session", result);
+                }
+            });
+
+            janrain.events.onCaptureSessionCreated.addHandler(function(result) {
+                if(!janrain.settings.capture.smsVerified){
+                    janrain.capture.ui.endCaptureSession();
+                }
+            });
+
+        
+            janrain.events.onCaptureRenderComplete.addHandler(function(result) {
+                if (result.screen == "smsStep1Screen"){
+                    if(janrain.capture.ui.hasActiveSession() && janrain.settings.capture.smsVerified){
+                        janrain.capture.ui.modal.close();
+                    }else{
+                        if(document.getElementById('capture_smsStep1Screen_smsStep1').value == ""){
+                            janrain.capture.ui.modal.close();
+                            janrain.capture.ui.renderScreen('smsSend');
+                        }else{
+                            document.getElementById('capture_smsStep1Screen_smsStep1').value = "";
+                            setTimeout(function(){
+                                document.getElementById('capture_smsStep1Screen_capture_submit').click();
+                            }, 1);
+                        }     
+                   }
+                }
+                if (result.screen == "smsSend"){
                     //Add some more validation here during actual implementation
                     //Works too: document.getElementById('capture_smsSend_mobileNumber').value.length == 11
                     if (utilFuncs.getCaptureField("smsSend", "mobileNumber") .value.length == 11){
@@ -84,13 +92,18 @@
                         janrain.capture.ui.renderScreen("smsVerify");
                     }
                 }
-
-            }
-            if (result.screen == "smsSuccess"){
-                janrain.capture.ui.postCaptureForm("smsHiddenForm");
-                janrain.capture.ui.modal.close();
-            }
-        });
+                if (result.screen == "smsSuccess" && janrain.settings.capture.smsVerified ){
+                    document.getElementById('capture_smsSuccess_smsStep1').value = "";
+                    setTimeout(function(){
+                        document.getElementById('capture_smsSuccess_capture_submit').click();
+                    }, 1);
+                    setTimeout(function(){
+                        janrain.capture.ui.postCaptureForm('smsFinalForm');
+                    }, 10);
+                    
+                }
+              
+            });
 
 
 //Detailed All Event Logging
