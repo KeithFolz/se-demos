@@ -22,7 +22,7 @@ $links["enterprise"] = array (
     "publicprofile" => "Public Profile",
     // "progressive_profile" => "Progressive Profile",
     "smsTwoFactor" => "Two-Factor Authentication",
-    "smsPasswordless" => "Passwordless Authentication",
+    // "smsPasswordless" => "Passwordless Authentication",
     "widget_visible_immediately" => "Widget Visible Immediately",
     "extendedsession" => "Extended Session"
 );
