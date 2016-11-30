@@ -90,39 +90,48 @@
         {* /tradAuthenticateMergeForm *}
     </div>
 </div>
-<div style="display:none;" id="smsSend">
-    <div class="capture_header">
-        <h1>Send SMS</h1>
+<div style="display:none;" id="smsStep1Screen">
+        Processing ...
+        {* #smsStep1Form *}
+            {* #smsStep1 *}
+            <span style="display:none;">
+                {* submitButton *}
+            </span>
+        {* /smsStep1Form *}
     </div>
-    {* #smsSendForm *}
-    {* mobileNumber *}
-    <div class="capture_footer">
-        {* submitButton *}
+    <div style="display:none;" id="smsSend">
+        <div class="capture_header">
+            <h1>Send SMS</h1>
+        </div>
+        {* #smsSendForm *}
+                {* mobileNumber *}
+            <div class="capture_footer">
+                {* submitButton *}
+            </div>
+        {* /smsSendForm *}
     </div>
-    {* /smsSendForm *}
-</div>
-<div style="display:none;" id="smsVerify">
-    <div class="capture_header">
-        <h1>Verify SMS Code</h1>
+    <div style="display:none;" id="smsVerify">
+        <div class="capture_header">
+            <h1>Verify SMS Code</h1>
+        </div>
+        {* #smsVerifyForm *}
+            {* smsVerificationCode *}
+            <div class="capture_footer">
+                {* submitButton *}
+            </div>
+         {* /smsVerifyForm *}
     </div>
-    {* #smsVerifyForm *}
-    {* smsVerificationCode *}
-    <div class="capture_footer">
-        {* submitButton *}
+    <div style="display:none;" id="smsSuccess">
+        Processing ...
+        {* #smsFinalForm *}
+        {* /smsFinalForm *}
+        {* #smsStep2Form *}
+            {* #smsStep1 *}
+            <span style="display:none;">
+                {* submitButton *}
+            </span>
+        {* /smsStep2Form *}
     </div>
-    {* /smsVerifyForm *}
-</div>
-<div style="display:none;" id="smsSuccess">
-    <div class="capture_header">
-        <h1>Mobile Number Verified</h1>
-    </div>
-    <p>
-        Your mobile number was successfully verified.
-    </p>
-    {* #smsHiddenForm *}
-    <input type="submit" value="Continue" />
-    {* /smsHiddenForm *}
-</div>
 <!-- returnSocial -->
 <div style="display:none;" id="returnSocial">
      <div class="capture_header">
