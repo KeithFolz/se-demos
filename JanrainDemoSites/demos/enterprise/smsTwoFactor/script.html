@@ -50,6 +50,18 @@
             }
         });
 
+        janrain.events.onCaptureSaveSuccess.addHandler(function(result) {
+            if (result.screen == "smsVerify" && result.statusMessage == "verified") {
+                janrain.settings.capture.smsVerified = true;
+            }
+        });
+
+        janrain.events.onCaptureSaveFailed.addHandler(function(result) {
+            if (result.screen == "smsVerify" && result.statusMessage == "invalidVerification") {
+                janrain.settings.capture.smsVerified = false;
+            }
+        });
+
         janrain.events.onCapturePostLoginScreen.addHandler(function(result){
                 if (result.screen=='smsSuccess' && result.accessToken) {
                     janrain.capture.ui.createCaptureSession(result.accessToken);
@@ -68,7 +80,7 @@
                 }
             });
 
-        
+
             janrain.events.onCaptureRenderComplete.addHandler(function(result) {
                 if (result.screen == "smsStep1Screen"){
                     if(janrain.capture.ui.hasActiveSession() && janrain.settings.capture.smsVerified){
@@ -82,7 +94,7 @@
                             setTimeout(function(){
                                 document.getElementById('capture_smsStep1Screen_capture_submit').click();
                             }, 1);
-                        }     
+                        }
                    }
                 }
                 if (result.screen == "smsSend"){
@@ -102,14 +114,14 @@
                     setTimeout(function(){
                         janrain.capture.ui.postCaptureForm('smsFinalForm');
                     }, 10);
-                    
+
                 }
-              
+
             });
 
 
 //Detailed All Event Logging
-        /*
+
         function addEventHandler(e) {
             janrain.events[e].addHandler(function(result) {
                 console.log(e, result);
@@ -132,7 +144,7 @@
                 }
             }
         }
-        */
+
 ///////////////////////
 
 
