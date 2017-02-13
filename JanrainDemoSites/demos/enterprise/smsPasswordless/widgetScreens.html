@@ -1,20 +1,108 @@
-
-<!-- Capture widget screens -->
 <div style="display:none;" id="signIn">
     <div class="capture_header">
         <h1>Sign Up / Sign In</h1>
     </div>
     <div class="capture_backgroundColor">
         <div class="capture_signin">
-            <h2>With a mobile phone number...</h2>
-            {* #userInformationForm *}
-            {* traditionalSignIn_mobileNumber *}
-            <div class="capture_rightText">
-                {* traditionalSignIn_signInButton *}{* traditionalSignIn_createButton *}
-            </div>
-            {* /userInformationForm *}
+            <span id="sms_login_form" class="sms_login_form">
+                <div class="capture_form_item capture_text"><label for="login_id">Email</label>
+                    <input class="capture_text_input" type="text" id="login_id" name="login_id" placeholder="email address">
+                    <div class="capture_tip_error sms_error" id="login_error" style="display: none;"></div>
+                </div>
+                <div class="capture_rightText">
+                        <input type="button" id="sendCodeButton" class="capture_btn capture_primary" name="sendCodeButton" value="Send SMS Code" onclick="sendSmsCode(this,'login');">
+                        <input type="button" id="registerButton" class="capture_btn capture_primary" name="registerButton" value="Create Account" onclick="janrain.capture.ui.modal.open('traditionalRegistration');">
+                    </div>
+            </span>
+            <span id="sms_verify_form" style="display: none;" class="sms_verify_form">
+                <div class="capture_form_item capture_text"><label for="verify_code">Verify Code</label>
+                    <input class="capture_text_input" type="text" id="verify_code" name="verify_code" placeholder="verification code">
+                    <div class="capture_tip_error sms_error" id="login_verify_error" style="display: none;"></div>
+                </div>
+                <div class="capture_rightText">
+                    <input type="button" id="verifyCodeButton" class="capture_btn capture_primary" name="verifyCodeButton" value="Verify SMS Code" onclick="verifySmsCode(this);">
+                </div>
+            </span>
         </div>
     </div>
+</div>
+<div style="display:none;" id="returnTraditional">
+    <div class="capture_header">
+        <h1>Sign In</h1>
+    </div>
+    <h2 class="capture_centerText"><span id="traditionalWelcomeName">Welcome back!</span></h2>
+    <div class="capture_backgroundColor">
+        <div class="capture_signin">
+            <span id="sms_return_form" class="sms_login_form">
+                <div class="capture_form_item capture_text"><label for="return_id">Email</label>
+                    <input class="capture_text_input" type="text" id="return_id" name="return_id" placeholder="email address">
+                    <div class="capture_tip_error sms_error" id="return_error" style="display: none;"></div>
+                </div>
+                <div class="capture_rightText">
+                        <input type="button" id="sendCodeButton" class="capture_btn capture_primary" name="sendCodeButton" value="Send SMS Code" onclick="sendSmsCode(this, 'login');">
+                        <input type="button" id="registerButton" class="capture_btn capture_primary" name="registerButton" value="Create Account" onclick="janrain.capture.ui.modal.open('traditionalRegistration');">
+                    </div>
+            </span>
+            <span id="sms_verify_form" style="display: none;" class="sms_verify_form">
+                <div class="capture_form_item capture_text"><label for="return_code">Verify Code</label>
+                    <input class="capture_text_input" type="text" id="return_code" name="return_code" placeholder="verification code">
+                    <div class="capture_tip_error sms_error" id="return_verify_error" style="display: none;"></div>
+                </div>
+                <div class="capture_rightText">
+                    <input type="button" id="verifyCodeButton" class="capture_btn capture_primary" name="verifyCodeButton" value="Verify SMS Code" onclick="verifySmsCode();">
+                </div>
+            </span>
+        </div>
+    </div>
+</div>
+<div style="display:none;" id="smsSend">
+    <div class="capture_header">
+        <h1>Send SMS</h1>
+    </div>
+    <span style="display: none;">
+    {* sms_reg_form_email *}
+    </span>
+    Click the "Send SMS Code" button to verify your phone number.
+    <br />
+    You will not be able to sign in if you do not have a valid and verified number.
+    <div class="capture_tip_error sms_error" id="send_error" style="display: none;"></div>
+    <div id="sms_reg_form">
+         <div class="capture_rightText">
+                <input type="button" id="regSendCodeButton" class="capture_btn capture_primary" name="sendCodeButton" value="Send SMS Code" onclick="sendSmsCode(this, 'reg');">
+            </div>
+    </div>
+    Update/change your number:
+    {* smsUpdatePhoneForm *}
+        {* mobile_phone *}
+        {* mobile_country_code *}
+        <div class="capture_tip_validated" id="sms_update_number_status" style="display: none;"></div>
+        <div class="capture_form_item">
+            {* saveButton *}
+            {* savedProfileMessage *}
+        </div>
+    {* /smsUpdatePhoneForm *}
+</div>
+<div style="display:none;" id="smsVerify">
+    <div class="capture_header">
+        <h1>Verify SMS Code</h1>
+    </div>
+    {* #smsVerifyForm *}
+        {* smsVerificationCode *}
+        <div class="capture_tip_error sms_error" id="reg_verify_error" style="display: none;"></div>
+        <div class="capture_footer">
+            <div class="capture_left">
+                <input type="button" id="verifyBackButton" class="capture_btn capture_primary" name="verifyBackButton" value="Back" onclick="janrain.capture.ui.modal.open('smsSend');">
+            </div>
+            <div class="capture_right">
+                {* submitButton *}
+            </div>
+        </div>
+     {* /smsVerifyForm *}
+</div>
+<div style="display:none;" id="smsSuccess">
+    Processing ...
+    {* #smsSuccessForm *}
+    {* /smsSuccessForm *}
 </div>
 <div style="display:none;" id="traditionalRegistration">
     <div class="capture_header">
@@ -22,19 +110,25 @@
     </div>
     <p>Please confirm the information below before signing in. Already have an account? <a href="#" data-capturescreen="signIn">Sign In.</a></p>
     {* #registrationForm *}
-    {* traditionalRegistration_firstName *}
-    {* traditionalRegistration_emailAddress *}
-    {* mobileNumber *}
-    {* mobileNumber_confirm *}
-    By clicking "Create Account", you confirm that you accept our <a href="#">terms of service</a> and have read and understand <a href="#">privacy policy</a>.
-    <div class="capture_footer">
-        <div class="capture_left">
-            {* backButton *}
+        {* traditionalRegistration_firstName *}
+        {* traditionalRegistration_lastName *}
+        {* traditionalRegistration_emailAddress *}
+        NOTE: A verified number is required to sign-in.
+        <br />
+        {* mobile_phone *}
+        {* mobile_country_code *}
+        {* traditionalRegistration_password *}
+        {* traditionalRegistration_passwordConfirm *}
+        {* traditionalRegistration_displayName *}
+        By clicking "Create Account", you confirm that you accept our <a href="#">terms of service</a> and have read and understand <a href="#">privacy policy</a>.
+        <div class="capture_footer">
+            <div class="capture_left">
+                {* backButton *}
+            </div>
+            <div class="capture_right">
+                {* createAccountButton *}
+            </div>
         </div>
-        <div class="capture_right">
-            {* createAccountButton *}
-        </div>
-    </div>
     {* /registrationForm *}
 </div>
 <div style="display:none;" id="mergeAccounts">
@@ -46,62 +140,20 @@
     </div>
     <div class="capture_signin">
         {* #tradAuthenticateMergeForm *}
-        {* traditionalSignIn_emailAddress *}
-        {* mergePassword *}
-        <div class="capture_footer">
-            <div class="capture_left">
-                {* backButton *}
+            {* traditionalSignIn_emailAddress *}
+            {* mergePassword *}
+            <div class="capture_footer">
+                <div class="capture_left">
+                    {* backButton *}
+                </div>
+                <div class="capture_right">
+                    {* traditionalSignIn_signInButton *}
+                </div>
             </div>
-            <div class="capture_right">
-                {* traditionalSignIn_signInButton *}
-            </div>
-        </div>
-        {* /tradAuthenticateMergeForm *}
+         {* /tradAuthenticateMergeForm *}
     </div>
 </div>
-<div style="display:none;" id="smsStep1Screen">
-        Processing ...
-        {* #smsStep1Form *}
-            {* #smsStep1 *}
-            <span style="display:none;">
-                {* submitButton *}
-            </span>
-        {* /smsStep1Form *}
-    </div>
-    <div style="display:none;" id="smsSend">
-        <div class="capture_header">
-            <h1>Send SMS</h1>
-        </div>
-        {* #smsSendForm *}
-                {* mobileNumber *}
-            <div class="capture_footer">
-                {* submitButton *}
-            </div>
-        {* /smsSendForm *}
-    </div>
-    <div style="display:none;" id="smsVerify">
-        <div class="capture_header">
-            <h1>Verify SMS Code</h1>
-        </div>
-        {* #smsVerifyForm *}
-            {* smsVerificationCode *}
-            <div class="capture_footer">
-                {* submitButton *}
-            </div>
-         {* /smsVerifyForm *}
-    </div>
-    <div style="display:none;" id="smsSuccess">
-        Processing ...
-        {* #smsFinalForm *}
-        {* /smsFinalForm *}
-        {* #smsStep2Form *}
-            {* #smsStep1 *}
-            <span style="display:none;">
-                {* submitButton *}
-            </span>
-        {* /smsStep2Form *}
-    </div>
-<!-- Capture widget screens -->
+
 <div style="display:none;" id="editProfile">
     <h1>Edit Your Account</h1>
     <div class="capture_grid_block">
@@ -114,13 +166,13 @@
             <div class="contentBoxWhiteShadow">
                 {* linkedAccounts *}
                 {* linkAccountContainer *}
-                <div class="capture_header">
-                    <h1>Link your accounts</h1>
-                </div>
-                <h2>Allows you to sign in to your account using that provider in the future.</h2>
-                <div class="capture_signin">
-                    {* loginWidget *}
-                </div>
+                    <div class="capture_header">
+                        <h1>Link your accounts</h1>
+                    </div>
+                    <h2>Allows you to sign in to your account using that provider in the future.</h2>
+                    <div class="capture_signin">
+                        {* loginWidget *}
+                    </div>
                 {* /linkAccountContainer *}
             </div>
             <h3>Public Profile</h3>
@@ -136,18 +188,19 @@
                     <div class="capture_center_col capture_col_8">
                         <div class="capture_editCol">
                             {* editProfileForm *}
-                            {* displayName *}
-                            {* profileBlurb *}
-                            {* name *}
-                            {* email *}
-                            {* mobileNumber *}
-                            {* addressDrop *}
-                            {* gender *}
-                            {* birthdate *}
-                            <div class="capture_form_item">
-                                {* saveButton *}
-                                {* savedProfileMessage *}
-                            </div>
+                                {* displayName *}
+                                {* profileBlurb *}
+                                {* name *}
+                                {* email *}
+                                {* mobile_phone *}
+                                {* mobile_country_code *}
+                                {* addressDrop *}
+                                {* gender *}
+                                {* birthdate *}
+                                <div class="capture_form_item">
+                                    {* saveButton *}
+                                    {* savedProfileMessage *}
+                                </div>
                             {* /editProfileForm *}
                         </div>
                     </div>
@@ -173,14 +226,14 @@
             <h2>{* public_displayName *}</h2>
             {* public_profileBlurb *}
         </div>
-    </div>
-    {* public_name *}
-    {* public_emailAddress *}
-    {* public_phoneNumber *}
-    {* public_address *}
-    {* public_gender *}
-    {* public_birthdate *}
-    <div class="capture_footer">
+        </div>
+        {* public_name *}
+        {* public_emailAddress *}
+        {* public_phoneNumber *}
+        {* public_address *}
+        {* public_gender *}
+        {* public_birthdate *}
+        <div class="capture_footer">
         <div class="capture_right">
             <a href="#" onclick="janrain.capture.ui.modal.close()" class="capture_btn capture_primary">Close</a>
         </div>

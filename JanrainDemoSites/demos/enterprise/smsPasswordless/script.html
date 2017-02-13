@@ -1,17 +1,17 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
     // --- page-specific settings ------------------------------------------
-    janrain.settings.capture.flowName = 'passwordless';
+    janrain.settings.capture.flowName = 'SMSAuth_Passwordless';
     janrain.settings.capture.stylesheets = ['styles/janrain.css'];
     //janrain.settings.capture.mobileFlowName = 'mobile';
     janrain.settings.capture.mobileStylesheets = ['styles/janrain-mobile.css'];
-    janrain.settings.capture.smsVerified = false;
-
+    smsVerified = false;
     // --- define event handlers and start the janrain ui ------------------
     function janrainCaptureWidgetOnLoad() {
 
         var utilFuncs = janrainUtilityFunctions();
 
-        janrain.events.onCaptureLoginSuccess.addHandler(function(result) {
+        janrain.events.onCaptureSessionCreated.addHandler(function(result) {
             janrain.capture.ui.modal.close();
             if (window.console && window.console.log) console.log(result) ;
             document.getElementById("captureSignInLink").style.display = 'none';
@@ -27,7 +27,8 @@
             document.getElementById("captureProfileLink").style.display = '';
         });
 
-        janrain.events.onCaptureRegistrationSuccess.addHandler(function(result) {
+        janrain.events.onCaptureRegistrationSuccess.addHandler(
+            function(result) {
             janrain.capture.ui.modal.close();
             if (window.console && window.console.log) console.log(result);
             document.getElementById("captureSignInLink").style.display = 'none';
@@ -39,7 +40,7 @@
             document.getElementById("captureSignInLink").style.display = '';
             document.getElementById("captureSignOutLink").style.display = 'none';
             document.getElementById("captureProfileLink").style.display = 'none';
-            document.getElementById("editProfile").style.display = 'none';
+            document.getElementById('editProfile').style.visibility='hidden';
         });
 
         janrain.events.onCaptureScreenShow.addHandler(function(result) {
@@ -50,78 +51,44 @@
 
         janrain.events.onCaptureSaveSuccess.addHandler(function(result) {
             if (result.screen == "smsVerify" && result.statusMessage == "verified") {
-                janrain.settings.capture.smsVerified = true;
+                smsVerified = true;
             }
         });
 
-        janrain.events.onCaptureSaveFailed.addHandler(function(result) {
-            if (result.screen == "smsVerify" && result.statusMessage == "invalidVerification") {
-                janrain.settings.capture.smsVerified = false;
+        janrain.events.onCaptureProfileSaveSuccess.addHandler(function(result) {
+            if (result.screen == "smsSend" &&
+                result.form == "smsUpdatePhoneForm" &&
+                result.status == "success") {
+                $('.capture_processing').hide();
+                $('#capture_smsSend_saveButton').show();
+                $('#sms_update_number_status').text('Phone number updated').show();
             }
+        });
+
+        janrain.events.onCaptureRenderComplete.addHandler(function(result) {
+            if (result.screen == "smsSuccess" && smsVerified ){
+                janrain.capture.ui.postCaptureForm('smsSuccessForm');
+            }
+
+            if (result.screen =='smsSend' && smsVerified) {
+                janrain.capture.ui.modal.close();
+            }
+
         });
 
         janrain.events.onCapturePostLoginScreen.addHandler(function(result){
-                if (result.screen=='smsSuccess' && result.accessToken) {
-                    janrain.capture.ui.createCaptureSession(result.accessToken);
+            if (result.screen=='smsSuccess' && result.accessToken) {
+                janrain.capture.ui.modal.close();
                 if (window.console && window.console.log) console.log(result) ;
-                    document.getElementById("captureSignInLink").style.display = 'none';
-                    document.getElementById("captureSignOutLink").style.display = '';
-                    document.getElementById("captureProfileLink").style.display = '';
-                }else{
-                    console.log("Error creating Capture Session", result);
-                }
-            });
-
-            janrain.events.onCaptureSessionCreated.addHandler(function(result) {
-                if(!janrain.settings.capture.smsVerified){
-                    janrain.capture.ui.endCaptureSession();
-                }
-            });
+                document.getElementById("captureSignInLink").style.display = 'none';
+                document.getElementById("captureSignOutLink").style.display = '';
+                document.getElementById("captureProfileLink").style.display = '';
+            }
+        });
 
 
-            janrain.events.onCaptureRenderComplete.addHandler(function(result) {
-                if (result.screen == "smsStep1Screen"){
-                    if(janrain.capture.ui.hasActiveSession() && janrain.settings.capture.smsVerified){
-                        janrain.capture.ui.modal.close();
-                    }else{
-                        if(document.getElementById('capture_smsStep1Screen_smsStep1').value == ""){
-                            janrain.capture.ui.modal.close();
-                            janrain.capture.ui.renderScreen('smsSend');
-                        }else{
-                            document.getElementById('capture_smsStep1Screen_smsStep1').value = "";
-                            setTimeout(function(){
-                                document.getElementById('capture_smsStep1Screen_capture_submit').click();
-                            }, 1);
-                        }
-                   }
-                }
-                if (result.screen == "smsSend"){
-                    //Add some more validation here during actual implementation
-                    //Works too: document.getElementById('capture_smsSend_mobileNumber').value.length == 11
-                    if (utilFuncs.getCaptureField("smsSend", "mobileNumber") .value.length == 11){
-                        janrain.capture.ui.postCaptureForm("smsSendForm");
-                        // Works too:  document.getElementById('capture_smsSend_capture_submit').click();
-                        janrain.capture.ui.renderScreen("smsVerify");
-                    }
-                }
-                if (result.screen == "smsSuccess" && janrain.settings.capture.smsVerified ){
-                    document.getElementById('capture_smsSuccess_smsStep1').value = "";
-                    setTimeout(function(){
-                        document.getElementById('capture_smsSuccess_capture_submit').click();
-                    }, 1);
-                    setTimeout(function(){
-                        janrain.capture.ui.postCaptureForm('smsFinalForm');
-                    }, 10);
-
-                }
-
-            });
-
-
-//Detailed All Event Logging
-/*
+        //Detailed All Event Logging
         function addEventHandler(e) {
-
             janrain.events[e].addHandler(function(result) {
                 console.log(e, result);
             });
@@ -143,11 +110,90 @@
                 }
             }
         }
-    */
-///////////////////////
-
+        ///////////////////////
 
         // should be the last line in janrainCaptureWidgetOnLoad()
         janrain.capture.ui.start();
     }
+
+    function sendSmsCode(obj, mode){
+        $('.sms_error').hide();
+        $(obj).hide();
+        $('<div class="capture_btn capture_processing"></div>').insertBefore(obj);
+        var formdata = 'app_id=' + encodeURIComponent(janrain.settings.capture.appId);
+        formdata += '&client_id=' + encodeURIComponent(janrain.settings.capture.clientId);
+        if (mode == "login") {
+            if($('#login_id').is(':visible')) formdata += '&login_id=' + encodeURIComponent($('#login_id').val());
+            if($('#return_id').is(':visible')) formdata += '&login_id=' + encodeURIComponent($('#return_id').val());
+        }
+        if (mode == "reg") formdata += '&login_id=' + encodeURIComponent($('#capture_smsSend_sms_reg_form_email').text());
+        sendResult = $.ajax( {
+            type: "POST",
+            dataType: "json",
+            url: "https://9z5v3eb9r8.execute-api.us-east-1.amazonaws.com/2fauth_dev/sendsmscode?" + formdata,
+            contentType: "application/x-www-form-urlencoded",
+            success: function(result, textStatus, jqXHR) {
+                if (result["stat"] == "ok") {
+                    if (mode=="login"){
+                        $('.sms_login_form').hide();
+                        $('.sms_verify_form').show();
+                    } else {
+                        janrain.capture.ui.modal.open('smsVerify')
+                    }
+                } else {
+                    alert("Unexpected Error: " + result);
+                    console.log(result);
+                }
+            },
+            error: function( jqXHR, textStatus, errorThrown) {
+                $('.sms_error').text(jqXHR.responseJSON.message).show();
+                console.log("Unexpected Error: ", jqXHR.responseJSON);
+            },
+            complete: function(){
+                $(obj).show();
+                $('.capture_processing').hide();
+            }
+        });
+    }
+
+    function verifySmsCode(obj){
+        $('.sms_error').hide();
+        $(obj).hide();
+        $('<div class="capture_btn capture_processing"></div>').insertBefore(obj);
+        var formdata = 'app_id=' + encodeURIComponent(janrain.settings.capture.appId);
+        formdata += '&client_id=' + encodeURIComponent(janrain.settings.capture.clientId);
+        if($('#login_id').val() != '') formdata += '&login_id=' + encodeURIComponent($('#login_id').val());
+        if($('#return_id').val() != '') formdata += '&login_id=' + encodeURIComponent($('#return_id').val());
+        if($('#verify_code').val() != '')formdata += '&verify_code=' + encodeURIComponent($('#verify_code').val());
+        if($('#return_code').val() != '')formdata += '&verify_code=' + encodeURIComponent($('#return_code').val());
+        $.ajax( {
+            type: "POST",
+            dataType: "json",
+            jsonp: false,
+            url: "https://9z5v3eb9r8.execute-api.us-east-1.amazonaws.com/2fauth_dev/verifysmscode?" + formdata,
+            contentType: "application/x-www-form-urlencoded",
+            success: function(data, textStatus, jqXHR) {
+                if(data["access_token"] && data["access_token"] != ""){
+                    janrain.capture.ui.createCaptureSession(data["access_token"]);
+                }else{
+                    alert("Unexpected Error: " + result);
+                    console.log("Unexpected Error: ", result);
+                }
+            },
+            error: function( jqXHR, textStatus, errorThrown) {
+                //alert(jqXHR.responseJSON.message)
+                err = jqXHR.responseJSON.message
+                // The api returns a could not find user record error
+                // most likely this is because the sms code entered is invalid
+                if (err == "Could not retrieve user record") err = "Invalid code entered"
+                $('.sms_error').text(err).show();
+                console.log(jqXHR.responseJSON);
+            },
+            complete: function(){
+                $(obj).show();
+                $('.capture_processing').hide();
+            }
+        });
+    }
+
 </script>

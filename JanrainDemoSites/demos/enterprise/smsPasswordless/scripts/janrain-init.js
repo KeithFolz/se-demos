@@ -19,14 +19,6 @@ For more information about these settings, see the following documents:
     janrain.settings.language = 'en-US';
     janrain.settings.appUrl = 'https://janrain-se-demo.rpxnow.com';
     janrain.settings.tokenUrl = 'http://localhost/';
-    //janrain.settings.tokenAction = 'hybrid';
-    //janrain.settings.popup =  false;
-    //janrain.settings.type =  'embed';
-    //Mobile Testing:
-    //janrain.settings.capture.redirectFlow = true;
-    //janrain.settings.capture.redirectUri = location.href;
-    //janrain.settings.popup = false;
-    //janrain.settings.tokenAction = 'url';
     janrain.settings.tokenAction = 'event';
     janrain.settings.borderColor = '#ffffff';
     janrain.settings.fontFamily = 'Helvetica, Lucida Grande, Verdana, sans-serif';
@@ -38,7 +30,7 @@ For more information about these settings, see the following documents:
     janrain.settings.capture.appId = 'hevwjvt8j7cym5hbbzdu8mv6aj';
     janrain.settings.capture.captureServer = 'https://janrain-se-demo.eval.janraincapture.com';
     janrain.settings.capture.redirectUri = 'http://localhost/';
-    janrain.settings.capture.clientId = 'z4mptjsqd62ux4k4w3mz4s6cjjym4hdc';
+    janrain.settings.capture.clientId = '3ensc9ft6uqkd8arzrwqhytyzvwnnjpa';
     janrain.settings.capture.flowVersion = 'HEAD';
     janrain.settings.capture.registerFlow = 'socialRegistration';
     janrain.settings.capture.setProfileCookie = true;
