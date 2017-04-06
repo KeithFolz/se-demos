@@ -1,0 +1,82 @@
+{
+  "id": "60f926fe-2c5b-065e-bd4a-21db0a78c3da",
+  "name": "SE Environment",
+  "values": [
+    {
+      "enabled": true,
+      "key": "capture_domain",
+      "value": "janrain-se-demo.eval",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "app_id",
+      "value": "hevwjvt8j7cym5hbbzdu8mv6aj",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "owner_id",
+      "value": "am67ue2jpjjnmtd95m72ew8evafth4ax",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "owner_secret",
+      "value": ""<< Get it from the Dashboard >>"",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "region",
+      "value": "",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "redirect_uri",
+      "value": "http://localhost",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "flow_name",
+      "value": "twofactor",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "locale",
+      "value": "en-US",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "type_name",
+      "value": "twofactor",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "client_id",
+      "value": "x6axyd2bs5yg65hbvwhab4dgpbysbqp5",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "flow_version",
+      "value": "20161201213949108720",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "engage_domain",
+      "value": "janrain-se-demo.rpxnow.com",
+      "type": "text"
+    }
+  ],
+  "timestamp": 1491491138762,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2017-04-06T15:18:54.535Z",
+  "_postman_exported_using": "Postman/4.10.5"
+}
