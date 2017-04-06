@@ -1,0 +1,865 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SE Eval - Sample Use Cases",
+		"_postman_id": "15d6fc77-bf55-8acc-95c2-fc1c524d0733",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register User Traditional",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var registrationResp = JSON.parse(responseBody);",
+							"if(registrationResp.access_token !== '')",
+							"{",
+							"    postman.setGlobalVariable(\"access_token\", registrationResp.access_token);",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable(\"access_token\", \"\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/oauth/register_native_traditional",
+				"method": "post",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow",
+							"value": "{{flow_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow_version",
+							"value": "{{flow_version}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "form",
+							"value": "registrationForm",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "locale",
+							"value": "{{locale}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{redirect_uri}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "response_type",
+							"value": "token",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "traditionalRegistration_firstName",
+							"value": "John",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "traditionalRegistration_displayName",
+							"value": "John_Demo",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "traditionalRegistration_lastName",
+							"value": "Lawlor",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "traditionalRegistration_password",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "traditionalRegistration_passwordConfirm",
+							"value": "password",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "traditionalRegistration_emailAddress",
+							"value": "jmlawlor+test2@gmail.com",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "mobileNumber",
+							"value": "16106989182",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "mobileNumber_confirm",
+							"value": "16106989182",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "mobile_country_code",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "\n\nParameters:\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate Traditional User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var registrationResp = JSON.parse(responseBody);",
+							"if(registrationResp.access_token !== '')",
+							"{",
+							"    postman.setGlobalVariable(\"access_token\", registrationResp.access_token);",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setGlobalVariable(\"access_token\", \"\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/oauth/auth_native_traditional",
+				"method": "post",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow",
+							"value": "{{flow_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow_version",
+							"value": "{{flow_version}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "form",
+							"value": "signInForm",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "locale",
+							"value": "{{locale}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "merge_token",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{redirect_uri}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "response_type",
+							"value": "token",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "emailAddress",
+							"value": "John_Demo",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "currentPassword",
+							"value": "pass123word",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "#### Example Request\n\n\nParameters:\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Generic Update Profile",
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/oauth/update_profile_native",
+				"method": "post",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "access_token",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow",
+							"value": "{{flow_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow_version",
+							"value": "{{flow_version}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "form",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "locale",
+							"value": "{{locale}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "fieldName1",
+							"value": "fieldValue1",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "#### Example\n\n```\ncurl -X POST \\\n    -d client_id=12345abcde12345abcde \\\n    -d access_token=123456789123456789 \\\n    -d local=example_locale \\\n    -d form=example_form \\\n    https://my-app.janraincapture.com/oauth/update_profile_native\n```\n\n\nParameters:\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile - EmailAdd",
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/oauth/update_profile_native",
+				"method": "post",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow",
+							"value": "{{flow_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow_version",
+							"value": "{{flow_version}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "form",
+							"value": "changeEmailForm",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "locale",
+							"value": "{{locale}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "emailAddress",
+							"value": "\"jmlawlor@gmail.com\"",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "#### Example\n\n```\ncurl -X POST \\\n    -d client_id=12345abcde12345abcde \\\n    -d access_token=123456789123456789 \\\n    -d local=example_locale \\\n    -d form=example_form \\\n    https://my-app.janraincapture.com/oauth/update_profile_native\n```\n\n\nParameters:\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile - Mobile",
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/oauth/update_profile_native",
+				"method": "post",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow",
+							"value": "{{flow_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow_version",
+							"value": "{{flow_version}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "form",
+							"value": "editProfileForm",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "locale",
+							"value": "{{locale}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "mobileNumber",
+							"value": "16106989182",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "#### Example\n\n```\ncurl -X POST \\\n    -d client_id=12345abcde12345abcde \\\n    -d access_token=123456789123456789 \\\n    -d local=example_locale \\\n    -d form=example_form \\\n    https://my-app.janraincapture.com/oauth/update_profile_native\n```\n\n\nParameters:\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile - Change Password",
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/oauth/update_profile_native",
+				"method": "post",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow",
+							"value": "{{flow_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow_version",
+							"value": "{{flow_version}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "form",
+							"value": "changePasswordFormNoAuth",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "locale",
+							"value": "{{locale}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "newPassword",
+							"value": "pass123word",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "newPasswordConfirm",
+							"value": "pass123word",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "#### Example\n\n```\ncurl -X POST \\\n    -d client_id=12345abcde12345abcde \\\n    -d access_token=123456789123456789 \\\n    -d local=example_locale \\\n    -d form=example_form \\\n    https://my-app.janraincapture.com/oauth/update_profile_native\n```\n\n\nParameters:\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Send SMS Verification",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var text = \"\";",
+							"var possible = \"abcdefghijklmnopqrstuvwxyz0123456789\";",
+							"",
+							"for( var i=0; i < 40; i++ )",
+							"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"",
+							"postman.setGlobalVariable(\"transactionId\", text);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/widget/send_sms_verification.jsonp",
+				"method": "post",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow",
+							"value": "{{flow_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow_version",
+							"value": "{{flow_version}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "form",
+							"value": "smsSendForm",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "locale",
+							"value": "{{locale}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "capture_screen",
+							"value": "smsSend",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "js_version",
+							"value": "7ce15e1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "capture_transactionId",
+							"value": "{{transactionId}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http%3A%2F%2Flocalhost%2F",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "response_type",
+							"value": "token",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "settings_version",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "recaptchaVersion",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "formpost_qycpjhu6wl55ywl9wcu46af2vh1tj4ptqzl8ri94",
+							"value": "submit",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Check Results of Send SMS Verification",
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/widget/get_result.jsonp?transactionId={{transactionId}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Verify SMS Code",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var text = \"\";",
+							"var possible = \"abcdefghijklmnopqrstuvwxyz0123456789\";",
+							"",
+							"for( var i=0; i < 40; i++ )",
+							"    text += possible.charAt(Math.floor(Math.random() * possible.length));",
+							"",
+							"postman.setGlobalVariable(\"transactionId\", text);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://{{capture_domain}}.janraincapture.com/widget/verify_short_code.jsonp",
+				"method": "post",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow",
+							"value": "{{flow_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "flow_version",
+							"value": "{{flow_version}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "form",
+							"value": "smsVerifyForm",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "locale",
+							"value": "{{locale}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "capture_screen",
+							"value": "smsVerify",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "js_version",
+							"value": "7ce15e1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "capture_transactionId",
+							"value": "{{transactionId}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http%3A%2F%2Flocalhost%2F",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "response_type",
+							"value": "token",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "settings_version",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "recaptchaVersion",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "smsVerificationCode",
+							"value": "5uz5rf",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "capture_submit",
+							"value": "Submit",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "#### Example\n\n```\ncurl -X POST \\\n    -d client_id=12345abcde12345abcde \\\n    -d access_token=123456789123456789 \\\n    -d local=example_locale \\\n    -d form=example_form \\\n    https://my-app.janraincapture.com/oauth/update_profile_native\n```\n\n\nParameters:\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All users",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{owner_id}}",
+						"password": "{{owner_secret}}",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "https://{{capture_domain}}.janraincapture.com/entity.find",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic bWIzcm01OG5zcnViN2RrNTltcHpiem0yM3c3am53c2I6NTNqeDNoYTJ2YnE5YmpnOGQ1cGNzMzNtNGNjdXZ1aGI=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type_name",
+							"value": "{{type_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "attributes",
+							"value": "[\"uuid\",\"displayName\", \"email\"]",
+							"type": "text",
+							"enabled": false
+						}
+					]
+				},
+				"description": "Generated from a curl request: \ncurl -H \\\"Authorization: Basic aW1fYV...NfbXk=\\\" \n    --data-urlencode type_name=user \n    --data-urlencode attributes='[\\\"displayName\\\", \\\"email\\\"]'\n    https://my-app.janraincapture.com/entity.find"
+			},
+			"response": []
+		},
+		{
+			"name": "Bulk Create",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{owner_id}}",
+						"password": "{{owner_secret}}",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "https://{{capture_domain}}.janraincapture.com/entity.bulkCreate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic N2JwOTJnYjlrdHZqcnNrOWZ6bnNlOHZucWZuaGNwNnQ6cmtnNnl5czZ6M2J3MmtuN3BjOXNtejg3dXI5a2RoNDg=",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type_name",
+							"value": "user",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "all_attributes",
+							"value": "[{\"familyName\":\"ple\",\"givenName\":\"Sam\",\"displayName\":\"Sample-NoEmail\",\"optIn\":{\"status\":false,\"updated\":\"2017-2-14T07:36:25Z\"},\"password\":{\"value\": \"$2a$10$tt.ZPtMTwnxDiSsEaKvQVut5GXssS3gKXVSUvybKyhQI7rYN/aKx2\",\"type\": \"password-bcrypt\"},\"statuses\":[{\"status\":\"active\",\"statusCreated\":\"2017-2-14T07:36:25Z\"}]},{\"familyName\":\"Tester\",\"givenName\":\"John\",\"displayName\":\"Johnny\", \"email\":\"jml@nodom.com\",\"optIn\":{\"status\":true,\"updated\":\"2017-2-14T07:36:25Z\"},\"password\":{\"value\": \"$2a$10$tt.ZPtMTwnxDiSsEaKvQVut5GXssS3gKXVSUvybKyhQI7rYN/aKx2\",\"type\": \"password-bcrypt\"},\"statuses\":[{\"status\":\"active\",\"statusCreated\":\"2017-2-14T07:36:25Z\"}]},{\"familyName\":\"Lawlor\",\"givenName\":\"John\",\"email\":\"jmlawlor@gmail.com\",\"displayName\":\"real_john\", \"optIn\":{\"status\":true,\"updated\":\"2017-2-14T07:36:25Z\"},\"password\":{\"value\": \"$2a$10$tt.ZPtMTwnxDiSsEaKvQVut5GXssS3gKXVSUvybKyhQI7rYN/aKx2\",\"type\": \"password-bcrypt\"},\"statuses\":[{\"status\":\"active\",\"statusCreated\":\"2017-2-14T07:36:25Z\"}]}]",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Generated from a curl request: \ncurl -X POST \n    -H \\\"Authorization: Basic aW1fYV...NfbXk=\\\" \n    --data-urlencode type_name=user \n    --data-urlencode all_attributes='[{\\\"familyName\\\":\\\"Jones\\\",\\\"givenName\\\":\\\"Abe\\\",\n\\\"email\\\":\\\"jonesa@example.com\\\",\\\"statuses\\\":[{\\\"status\\\":\\\"active\\\",\n\\\"statusCreated\\\":\\\"2015-12-15T07:36:25Z\\\"}]},{\\\"givenName\\\":\\\"Jackson\\\",\n\\\"familyName\\\":\\\"Gordon\\\",\\\"email\\\":\\\"gjack@test.com\\\",\\\"statuses\\\":[{\\\"status\\\":\\\"inactive\\\",\\\"statusCreated\\\":\\\"2015-10-12T04:00:00Z\\\"}]},{\\\"givenName\\\":\\\"Sally\\\",\\\"familyName\\\":\\\"Smith\\\",\\\"email\\\":\\\"ssmith@myorg.org\\\"}]' \n    https://my-app.janraincapture.com/entity.bulkCreate"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "{{owner_id}}",
+						"password": "{{owner_secret}}",
+						"saveHelperData": true,
+						"showPassword": false
+					}
+				},
+				"url": "https://{{capture_domain}}.janraincapture.com/entity.delete",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YW02N3VlMmpwampubXRkOTVtNzJldzhldmFmdGg0YXg6Zm0yN3g0cDl6ZGZ1ajJucmJteWNqMzNueWcyc2puOHY=",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type_name",
+							"value": "{{type_name}}",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "key_attribute",
+							"value": "mobileNumber",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "key_value",
+							"value": "\"16106989182\"",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "https://docs.janrain.com/api/registration/entity/#entity-purge"
+			},
+			"response": []
+		}
+	]
+}
